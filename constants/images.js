@@ -14,5 +14,10 @@ export default {
 
     cadeado:{
         uri: require('../assets/cadeado.png')
-    }
+    },
+
+    simonMicrophone:{
+        uri: require('../assets/simonMicrofone.png')
+    },
+
 };
