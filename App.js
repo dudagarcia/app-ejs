@@ -5,6 +5,7 @@ import LoginScreen from './screens/LoginScreen.js';
 import * as Font from 'expo-font';
 import { AppLoading } from 'expo';
 
+
 const fetchFonts = () => {
   return Font.loadAsync({
     'roboto-bold': require('./assets/fonts/RobotoBold.ttf'),
