@@ -62,7 +62,6 @@ const styles = StyleSheet.create({
     logo:{
         marginHorizontal: 142,
         marginTop: 30,
-        marginBottom: 20
     },
     body:{
         backgroundColor: Colors.mainDark,
