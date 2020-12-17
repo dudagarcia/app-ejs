@@ -1,23 +1,27 @@
 export default {
 
     logo:{
-        uri: require('../assets/sinteseLogo.png')
+        uri: require('../assets/images/sinteseLogo.png')
     },
 
     simonSmile:{
-        uri: require('../assets/simon01.png')
+        uri: require('../assets//images/simon01.png')
     },
 
     email:{
-        uri: require('../assets/email.png')
+        uri: require('../assets/images/email.png')
     },
 
     cadeado:{
-        uri: require('../assets/cadeado.png')
+        uri: require('../assets/images/cadeado.png')
     },
 
     simonMicrophone:{
-        uri: require('../assets/simonMicrofone.png')
+        uri: require('../assets/images/simonMicrofone.png')
     },
+
+    simonIrritado:{
+        uri: require('../assets/images/simonIrritado.png')
+    }
 
 };
