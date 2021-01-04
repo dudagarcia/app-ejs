@@ -20,4 +20,7 @@ export default {
         uri: require('../assets/simonMicrofone.png')
     },
 
+    simonStudying: {
+        uri: require('../assets/simonStudying.png')
+    }
 };

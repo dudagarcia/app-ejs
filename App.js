@@ -6,6 +6,7 @@ import * as Font from 'expo-font';
 import { AppLoading } from 'expo';
 import ConfirmEmailScreen from './screens/ConfirmEmailScreen.js';
 import CodeRecoveryScreen from './screens/CodeRecoveryScreen.js';
+import AccountScreen from './screens/AccountScreen.js';
 
 
 const fetchFonts = () => {
@@ -27,7 +28,7 @@ export default function App() {
   }
 
   return (
-    <CodeRecoveryScreen/>
+    <AccountScreen/>
   );
 }
 

@@ -5,28 +5,31 @@ import Title from '../components/Title.js';
 import MainButton from '../components/MainButton.js';
 import Images from '../constants/images.js';
 import Colors from '../constants/colors.js';
+import LogoImage from '../components/LogoImage.js';
 
 const LoginScreen = props => {
 
     return (
 
         <View style={styles.body}>
-            <Image style={styles.logo}
-                    source={Images.logo.uri}
-            />
+            <LogoImage/>
+            
             <Title>Bem-Vindx Tarefas Jr.</Title>
-            <Image style={styles.simon}
-                    source={Images.simonSmile.uri}
+            
+            <Image 
+                style={styles.simon}
+                source={Images.simonSmile.uri}
             />
             <Input
                 image={Images.email.uri} 
                 password={false}
-                placeholder='Email Sintese'/>
+                placeholder='Email Corporativo'/>
  
             <Input 
                 image={Images.cadeado.uri} 
                 placeholder='Senha'
                 password={true}/>
+
             <Text style={styles.text}>Esqueceu a senha? Clique aqui</Text>
             
             <MainButton style={styles.loginButton} title='Login'/>
@@ -45,11 +48,6 @@ const styles = StyleSheet.create({
         backgroundColor: Colors.mainDark,
         color: 'white',
         alignItems: 'center',
-    },
-
-    logo: {
-        width: 135,
-        height: 135
     },
 
     simon:{

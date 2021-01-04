@@ -6,7 +6,7 @@ const Input = props => {
 
     return (
 
-        <View style={styles.body}>
+        <View style={{...styles.body, ...props.style}}>
             <View style={styles.imageContainer}>
                 <Image 
                     style={styles.miniLogo}

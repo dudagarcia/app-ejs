@@ -22,12 +22,15 @@ const styles = StyleSheet.create({
         borderRadius: 15,
         height: 45,
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+
     },
     buttonText:{
         color: Colors.mainDark,
         fontFamily: 'roboto-bold',
-        fontSize: 18
+        fontSize: 18,
+        textAlign: 'center'
+    
     }
 
 });
