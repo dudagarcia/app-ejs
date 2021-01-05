@@ -1,5 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { View, StyleSheet, TextInput, Keyboard } from 'react-native';
+
 import dismissKeyboard from 'react-native-dismiss-keyboard';
 import Colors from '../constants/colors';
 
