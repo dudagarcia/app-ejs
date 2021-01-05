@@ -5,7 +5,7 @@ import LoginScreen from "./screens/LoginScreen.js";
 import * as Font from "expo-font";
 import { AppLoading } from "expo";
 import ConfirmEmailScreen from "./screens/ConfirmEmailScreen.js";
-//import CodeRecoveryScreen from "./screens/CodeRecoveryScreen.js";
+import CodeRecoveryScreen from "./screens/CodeRecoveryScreen.js";
 import AlteredPasswordScreen from "./screens/AlteredPasswordScreen.js";
 
 const fetchFonts = () => {
