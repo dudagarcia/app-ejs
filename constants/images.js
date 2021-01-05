@@ -26,4 +26,16 @@ export default {
   simonAmazed: {
     uri: require("../assets/images/simonAmazed.png"),
   },
+
+  simonIrritado: {
+    uri: require('../assets/images/simonIrritado.png')
+  },
+
+  simonOlhosBrilhando: {
+    uri: require('../assets/images/simonOlhosBrilhando.png')
+  },
+
+  simonBye: {
+    uri: require('../assets/images/simonBye.png')
+  },
 };

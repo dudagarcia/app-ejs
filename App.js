@@ -1,12 +1,13 @@
-import { StatusBar } from "expo-status-bar";
-import React, { useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
-import LoginScreen from "./screens/LoginScreen.js";
-import * as Font from "expo-font";
-import { AppLoading } from "expo";
-import ConfirmEmailScreen from "./screens/ConfirmEmailScreen.js";
-import CodeRecoveryScreen from "./screens/CodeRecoveryScreen.js";
-import AlteredPasswordScreen from "./screens/AlteredPasswordScreen.js";
+import { StatusBar } from 'expo-status-bar';
+import React, {useState} from 'react';
+import { StyleSheet, Text, View } from 'react-native';
+import LoginScreen from './screens/LoginScreen.js';
+import * as Font from 'expo-font';
+import { AppLoading } from 'expo';
+import ConfirmEmailScreen from './screens/ConfirmEmailScreen.js';
+import VerifiedAccountScreen from './screens/VerifiedAccountScreen.js';
+import LeaveAccountScreen from './screens/LeaveAccountScreen.js';
+
 
 const fetchFonts = () => {
   return Font.loadAsync({
@@ -28,7 +29,9 @@ export default function App() {
     );
   }
 
-  return <AlteredPasswordScreen />;
+  return (
+    <VerifiedAccountScreen/>
+  );
 }
 
 const styles = StyleSheet.create({
