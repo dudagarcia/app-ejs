@@ -38,4 +38,12 @@ export default {
   simonBye: {
     uri: require('../assets/images/simonBye.png')
   },
+
+  perfiIcon: {
+    uri: require('../assets/images/perfilIcon.svg')
+  },
+
+  backgroundMain: {
+    uri: require('../assets/images/backgroundMain.png')
+  }
 };

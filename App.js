@@ -7,6 +7,8 @@ import { AppLoading } from 'expo';
 import ConfirmEmailScreen from './screens/ConfirmEmailScreen.js';
 import VerifiedAccountScreen from './screens/VerifiedAccountScreen.js';
 import LeaveAccountScreen from './screens/LeaveAccountScreen.js';
+import CodeRecoveryScreen from './screens/CodeRecoveryScreen.js';
+import MainScreen from './screens/MainScreen.js';
 
 
 const fetchFonts = () => {
@@ -30,7 +32,7 @@ export default function App() {
   }
 
   return (
-    <VerifiedAccountScreen/>
+    <MainScreen/>
   );
 }
 
