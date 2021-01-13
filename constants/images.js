@@ -39,11 +39,23 @@ export default {
     uri: require('../assets/images/simonBye.png')
   },
 
-  perfiIcon: {
-    uri: require('../assets/images/perfilIcon.svg')
+  perfilIcon: {
+    uri: require('../assets/images/perfilIcon.png')
   },
 
   backgroundMain: {
     uri: require('../assets/images/backgroundMain.png')
+  },
+
+  tarefasIcon: {
+    uri: require('../assets/images/tarefasIcon.png')
+  },
+
+  disponibilidadeIcon: {
+    uri: require('../assets/images/disponibilidadeIcon.png')
+  },
+
+  agendaIcon: {
+    uri: require('../assets/images/agendaIcon.png')
   }
 };

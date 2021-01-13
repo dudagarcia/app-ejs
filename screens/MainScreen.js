@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState, useRef } from 'react';
 
-import { StyleSheet, View, Text, Image, Button, ImageBackground } from 'react-native';
+import { StyleSheet, View, Text, Image, Animated, ImageBackground, Button } from 'react-native';
 
 import colors from '../constants/colors';
 
@@ -11,6 +11,15 @@ import MenuItem from '../components/MenuItem';
 
 const MainScreen = () => {
 
+    const [menuScaleX, setMenuPosition] = useState(new Animated.Value(1));
+
+    const menuOpacity = useRef(new Animated.Value(1)).current;
+
+    const onPressTiming = () => {
+        Animated.timing(menuOpacity, {toValue: 0, duration: 500}).start()
+        Animated.timing(menuScaleX, { toValue: 2, duration: 1000 }).start()
+    }
+
     return (
         <View style={styles.body}>
             <ImageBackground source={images.backgroundMain.uri} style={styles.backgroundImage}>
@@ -18,25 +27,24 @@ const MainScreen = () => {
                     <View style={styles.logoContainer}>
                         <View style={styles.logoBorda}>
                             <Image
-                                source={images.simonAmazed.uri}
+                                source={images.logo.uri}
                                 style={styles.image}
                             />
                         </View>
                     </View>
-                    <View style={styles.contentContainer}>
-                        <View style={styles.usernameContainer} >
+                    <Animated.View style={{...styles.contentContainer, ...{transform: [{ scaleX: menuScaleX }]}}}>
+                        <View style={styles.usernameContainer}>
                             <Text style={styles.username}>Olá, User!</Text>
                         </View>
                         <View style={styles.menuContainer}>
-                            <View style={styles.menu}>
-                                <MenuItem title='Perfil' imageSource={images.email.uri} />
-                                <MenuItem title='Tarefas' imageSource={images.email.uri} />
-                                <MenuItem title='Disponibilidades' imageSource={images.email.uri} />
-                                <MenuItem title='Agenda' imageSource={images.email.uri} />
-                            </View>
+                            <Animated.View style={{...styles.menu, opacity: menuOpacity}}>
+                                <MenuItem title='Perfil' imageSource={images.perfilIcon.uri} onClick={onPressTiming} />
+                                <MenuItem title='Tarefas' imageSource={images.tarefasIcon.uri}/>
+                                <MenuItem title='Disponibilidades' imageSource={images.disponibilidadeIcon.uri} />
+                                <MenuItem title='Agenda' imageSource={images.agendaIcon.uri} />
+                            </Animated.View>
                         </View>
-
-                    </View>
+                    </Animated.View>
 
                 </View>
             </ImageBackground>
@@ -66,16 +74,16 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'center',
         position: 'absolute',
-        marginTop: -60,
-        marginLeft: 130
+        marginTop: -70,
+        marginLeft: 115
     },
 
     logoBorda: {
         display: 'flex',
         backgroundColor: '#4F7DDF',
         borderRadius: 100,
-        width: 130,
-        height: 130,
+        width: 150,
+        height: 150,
         justifyContent: 'center',
         alignItems: 'center'
     },
@@ -88,12 +96,13 @@ const styles = StyleSheet.create({
 
     username: {
         color: colors.mainDark,
-        fontSize: 20
+        fontSize: 24
     },
 
     image: {
-        width: 120,
-        height: 120,
+        width: 135,
+        height: 135,
+        borderRadius: 100,
 
     },
 
@@ -122,7 +131,7 @@ const styles = StyleSheet.create({
     },
 
     usernameContainer: {
-        marginTop: 20,
+        marginTop: 28,
         display: 'flex',
         alignContent: 'center',
         flexDirection: 'row',

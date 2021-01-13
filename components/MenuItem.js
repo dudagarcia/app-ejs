@@ -1,16 +1,16 @@
 import React from 'react';
-
 import { StyleSheet, View, Text, Image, Button, TouchableOpacity } from 'react-native';
 import images from '../constants/images';
 
 const MenuItem = (props) => {
 
     return (
-        <TouchableOpacity >
-            <View style={styles.mainContainer}>
+        <TouchableOpacity>
+            <View style={styles.mainContainer} onTouchStart={props.onClick}>
                 <Image
                     source={props.imageSource}
                     style={styles.image}
+                    
                 />
                 <Text style={styles.title}>{props.title}</Text>
             </View>
