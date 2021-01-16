@@ -45,5 +45,9 @@ export default {
 
   backgroundMain: {
     uri: require('../assets/images/backgroundMain.png')
+  },
+
+  simonStudying: {
+    uri: require('../assets/images/simonStudying.png')
   }
 };

@@ -3,22 +3,22 @@ import { View, StyleSheet, Text, Image } from 'react-native';
 import Images from '../constants/images';
 
 const CodeFeedback = props => {
-    if(props.correct){
+    //if(props.correct){
         return(
             <View style={styles.body_correct}> 
                 <Text style={styles.text}>Código correto!</Text>
                 <Image style={styles.image} source={Images.simonSmile.uri}/>
             </View>
         );
-    }
-    if(!props.correct){
+    //}
+    //if(!props.correct){
         return(
             <View style={[styles.body_correct, styles.body_incorrect]}> 
                 <Text style={styles.text}>Código incorreto!</Text>
                 <Image style={styles.image} source={Images.simonIrritado.uri}/>
             </View>
         );
-    }
+    //}
     
 };
 
