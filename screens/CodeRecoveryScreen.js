@@ -10,25 +10,22 @@ import Images from '../constants/images';
 
 const CodeRecoveryScreen = props => {
     
-    //var randomNumber = Math.floor(Math.random * 999999) + 100000;
+    var randomNumber = Math.floor(Math.random() * 999999) + 100000;
+    console.log(randomNumber);
 
     function checkCode(check){  
         if(check){
-            <View style={styles.body_correct}> 
+            /*<View style={styles.body_correct}> 
                 <Text style={styles.text_codeFeedback}>Código correto!</Text>
                 <Image style={styles.image_codeFeedback} source={Images.simonSmile.uri}/>
-            </View>
-            //<CodeFeedback correct={true}/>
-            setTimeout(() => {  switchScreen(); }, 2000);
+            </View>*/
+            <CodeFeedback correct={true}/>
+            setTimeout(() => {  props.navigation.navigate({ routeName: 'ResetPassword' }) }, 2000);
         }
         if(!check){
             <CodeFeedback correct={false}/>
         }
         
-    }
-
-    function switchScreen(){
-        props.navigation.navigate({ routeName: 'ResetPassword' })
     }
     
     return(

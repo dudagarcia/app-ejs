@@ -11,23 +11,18 @@ const AccountScreen = props => {
 
     return (
         <View style={styles.body}>
-
             <LogoImage />
-
             <Title style={styles.title}>Recuperação de Conta</Title>
-
             <Image
                 style={styles.image}
                 source={images.simonStudying.uri}
             />
-
             <Input
                 style={styles.input}
                 image={images.email.uri}
                 password={false}
                 placeholder='Email Corporativo'
             />
-
             <MainButton
                 style={styles.button}
                 title='Enviar email para alterar senha'
@@ -35,7 +30,6 @@ const AccountScreen = props => {
                     props.navigation.navigate({ routeName: 'ConfirmEmail'});
                 }}
             />
-
         </View>
     );
 }
