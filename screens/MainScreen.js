@@ -8,22 +8,35 @@ import images from '../constants/images';
 
 import MenuItem from '../components/MenuItem';
 
+import MinhasTarefas from '../components/MinhasTarefas';
+
 
 const MainScreen = () => {
 
-    const [menuScaleX, setMenuPosition] = useState(new Animated.Value(1));
+    const [menuPositionX, setMenuPosition] = useState(new Animated.Value(1));
+    const [smallMenuDisplay, setSmallMenuDisplay] = useState('none');
+    const [selectedMenuItem, setSelectedMenuItem] = useState('');
 
-    const menuOpacity = useRef(new Animated.Value(1)).current;
 
-    const onPressTiming = () => {
-        Animated.timing(menuOpacity, {toValue: 0, duration: 500}).start()
-        Animated.timing(menuScaleX, { toValue: 2, duration: 1000 }).start()
+    const smallMenuAnimation = (itemName) => {
+        Animated.timing(menuPositionX, { toValue: -318, duration: 500, useNativeDriver: true }).start()
+        setSmallMenuDisplay('flex');
+        setSelectedMenuItem(itemName);
     }
 
     return (
         <View style={styles.body}>
             <ImageBackground source={images.backgroundMain.uri} style={styles.backgroundImage}>
-                <View style={styles.container}>
+
+                <View style={styles.backContent}>
+                    <View style={styles.backContentBackground}>
+
+                        <MinhasTarefas />
+
+                    </View>
+                </View>
+
+                <Animated.View style={{ ...styles.container, ...{ transform: [{ translateX: menuPositionX }] } }}>
                     <View style={styles.logoContainer}>
                         <View style={styles.logoBorda}>
                             <Image
@@ -32,21 +45,50 @@ const MainScreen = () => {
                             />
                         </View>
                     </View>
-                    <Animated.View style={{...styles.contentContainer, ...{transform: [{ scaleX: menuScaleX }]}}}>
+                    <View style={styles.contentContainer}>
                         <View style={styles.usernameContainer}>
                             <Text style={styles.username}>Olá, User!</Text>
                         </View>
                         <View style={styles.menuContainer}>
-                            <Animated.View style={{...styles.menu, opacity: menuOpacity}}>
-                                <MenuItem title='Perfil' imageSource={images.perfilIcon.uri} onClick={onPressTiming} />
-                                <MenuItem title='Tarefas' imageSource={images.tarefasIcon.uri}/>
-                                <MenuItem title='Disponibilidades' imageSource={images.disponibilidadeIcon.uri} />
-                                <MenuItem title='Agenda' imageSource={images.agendaIcon.uri} />
+                            <Animated.View style={styles.menu}>
+                                <MenuItem
+                                    title='Perfil'
+                                    image={images.perfilIcon.uri}
+                                    imageNotSelected={images.perfilIconNotSelected.uri}
+                                    selectedMenuItem={selectedMenuItem}
+                                    onClick={() => smallMenuAnimation('Perfil')}
+                                    smallMenuDisplay={smallMenuDisplay} />
+
+                                <MenuItem
+                                    title='Tarefas'
+                                    image={images.tarefasIcon.uri}
+                                    imageNotSelected={images.tarefasIconNotSelected.uri}
+                                    onClick={() => smallMenuAnimation('Tarefas')}
+                                    selectedMenuItem={selectedMenuItem}
+                                    smallMenuDisplay={smallMenuDisplay} />
+
+                                <MenuItem
+                                    title='Disponibilidades'
+                                    image={images.disponibilidadeIcon.uri}
+                                    imageNotSelected={images.disponibilidadeIconNotSelected.uri}
+                                    onClick={() => smallMenuAnimation('Disponibilidades')}
+                                    selectedMenuItem={selectedMenuItem}
+                                    smallMenuDisplay={smallMenuDisplay} />
+
+                                <MenuItem
+                                    title='Agenda'
+                                    image={images.agendaIcon.uri}
+                                    imageNotSelected={images.agendaIconNotSelected.uri}
+                                    onClick={() => smallMenuAnimation('Agenda')}
+                                    selectedMenuItem={selectedMenuItem}
+                                    smallMenuDisplay={smallMenuDisplay} />
+
                             </Animated.View>
                         </View>
-                    </Animated.View>
+                    </View>
 
-                </View>
+                </Animated.View>
+
             </ImageBackground>
         </View>
     );
@@ -111,10 +153,12 @@ const styles = StyleSheet.create({
         marginRight: 30,
         borderBottomRightRadius: 30,
         borderTopRightRadius: 30,
-        padding: 30,
+        paddingLeft: 30,
+        paddingVertical: 30,
+        paddingRight: 15,
         shadowColor: '#fff',
         shadowRadius: 5,
-        elevation: 8,
+        elevation: 15,
         height: 600,
         marginTop: 60
     },
@@ -136,6 +180,25 @@ const styles = StyleSheet.create({
         alignContent: 'center',
         flexDirection: 'row',
         justifyContent: 'center'
+    },
+
+    backContent: {
+        position: 'absolute',
+    },
+
+    backContentBackground: {
+
+        borderBottomRightRadius: 30,
+        borderTopRightRadius: 30,
+        elevation: 8,
+        backgroundColor: '#fff',
+        height: 600,
+        width: 395,
+        marginLeft: -10,
+        marginTop: 60,
+        paddingLeft: 100,
+        paddingTop: 50
+
     }
 
 
