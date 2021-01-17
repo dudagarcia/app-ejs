@@ -1,18 +1,35 @@
 import React from 'react';
-
+import { useEffect, useState } from 'react';
 import { StyleSheet, View, Text, Image, Button, TouchableOpacity } from 'react-native';
-import images from '../constants/images';
 
 const MenuItem = (props) => {
 
+    const [image, setImage] = useState(props.imageNotSelected);
+
+    useEffect( () =>{
+        if(props.selectedMenuItem === props.title) setImage(props.image);
+        else setImage(props.imageNotSelected)
+    });
+
+
     return (
-        <TouchableOpacity >
+        <TouchableOpacity key='Teste' onPress={props.onClick}>
             <View style={styles.mainContainer}>
+                <View  style={styles.fullItemContainer}>
+                    <Image
+                        source={props.image}
+                        style={styles.image}
+
+                    />
+                    <Text style={styles.title}>{props.title}</Text>
+                </View>
+                
                 <Image
-                    source={props.imageSource}
-                    style={styles.image}
-                />
-                <Text style={styles.title}>{props.title}</Text>
+                        source={image}
+                        style={{...styles.image, ...{display: props.smallMenuDisplay}}}
+
+                    />
+
             </View>
         </TouchableOpacity>
     );
@@ -23,9 +40,9 @@ const styles = StyleSheet.create({
     mainContainer: {
         display: 'flex',
         flexDirection: 'row',
-        justifyContent: 'flex-start',
+        justifyContent: 'space-between',
         alignItems: 'center',
-        marginVertical: 6
+        marginVertical: 6,
 
     },
     image: {
@@ -38,6 +55,10 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         marginLeft: 15,
         color: '#1A0387'
+    },
+    fullItemContainer: {
+        display: 'flex',
+        flexDirection: 'row'
     }
 
 

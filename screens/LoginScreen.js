@@ -19,8 +19,7 @@ const LoginScreen = props => {
             
             <Image 
                 style={styles.simon}
-                source={Images.simonSmile.uri}
-            />
+                source={Images.simonSmile.uri}/>
             <Input
                 image={Images.email.uri} 
                 password={false}

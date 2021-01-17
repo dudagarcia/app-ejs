@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState, useRef } from 'react';
 
-import { StyleSheet, View, Text, Image, Button, ImageBackground } from 'react-native';
+import { StyleSheet, View, Text, Image, Animated, ImageBackground, Button } from 'react-native';
 
 import colors from '../constants/colors';
 
@@ -8,37 +8,87 @@ import images from '../constants/images';
 
 import MenuItem from '../components/MenuItem';
 
+import MinhasTarefas from '../components/MinhasTarefas';
+
 
 const MainScreen = () => {
+
+    const [menuPositionX, setMenuPosition] = useState(new Animated.Value(1));
+    const [smallMenuDisplay, setSmallMenuDisplay] = useState('none');
+    const [selectedMenuItem, setSelectedMenuItem] = useState('');
+
+
+    const smallMenuAnimation = (itemName) => {
+        Animated.timing(menuPositionX, { toValue: -318, duration: 500, useNativeDriver: true }).start()
+        setSmallMenuDisplay('flex');
+        setSelectedMenuItem(itemName);
+    }
 
     return (
         <View style={styles.body}>
             <ImageBackground source={images.backgroundMain.uri} style={styles.backgroundImage}>
-                <View style={styles.container}>
+
+                <View style={styles.backContent}>
+                    <View style={styles.backContentBackground}>
+
+                        <MinhasTarefas buttonDisplay={smallMenuDisplay}/>
+
+                    </View>
+                </View>
+
+                <Animated.View style={{ ...styles.container, ...{ transform: [{ translateX: menuPositionX }] } }}>
                     <View style={styles.logoContainer}>
                         <View style={styles.logoBorda}>
                             <Image
-                                source={images.simonAmazed.uri}
+                                source={images.logo.uri}
                                 style={styles.image}
                             />
                         </View>
                     </View>
                     <View style={styles.contentContainer}>
-                        <View style={styles.usernameContainer} >
+                        <View style={styles.usernameContainer}>
                             <Text style={styles.username}>Olá, User!</Text>
                         </View>
                         <View style={styles.menuContainer}>
-                            <View style={styles.menu}>
-                                <MenuItem title='Perfil' imageSource={images.email.uri} />
-                                <MenuItem title='Tarefas' imageSource={images.email.uri} />
-                                <MenuItem title='Disponibilidades' imageSource={images.email.uri} />
-                                <MenuItem title='Agenda' imageSource={images.email.uri} />
-                            </View>
-                        </View>
+                            <Animated.View style={styles.menu}>
+                                <MenuItem
+                                    title='Perfil'
+                                    image={images.perfilIcon.uri}
+                                    imageNotSelected={images.perfilIconNotSelected.uri}
+                                    selectedMenuItem={selectedMenuItem}
+                                    onClick={() => smallMenuAnimation('Perfil')}
+                                    smallMenuDisplay={smallMenuDisplay} />
 
+                                <MenuItem
+                                    title='Tarefas'
+                                    image={images.tarefasIcon.uri}
+                                    imageNotSelected={images.tarefasIconNotSelected.uri}
+                                    onClick={() => smallMenuAnimation('Tarefas')}
+                                    selectedMenuItem={selectedMenuItem}
+                                    smallMenuDisplay={smallMenuDisplay} />
+
+                                <MenuItem
+                                    title='Disponibilidades'
+                                    image={images.disponibilidadeIcon.uri}
+                                    imageNotSelected={images.disponibilidadeIconNotSelected.uri}
+                                    onClick={() => smallMenuAnimation('Disponibilidades')}
+                                    selectedMenuItem={selectedMenuItem}
+                                    smallMenuDisplay={smallMenuDisplay} />
+
+                                <MenuItem
+                                    title='Agenda'
+                                    image={images.agendaIcon.uri}
+                                    imageNotSelected={images.agendaIconNotSelected.uri}
+                                    onClick={() => smallMenuAnimation('Agenda')}
+                                    selectedMenuItem={selectedMenuItem}
+                                    smallMenuDisplay={smallMenuDisplay} />
+
+                            </Animated.View>
+                        </View>
                     </View>
 
-                </View>
+                </Animated.View>
+
             </ImageBackground>
         </View>
     );
@@ -66,16 +116,16 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'center',
         position: 'absolute',
-        marginTop: -60,
-        marginLeft: 130
+        marginTop: -70,
+        marginLeft: 115
     },
 
     logoBorda: {
         display: 'flex',
         backgroundColor: '#4F7DDF',
         borderRadius: 100,
-        width: 130,
-        height: 130,
+        width: 150,
+        height: 150,
         justifyContent: 'center',
         alignItems: 'center'
     },
@@ -88,12 +138,13 @@ const styles = StyleSheet.create({
 
     username: {
         color: colors.mainDark,
-        fontSize: 20
+        fontSize: 24
     },
 
     image: {
-        width: 120,
-        height: 120,
+        width: 135,
+        height: 135,
+        borderRadius: 100,
 
     },
 
@@ -102,10 +153,12 @@ const styles = StyleSheet.create({
         marginRight: 30,
         borderBottomRightRadius: 30,
         borderTopRightRadius: 30,
-        padding: 30,
+        paddingLeft: 30,
+        paddingVertical: 30,
+        paddingRight: 15,
         shadowColor: '#fff',
         shadowRadius: 5,
-        elevation: 8,
+        elevation: 15,
         height: 600,
         marginTop: 60
     },
@@ -122,11 +175,32 @@ const styles = StyleSheet.create({
     },
 
     usernameContainer: {
-        marginTop: 20,
+        marginTop: 28,
         display: 'flex',
         alignContent: 'center',
         flexDirection: 'row',
         justifyContent: 'center'
+    },
+
+    backContent: {
+        position: 'absolute',
+    },
+
+    // Minhas Tarefas, etc..
+    backContentBackground: {
+
+        borderBottomRightRadius: 30,
+        borderTopRightRadius: 30,
+        elevation: 8,
+        backgroundColor: '#fff',
+        height: 600,
+        width: 395,
+        marginLeft: -10,
+        marginTop: 60,
+        paddingBottom: 50,
+        paddingLeft: 75,
+        paddingTop: 50
+
     }
 
 
