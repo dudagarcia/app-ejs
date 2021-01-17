@@ -15,7 +15,9 @@ const ConfirmEmailScreen = props => {
                 <Text style={styles.text2}>Enviamos um código de verificação para você recuperar sua conta </Text>
             </View>
             <Image style={styles.image} source={Images.simonMicrophone.uri}/> 
-            <MainButton style={styles.button} title="Recebi o email"/>
+            <MainButton style={styles.button} title="Recebi o email" onPress={() => {
+                props.navigation.navigate({ routeName: 'CodeRecovery' })
+            }}/>
             <View style={styles.wrapText}> 
                 <Text style={styles.text}>Não recebeu o email de recuperação? </Text>
                 <Text style={styles.text}>Cheque sua caixa de SPAM ou 

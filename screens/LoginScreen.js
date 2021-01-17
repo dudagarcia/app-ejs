@@ -6,6 +6,7 @@ import MainButton from '../components/MainButton.js';
 import Images from '../constants/images.js';
 import Colors from '../constants/colors.js';
 import LogoImage from '../components/LogoImage.js';
+import ClickableText from '../components/ClickableText';
 
 const LoginScreen = props => {
 
@@ -29,9 +30,17 @@ const LoginScreen = props => {
                 placeholder='Senha'
                 password={true}/>
 
-            <Text style={styles.text}>Esqueceu a senha? Clique aqui</Text>
+            <Text style={styles.text}>Esqueceu a senha? Clique 
+                <Text  
+                    onPress={() => { props.navigation.navigate({ routeName: 'Account'}); }} 
+                    style={styles.clickableText}
+                > aqui
+                </Text>
+            </Text>
             
-            <MainButton style={styles.loginButton} title='Login'/>
+            <MainButton style={styles.loginButton} title='Login' onPress={() => {
+                props.navigation.navigate({ routeName: 'Main' });
+            }}/>
 
         </View>
     );
@@ -39,7 +48,6 @@ const LoginScreen = props => {
 }
 
 const styles = StyleSheet.create({
-
     body: {
         flex: 1,
         flexDirection: 'column',
@@ -48,7 +56,10 @@ const styles = StyleSheet.create({
         color: 'white',
         alignItems: 'center',
     },
-
+    clickableText:{
+        marginTop: 2,
+        color: Colors.lighterBlue
+    },  
     simon:{
         width: 80,
         height: 80,

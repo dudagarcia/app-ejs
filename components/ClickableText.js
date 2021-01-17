@@ -5,7 +5,12 @@ import Colors from '../constants/colors';
 const ClickableText = props => {
     return(
         <View> 
-            <Text style={{...styles.text, ...props.style}} onPress={() => Linking.openURL('https://google.com')}> {props.title} </Text>
+            <Text 
+                style={{...styles.text, ...props.style}} 
+                //onPress={() => Linking.openURL('https://google.com')}
+                onPress={props.onPress}>
+                    {props.title} 
+            </Text>
         </View>
     );
 };

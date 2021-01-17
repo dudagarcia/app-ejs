@@ -1,13 +1,13 @@
-import React from "react";
-import { Text, StyleSheet, View, Image } from "react-native";
+import React from 'react';
+import { StyleSheet, View } from 'react-native';
 import Input from '../components/Input.js';
-import LogoImage from "../components/LogoImage";
-import MainButton from "../components/MainButton";
-import Colors from "../constants/colors";
-import Images from "../constants/images";
-import Title from "../components/Title.js";
+import LogoImage from '../components/LogoImage';
+import MainButton from '../components/MainButton';
+import Colors from '../constants/colors';
+import Images from '../constants/images';
+import Title from '../components/Title.js';
 
-const ResetPasswordScreen = (props) => {
+const ResetPasswordScreen = props => {
     return (
         <View style={styles.body}>
             <View style={styles.logo}>
@@ -25,7 +25,9 @@ const ResetPasswordScreen = (props) => {
                 image={Images.cadeado.uri}
                 placeholder='Insira novamente a senha'
                 password={true} />
-            <MainButton style={styles.button} title="Alterar senha" />
+            <MainButton style={styles.button} title="Alterar senha" onPress={() => {
+                props.navigation.navigate({ routeName: 'AlteredPassword' });
+            }}/>
         </View>
     );
 };

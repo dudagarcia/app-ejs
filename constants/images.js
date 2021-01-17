@@ -73,5 +73,9 @@ export default {
 
   agendaIconNotSelected: {
     uri: require('../assets/images/agendaIconNotSelected.png')
+  },
+  
+  simonStudying: {
+    uri: require('../assets/images/simonStudying.png')
   }
 };

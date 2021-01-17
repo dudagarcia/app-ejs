@@ -5,6 +5,8 @@ import * as Font from 'expo-font';
 import { AppLoading } from 'expo';
 import MainScreen from './screens/MainScreen.js';
 import LoginNavigator from './navigation/LoginNavigator';
+import AccountScreen from './screens/AccountScreen';
+import ResetPasswordScreen from './screens/ResetPasswordScreen.js';
 
 
 const fetchFonts = () => {
@@ -28,7 +30,7 @@ export default function App() {
   }
 
   return (
-    <MainScreen />
+    <LoginNavigator />
   );
 }
 

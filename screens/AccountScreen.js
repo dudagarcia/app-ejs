@@ -31,6 +31,9 @@ const AccountScreen = props => {
             <MainButton
                 style={styles.button}
                 title='Enviar email para alterar senha'
+                onPress={() => { 
+                    props.navigation.navigate({ routeName: 'ConfirmEmail'});
+                }}
             />
 
         </View>
