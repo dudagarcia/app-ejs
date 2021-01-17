@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, StyleSheet, View, Image } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import Input from '../components/Input.js';
 import LogoImage from '../components/LogoImage';
 import MainButton from '../components/MainButton';
@@ -26,7 +26,7 @@ const ResetPasswordScreen = props => {
                 placeholder='Insira novamente a senha'
                 password={true} />
             <MainButton style={styles.button} title="Alterar senha" onPress={() => {
-                props.navigation.navigate({ routeName: 'Account' });
+                props.navigation.navigate({ routeName: 'AlteredPassword' });
             }}/>
         </View>
     );

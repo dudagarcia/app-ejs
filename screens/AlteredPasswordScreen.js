@@ -14,7 +14,11 @@ const AlteredPasswordScreen = (props) => {
       </View>
       <Title style={styles.text}>Sua senha foi alterada com sucesso!</Title>
       <Image style={styles.image} source={Images.simonAmazed.uri} />
-      <MainButton style={styles.button} title="Fazer login com a nova senha" />
+      <MainButton 
+        style={styles.button} 
+        title="Fazer login com a nova senha" 
+        onPress={() => { props.navigation.navigate({  routeName: 'Login' })}}
+      />
     </View>
   );
 };

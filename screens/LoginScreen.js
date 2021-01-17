@@ -32,11 +32,11 @@ const LoginScreen = props => {
                 password={true}/>
 
             <Text style={styles.text}>Esqueceu a senha? Clique 
-                <View style={styles.especificText}> 
-                    <ClickableText onPress={() => {
-                        props.navigation.navigate({ routeName: 'Account'});
-                    }} title=" aqui"/>
-                </View>
+                <Text  
+                    onPress={() => { props.navigation.navigate({ routeName: 'Account'}); }} 
+                    style={styles.clickableText}
+                > aqui
+                </Text>
             </Text>
             
             <MainButton style={styles.loginButton} title='Login' onPress={() => {
@@ -49,11 +49,6 @@ const LoginScreen = props => {
 }
 
 const styles = StyleSheet.create({
-
-    especificText:{
-        marginBottom: 30
-    },
-    
     body: {
         flex: 1,
         flexDirection: 'column',
@@ -62,7 +57,10 @@ const styles = StyleSheet.create({
         color: 'white',
         alignItems: 'center',
     },
-
+    clickableText:{
+        marginTop: 2,
+        color: Colors.lighterBlue
+    },  
     simon:{
         width: 80,
         height: 80,

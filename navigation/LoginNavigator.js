@@ -10,13 +10,13 @@ import AlteredPasswordScreen from '../screens/AlteredPasswordScreen';
 import MainScreen from '../screens/MainScreen';
 
 const LoginNavigator = createStackNavigator({
-    Login: LoginScreen,
-    Main: MainScreen,
-    Account: AccountScreen,
-    ConfirmEmail: ConfirmEmailScreen,
-    CodeRecovery: CodeRecoveryScreen,
-    ResetPassword: ResetPasswordScreen,
-    AlteredPassword: AlteredPasswordScreen    
+    Login: { screen: LoginScreen, navigationOptions: { headerShown: false } },
+    Main: { screen: MainScreen, navigationOptions: { headerShown: false } },
+    Account: { screen: AccountScreen, navigationOptions: { headerShown: false } },
+    ConfirmEmail: { screen: ConfirmEmailScreen, navigationOptions: { headerShown: false } },
+    CodeRecovery: { screen: CodeRecoveryScreen, navigationOptions: { headerShown: false } },
+    ResetPassword: { screen: ResetPasswordScreen, navigationOptions: { headerShown: false } },
+    AlteredPassword: { screen: AlteredPasswordScreen, navigationOptions: { headerShown: false } }    
 });
 
 export default createAppContainer(LoginNavigator);
