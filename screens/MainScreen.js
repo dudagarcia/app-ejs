@@ -31,7 +31,7 @@ const MainScreen = () => {
                 <View style={styles.backContent}>
                     <View style={styles.backContentBackground}>
 
-                        <MinhasTarefas />
+                        <MinhasTarefas buttonDisplay={smallMenuDisplay}/>
 
                     </View>
                 </View>
@@ -186,6 +186,7 @@ const styles = StyleSheet.create({
         position: 'absolute',
     },
 
+    // Minhas Tarefas, etc..
     backContentBackground: {
 
         borderBottomRightRadius: 30,
@@ -196,7 +197,8 @@ const styles = StyleSheet.create({
         width: 395,
         marginLeft: -10,
         marginTop: 60,
-        paddingLeft: 100,
+        paddingBottom: 50,
+        paddingLeft: 75,
         paddingTop: 50
 
     }

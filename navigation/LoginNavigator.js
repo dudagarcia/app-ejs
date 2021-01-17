@@ -19,4 +19,4 @@ const LoginNavigator = createStackNavigator({
     AlteredPassword: { screen: AlteredPasswordScreen, navigationOptions: { headerShown: false } }    
 });
 
-// export default createAppContainer(LoginNavigator);
+export default createAppContainer(LoginNavigator);

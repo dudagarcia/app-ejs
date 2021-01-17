@@ -77,5 +77,17 @@ export default {
   
   simonStudying: {
     uri: require('../assets/images/simonStudying.png')
+  },
+
+  plusIcon: {
+    uri: require('../assets/images/plusIcon.png')
+  },
+
+  addMemberIcon: {
+    uri: require('../assets/images/addMemberTarefaIcon.png')
+  },
+
+  agendaTarefasIcon: {
+    uri: require('../assets/images/agendaTarefasIcon.png')
   }
 };
