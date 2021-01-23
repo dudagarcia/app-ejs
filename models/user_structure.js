@@ -12,5 +12,6 @@ class User{
         this.photo = photo;
     }
 }
-
+//npx sequelize-cli model:generate --name User --attributes name:string, birthDate:date, age:integer, email:string, password:string, phoneNumber:long, section:string, role:string, photo:string
+//npx sequelize-cli db:migrate
 export default User;

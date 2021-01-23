@@ -6,4 +6,4 @@ class Availability{
     }
 }
 
-export default Availability;
+//export default Availability;
