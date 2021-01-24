@@ -8,34 +8,22 @@ const app = express();
 
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 let user=models.User;
 let role=models.Role;
 let section=models.Section;
 
-app.get('/create', async (req, res) => {
-  let create=await user.create({
-    name: "maria",
-    birthDate: 2002-03-03,
-    age: 18,
-    email: "maria@gmail.com",
-    password: "senha123", //FAZER HASH DISSO
-    phoneNumber: '14999999999',
-    sectionId: 1,
-    roleId: 1,
-    photo: "duda.jpeg",
-    createdAt: new Date(),
-    updatedAt: new Date()
+app.post('/login', async (req, res) => {
+  let response = await user.findOne({
+    where: {
+      email: req.body.email,
+      password: req.body.password
+    }
   });
-  res.send('Usuário criado com sucesso');
-}); 
-
-app.get('/read', async (req, res) => {
-  let read = await user.findAll({
-    raw: true,
-  });
-  console.log(read);
-})
+  if(response === null)   res.send(JSON.stringify('error'));
+  else res.send(response);
+});
 
 let port = process.env.port || 3000;
 
