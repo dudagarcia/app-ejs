@@ -120,7 +120,7 @@ const EditProfileScreen = () => {
 
           <View
             style={
-              { height: 170 }
+              { height: 10 }
               //styles.dataContainer
             }
           >
@@ -171,23 +171,17 @@ const EditProfileScreen = () => {
           items={teams2}
           multiple={true}
           multipleText="Participando de %d projetos"
-          //zIndex={5000}
+          placeholder="Projetos que participa"
           defaultValue={activeProjects}
-          //style={{ flexDirection: "row-reverse" }}
           zIndex={5000}
-          //style={styles.pickerStyle}
+          style={styles.pickerStyle}
           containerStyle={styles.dropDownContainer}
+          //dropDownStyle={styles.dropDownSt}
           itemStyle={styles.dropDownItem}
           labelStyle={styles.dropDownLabel}
-          selectedtLabelStyle={{
-            color: colors.mainDark,
-          }}
-          onChangeItem={(item) =>
-            setActiveProjects(
-              item
-              //[...activeProjects, item] // an array of the selected items
-            )
-          }
+          selectedtLabelStyle={styles.selectedtLabelStyle}
+          activeLabelStyle={styles.selectedtLabelStyle}
+          onChangeItem={(item) => setActiveProjects(item)}
           //dropDownMaxHeight={Math.min(maxDropDownItems) * containerHeight}
           dropDownMaxHeight={150}
           onOpen={
@@ -217,15 +211,15 @@ const EditProfileScreen = () => {
           //multipleText="Participando de %d projetos"
           //zIndex={5000}
           defaultValue={department}
+          placeholder="Departamento atual"
           //style={{ flexDirection: "row-reverse" }}
           zIndex={4000}
-          //style={styles.pickerStyle}
+          style={styles.pickerStyle}
           containerStyle={styles.dropDownContainer}
           itemStyle={styles.dropDownItem}
           labelStyle={styles.dropDownLabel}
-          selectedtLabelStyle={{
-            color: colors.mainDark,
-          }}
+          selectedtLabelStyle={styles.selectedtLabelStyle}
+          activeLabelStyle={styles.selectedtLabelStyle}
           onChangeItem={(item) => setDepartment(item.value)}
           //dropDownMaxHeight={Math.min(maxDropDownItems) * containerHeight}
           dropDownMaxHeight={150}
@@ -245,7 +239,9 @@ const styles = StyleSheet.create({
   backgroundImage: {
     flex: 1,
     resizeMode: "cover",
-    justifyContent: "center",
+    position: "absolute",
+    //marginTop: -10,
+    //justifyContent: "center",
   },
 
   body: {
@@ -292,9 +288,10 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
     */
     flexDirection: "column",
-    flex: 1,
+    //flex: 1,
     justifyContent: "flex-start",
     alignItems: "flex-start",
+    alignSelf: "flex-start",
     zIndex: 1,
     backgroundColor: "#fff",
     marginHorizontal: 20,
@@ -309,7 +306,7 @@ const styles = StyleSheet.create({
     height: 520,
     //position: "absolute",
     marginTop: 70,
-    marginBottom: 20,
+    //marginBottom: 20,
   },
 
   contentContainer: {
@@ -351,12 +348,14 @@ const styles = StyleSheet.create({
   },
 
   rowContainer: {
-    flex: 1,
+    //flex: 1,
     //backgroundColor: "#fff",
+    width: "100%",
+    position: "relative",
     flexDirection: "row",
     justifyContent: "space-between",
 
-    //height: 50,
+    height: 50,
     marginTop: 20,
   },
 
@@ -364,7 +363,7 @@ const styles = StyleSheet.create({
     //marginTop: 20,
     marginHorizontal: 0,
     height: 50,
-    width: "49.5%",
+    width: "49%",
     borderRadius: 15,
     backgroundColor: "rgba(79, 125, 223, 0.21)",
     display: "flex",
@@ -428,8 +427,6 @@ const styles = StyleSheet.create({
 
   pickerStyle: {
     backgroundColor: colors.softBlue,
-    borderBottomLeftRadius: 15,
-    borderBottomRightRadius: 15,
     borderTopLeftRadius: 15,
     borderTopRightRadius: 15,
     borderBottomLeftRadius: 15,
