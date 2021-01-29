@@ -8,6 +8,7 @@ import {
   ImageBackground,
   TextInput,
   TouchableOpacity,
+  ScrollView,
 } from "react-native";
 
 import colors from "../constants/colors";
@@ -159,10 +160,11 @@ const EditProfileScreen = () => {
           //display: "flex",
           //flexDirection: "row",
           //justifyContent: "center",
+          //alignSelf: "center",
           position: "absolute",
           marginTop: 440,
-          marginHorizontal: 50,
-          width: 260,
+          marginHorizontal: 49,
+          width: 268,
           height: projectsViewHeight,
           //zIndex: 5000,
         }}
@@ -199,8 +201,8 @@ const EditProfileScreen = () => {
           //justifyContent: "center",
           position: "absolute",
           marginTop: 510,
-          marginHorizontal: 50,
-          width: 260,
+          marginHorizontal: 49,
+          width: 268,
           height: departmentViewHeight,
           //zIndex: 5000,
         }}
@@ -230,6 +232,40 @@ const EditProfileScreen = () => {
           onClose={() => setDepartmentViewHeight(50)}
           //onChangeList={(items) => setActiveProjects(items)}
         />
+      </View>
+      <View style={styles.buttonsContainer}>
+        <TouchableOpacity onPress={() => {}}>
+          <Image source={images.logoutIcon.uri} style={styles.buttonIcon} />
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={{
+            width: 174,
+            height: 59,
+            alignContent: "center",
+            alignItems: "center",
+            justifyContent: "center",
+            backgroundColor: "#1A0387",
+            borderRadius: 67,
+          }}
+          onPress={() => {}}
+        >
+          <View>
+            <Text
+              style={{
+                color: "#FFFFFF",
+                fontFamily: "roboto-bold",
+                fontSize: 18,
+                textAlign: "center",
+              }}
+            >
+              Salvar
+            </Text>
+          </View>
+        </TouchableOpacity>
+
+        <TouchableOpacity onPress={() => {}}>
+          <Image source={images.trashcanIcon.uri} style={styles.buttonIcon} />
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -291,10 +327,10 @@ const styles = StyleSheet.create({
     //flex: 1,
     justifyContent: "flex-start",
     alignItems: "flex-start",
-    alignSelf: "flex-start",
-    zIndex: 1,
+    //alignSelf: "center",
+    //zIndex: 1,
     backgroundColor: "#fff",
-    marginHorizontal: 20,
+    marginHorizontal: "5%",
     //marginLeft: 30,
     borderRadius: 25,
     padding: 30,
@@ -302,7 +338,8 @@ const styles = StyleSheet.create({
     shadowRadius: 5,
     elevation: 8,
     //height: viewHeight(),
-    width: 320,
+    //width: 320,
+    width: "90%",
     height: 520,
     //position: "absolute",
     marginTop: 70,
@@ -379,10 +416,15 @@ const styles = StyleSheet.create({
   },
 
   buttonsContainer: {
-    //height: 59,
+    flexDirection: "row",
+    alignSelf: "center",
+    marginHorizontal: "6%",
+    width: "88%",
+    justifyContent: "space-evenly",
     position: "absolute",
-    marginTop: 500,
+    marginTop: 572,
     resizeMode: "cover",
+    zIndex: 3000,
   },
 
   logoutContainer: {
@@ -470,7 +512,6 @@ const styles = StyleSheet.create({
   placeholderStyle: {
     fontSize: 14,
     fontFamily: "roboto-regular",
-    //textAlign: "right",
     color: colors.mediumBlue,
   },
 });
