@@ -47,7 +47,13 @@ module.exports = {
         onDelete: 'cascade'
       },
       photo: {
-        type: Sequelize.STRING
+        type: Sequelize.BLOB('long')
+      },
+      emailCode:{
+        type: Sequelize.BIGINT(6)
+      },
+      admin: {
+        type: Sequelize.BOOLEAN
       },
       createdAt: {
         allowNull: false,
