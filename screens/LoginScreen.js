@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Text, StyleSheet, View, Image } from 'react-native';
 import Input from '../components/Input.js';
 import Title from '../components/Title.js';
@@ -7,8 +7,35 @@ import Images from '../constants/images.js';
 import Colors from '../constants/colors.js';
 import LogoImage from '../components/LogoImage.js';
 import ClickableText from '../components/ClickableText';
+import AsyncStorage from '@react-native-community/async-storage';
 
 const LoginScreen = props => {
+
+    const [email, setEmail] = useState(null);
+    const [password, setPassword] = useState(null);
+    const [login, setLogin] = useState(null);
+
+    async function sendForm(){
+        let response = await fetch('http://192.168.0.30:3000/login', {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                email: email,
+                password: password
+            })
+        });
+        let json = await response.json();
+        if(json !== 'error'){
+            let userData = await AsyncStorage.setItem('userData', JSON.stringify(json));
+            let resData = await AsyncStorage.getItem('userData');
+            console.log(JSON.parse(resData)); 
+            props.navigation.navigate({ routeName: 'Main'});
+        }
+        else await AsyncStorage.clear();
+    }
 
     return (
 
@@ -23,12 +50,16 @@ const LoginScreen = props => {
             <Input
                 image={Images.email.uri} 
                 password={false}
-                placeholder='Email Corporativo'/>
+                placeholder='Email Corporativo'
+                onChangeText={text => setEmail(text)}
+            />
  
             <Input 
                 image={Images.cadeado.uri} 
                 placeholder='Senha'
-                password={true}/>
+                password={true}
+                onChangeText={text => setPassword(text)}
+            />
 
             <Text style={styles.text}>Esqueceu a senha? Clique 
                 <Text  
@@ -38,9 +69,7 @@ const LoginScreen = props => {
                 </Text>
             </Text>
             
-            <MainButton style={styles.loginButton} title='Login' onPress={() => {
-                props.navigation.navigate({ routeName: 'Main' });
-            }}/>
+            <MainButton style={styles.loginButton} title='Login' onPress={() => sendForm() }/>
 
         </View>
     );

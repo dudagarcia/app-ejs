@@ -1,8 +1,8 @@
 class Sections{
-    constructor(id, name, description){
+    constructor(id, name, manager){
         this.id = id;
         this.name = name;
-        this.description = description;
+        this.manager = manager;
     }
 }
 
