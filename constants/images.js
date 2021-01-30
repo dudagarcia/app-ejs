@@ -28,66 +28,78 @@ export default {
   },
 
   simonIrritado: {
-    uri: require('../assets/images/simonIrritado.png')
+    uri: require("../assets/images/simonIrritado.png"),
   },
 
   simonOlhosBrilhando: {
-    uri: require('../assets/images/simonOlhosBrilhando.png')
+    uri: require("../assets/images/simonOlhosBrilhando.png"),
   },
 
   simonBye: {
-    uri: require('../assets/images/simonBye.png')
+    uri: require("../assets/images/simonBye.png"),
   },
 
   perfilIcon: {
-    uri: require('../assets/images/perfilIcon.png')
+    uri: require("../assets/images/perfilIcon.png"),
   },
 
   perfilIconNotSelected: {
-    uri: require('../assets/images/perfilIconNotSelected.png')
+    uri: require("../assets/images/perfilIconNotSelected.png"),
   },
 
   backgroundMain: {
-    uri: require('../assets/images/backgroundMain.png')
+    uri: require("../assets/images/backgroundMain.png"),
   },
 
   tarefasIcon: {
-    uri: require('../assets/images/tarefasIcon.png')
+    uri: require("../assets/images/tarefasIcon.png"),
   },
 
   tarefasIconNotSelected: {
-    uri: require('../assets/images/tarefasIconNotSelected.png')
+    uri: require("../assets/images/tarefasIconNotSelected.png"),
   },
 
   disponibilidadeIcon: {
-    uri: require('../assets/images/disponibilidadeIcon.png')
+    uri: require("../assets/images/disponibilidadeIcon.png"),
   },
 
   disponibilidadeIconNotSelected: {
-    uri: require('../assets/images/disponibilidadeIconNotSelected.png')
+    uri: require("../assets/images/disponibilidadeIconNotSelected.png"),
   },
 
   agendaIcon: {
-    uri: require('../assets/images/agendaIcon.png')
+    uri: require("../assets/images/agendaIcon.png"),
   },
 
   agendaIconNotSelected: {
-    uri: require('../assets/images/agendaIconNotSelected.png')
+    uri: require("../assets/images/agendaIconNotSelected.png"),
   },
-  
+
   simonStudying: {
-    uri: require('../assets/images/simonStudying.png')
+    uri: require("../assets/images/simonStudying.png"),
   },
 
   plusIcon: {
-    uri: require('../assets/images/plusIcon.png')
+    uri: require("../assets/images/plusIcon.png"),
   },
 
   addMemberIcon: {
-    uri: require('../assets/images/addMemberTarefaIcon.png')
+    uri: require("../assets/images/addMemberTarefaIcon.png"),
   },
 
   agendaTarefasIcon: {
-    uri: require('../assets/images/agendaTarefasIcon.png')
-  }
+    uri: require("../assets/images/agendaTarefasIcon.png"),
+  },
+
+  editIcon: {
+    uri: require("../assets/images/editIcon.png"),
+  },
+
+  logoutIcon: {
+    uri: require("../assets/images/logoutIcon.png"),
+  },
+
+  trashcanIcon: {
+    uri: require("../assets/images/trashcanIcon.png"),
+  },
 };
