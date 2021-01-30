@@ -4,7 +4,7 @@ import { TouchableOpacity, Image, StyleSheet } from 'react-native';
 const OptionsButton = (props) => {
 
     return (
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity style={styles.button} onPress={props.onPress}>
             <Image source={props.image} 
             style={styles.buttonImage}
             />
