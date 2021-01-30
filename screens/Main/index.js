@@ -1,20 +1,16 @@
 import React, { useState, useRef } from "react";
-import {
-  StyleSheet,
-  View,
-  Text,
-  Image,
-  Animated,
-  ImageBackground,
-} from "react-native";
+import { StyleSheet, View, Text, Image, Animated, ImageBackground } from "react-native";
 import colors from "../../constants/colors";
 import images from "../../constants/images";
-import { MinhasTarefas, MenuItem } from "./components";
+import { MinhasTarefas, MenuItem, BackContent } from "./components";
+
 
 const MainScreen = (props) => {
+
   const [menuPositionX, setMenuPosition] = useState(new Animated.Value(1));
   const [smallMenuDisplay, setSmallMenuDisplay] = useState("none");
   const [selectedMenuItem, setSelectedMenuItem] = useState("");
+
 
   const smallMenuAnimation = (itemName) => {
     Animated.timing(menuPositionX, {
@@ -26,17 +22,30 @@ const MainScreen = (props) => {
     setSelectedMenuItem(itemName);
   };
 
+
+  const backHome = () => {
+    Animated.timing(menuPositionX, {
+      toValue: 1,
+      duration: 500,
+      useNativeDriver: true,
+    }).start();
+    setSmallMenuDisplay("none");
+    setSelectedMenuItem("");
+  }
+
+
+
   return (
     <View style={styles.body}>
       <ImageBackground
         source={images.backgroundMain.uri}
         style={styles.backgroundImage}
       >
-        <View style={styles.backContent}>
-          <View style={styles.backContentBackground}>
-            <MinhasTarefas buttonDisplay={smallMenuDisplay} />
-          </View>
-        </View>
+
+        <BackContent 
+          smallMenuDisplay={smallMenuDisplay}
+          itemName={selectedMenuItem}
+        />
 
         <Animated.View
           style={{
@@ -50,12 +59,25 @@ const MainScreen = (props) => {
             </View>
           </View>
 
+
           <View style={styles.contentContainer}>
             <View style={styles.usernameContainer}>
               <Text style={styles.username}>Olá, User!</Text>
             </View>
             <View style={styles.menuContainer}>
               <Animated.View style={styles.menu}>
+                <MenuItem
+                  title="Home"
+                  image={images.logo.uri}
+                  imageNotSelected={images.logo.uri}
+                  selectedMenuItem={selectedMenuItem}
+                  onClick={() => {
+                    backHome()
+                  }}
+                  smallMenuDisplay={smallMenuDisplay}
+                  style={{display: smallMenuDisplay}}
+                />
+
                 <MenuItem
                   title="Perfil"
                   image={images.perfilIcon.uri}
@@ -92,6 +114,50 @@ const MainScreen = (props) => {
                   imageNotSelected={images.agendaIconNotSelected.uri}
                   onClick={() => smallMenuAnimation("Agenda")}
                   selectedMenuItem={selectedMenuItem}
+                  smallMenuDisplay={smallMenuDisplay}
+                />
+
+                <MenuItem
+                  title="Gerenciar Perfis"
+                  image={images.doubleMemberIcon.uri}
+                  imageNotSelected={images.doubleMemberIconNotSelected.uri}
+                  selectedMenuItem={selectedMenuItem}
+                  onClick={() => {
+                    smallMenuAnimation("Gerenciar Perfis");
+                  }}
+                  smallMenuDisplay={smallMenuDisplay}
+                />
+
+                <MenuItem
+                  title="Adicionar Perfil"
+                  image={images.addMemberMenuIcon.uri}
+                  imageNotSelected={images.addMemberMenuIconNotSelected.uri}
+                  selectedMenuItem={selectedMenuItem}
+                  onClick={() => {
+                    smallMenuAnimation("Adicionar Perfil");
+                  }}
+                  smallMenuDisplay={smallMenuDisplay}
+                />
+
+                <MenuItem
+                  title="Gerenciar Projetos"
+                  image={images.handsIconSelected.uri}
+                  imageNotSelected={images.handsIconNotSelected.uri}
+                  selectedMenuItem={selectedMenuItem}
+                  onClick={() => {
+                    smallMenuAnimation("Gerenciar Projetos");
+                  }}
+                  smallMenuDisplay={smallMenuDisplay}
+                />
+
+                <MenuItem
+                  title="Adicionar Setor"
+                  image={images.bagIconSelected.uri}
+                  imageNotSelected={images.bagIconNotSelected.uri}
+                  selectedMenuItem={selectedMenuItem}
+                  onClick={() => {
+                    smallMenuAnimation("Adicionar Setor");
+                  }}
                   smallMenuDisplay={smallMenuDisplay}
                 />
               </Animated.View>
@@ -173,7 +239,10 @@ const styles = StyleSheet.create({
   },
 
   menu: {
-    marginTop: 70,
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    height: "90%",
   },
 
   menuContainer: {},
@@ -186,24 +255,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
 
-  backContent: {
-    position: "absolute",
-  },
-
-  // Minhas Tarefas, etc..
-  backContentBackground: {
-    borderBottomRightRadius: 30,
-    borderTopRightRadius: 30,
-    elevation: 8,
-    backgroundColor: "#fff",
-    height: 600,
-    width: 395,
-    marginLeft: -10,
-    marginTop: 60,
-    paddingBottom: 50,
-    paddingLeft: 75,
-    paddingTop: 50,
-  },
 });
 
 export default MainScreen;

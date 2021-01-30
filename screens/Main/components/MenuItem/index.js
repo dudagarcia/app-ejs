@@ -2,6 +2,7 @@ import React from 'react';
 import { useEffect, useState } from 'react';
 import { StyleSheet, View, Text, Image, Button, TouchableOpacity } from 'react-native';
 
+
 const MenuItem = (props) => {
 
     const [image, setImage] = useState(props.imageNotSelected);
@@ -13,8 +14,8 @@ const MenuItem = (props) => {
 
 
     return (
-        <TouchableOpacity key='Teste' onPress={props.onClick}>
-            <View style={styles.mainContainer} onPress={() => props.navigation.navigate('ViewProfile')}>
+        <TouchableOpacity key='Teste' onPress={props.onClick} style={props.style}>
+            <View style={styles.mainContainer}>
                 <View  style={styles.fullItemContainer}>
                     <Image
                         source={props.image}
