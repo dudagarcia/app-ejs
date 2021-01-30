@@ -16,10 +16,10 @@ import MainButton from "../components/MainButton";
 import images from "../constants/images";
 //import { Picker } from "@react-native-picker/picker";
 import DropDownPicker from "react-native-dropdown-picker";
-import DynamicPicker from "../components/DynamicPicker";
-import { Colors } from "react-native/Libraries/NewAppScreen";
+//import DynamicPicker from "../components/DynamicPicker";
 
-import DateTimePicker from "@react-native-community/datetimepicker";
+//import DateTimePicker from "@react-native-community/datetimepicker";
+import { TextInputMask } from "react-native-masked-text";
 import moment from "moment";
 
 const containerHeight = 50;
@@ -33,7 +33,7 @@ const EditProfileScreen2 = () => {
   const [email, setEmail] = useState("");
   const [birthday, setBirthday] = useState("");
   const [cellphone, setCellphone] = useState("");
-  const [age, setAge] = useState("Idade");
+  const [age, setAge] = useState(0);
 
   const [activeProjects, setActiveProjects] = useState([]);
   const [department, setDepartment] = useState("");
@@ -41,10 +41,8 @@ const EditProfileScreen2 = () => {
   const [departmentViewHeight, setDepartmentViewHeight] = useState(50);
 
   const [showDatePicker, setShowDatePicker] = useState(false);
-
-  const departments = ["Projetos", "Marketing"];
-
-  const teams = ["App-EJs", "Doula"];
+  const [birthdayStyle, setBirthdayStyle] = useState(styles.inactiveDataText);
+  const [isValidBDay, setValidBDay] = useState(false);
 
   const departments2 = [
     { value: "Projetos", label: "Projetos" },
@@ -52,7 +50,6 @@ const EditProfileScreen2 = () => {
     { value: "Vendas", label: "Vendas" },
     { value: "Financas e Pessoas", label: "Finanças e Pessoas" },
   ];
-  const multiple = false;
 
   const teams2 = [
     { value: "App-EJs", label: "App-EJs" },
@@ -60,20 +57,10 @@ const EditProfileScreen2 = () => {
     { value: "Ecommerce", label: "Ecommerce" },
   ];
 
-  const setViewHeight = (newHeight) => {
-    setDepartmentViewHeight(newHeight);
-  };
-
-  const updateBirthday = (event, selectedDate) => {
-    if (selectedDate !== undefined) {
-      console.log(selectedDate);
-      setBirthday(moment(selectedDate).format(dateFormat));
-
-      setAge(moment().diff(selectedDate, "years"));
-      //setAge(moment(birthday, dateFormat).fromNow());
-    }
-    //const currentDate = selectedDate || birthday;
-    setShowDatePicker(false);
+  const updateBirthday = (selectedDate) => {
+    console.log(selectedDate);
+    setBirthday(moment(selectedDate).format(dateFormat));
+    setAge(moment().diff(selectedDate, "years"));
   };
 
   const isBirthdayDefault = () => {
@@ -84,27 +71,24 @@ const EditProfileScreen2 = () => {
     return isPlaceholder ? styles.inactiveDataText : styles.activeDataText;
   };
 
-  const calcAge = (date1, date2) => {
-    const diffInMs = Math.abs(date2 - date1);
-    return diffInMs / (1000 * 60 * 60 * 24 * 365);
-  };
-
   const t = isBirthdayDefault()
     ? new Date()
     : moment(birthday, dateFormat).format();
+
+  const k = age ? true : false;
 
   console.log(
     name,
     department,
     activeProjects,
     projectsViewHeight,
-    age,
-    isBirthdayDefault(),
-    showDatePicker,
-    new Date(),
+    //isBirthdayDefault(),
+    //showDatePicker,
     birthday,
-    moment(birthday, dateFormat).format(),
-    t
+    isValidBDay,
+    //t,
+    age,
+    k
   );
 
   return (
@@ -137,45 +121,42 @@ const EditProfileScreen2 = () => {
 
             <View style={styles.rowContainer}>
               <View style={styles.halfDataContainer}>
-                <TextInput
-                  style={styles.activeDataText}
-                  placeholder="Nascimento"
+                <TextInputMask
+                  placeholder="D. Nascimento"
                   placeholderTextColor={colors.mediumBlue}
-                  onChangeText={(text) => setBirthday(text)}
+                  type={"datetime"}
+                  options={{
+                    format: dateFormat,
+                  }}
+                  value={birthday}
+                  onChangeText={(text) => {
+                    setBirthday(text);
+                  }}
+                  style={birthdayStyle}
+                  ref={(ref) => {
+                    if (ref && ref.isValid() && birthday.length === 10) {
+                      setValidBDay(true);
+                      setBirthdayStyle(styles.activeDataText);
+                      setAge(
+                        moment().diff(moment(birthday, dateFormat), "years")
+                      );
+                    } else {
+                      birthday.length < 10
+                        ? setBirthdayStyle(styles.inactiveDataText)
+                        : setBirthdayStyle(styles.invalidDataText);
+                      setValidBDay(false);
+                    }
+                  }}
                 />
               </View>
-            </View>
-
-            <View style={styles.rowContainer}>
-              <View style={styles.halfDataContainer}>
-                <Text
-                  style={getDynamicTextStyle(isBirthdayDefault())}
-                  onPress={() => {
-                    setShowDatePicker(true);
-                  }}
-                >
-                  {isBirthdayDefault() ? "D. Nascimento" : birthday}
-                </Text>
-                {showDatePicker && (
-                  <DateTimePicker
-                    value={
-                      isBirthdayDefault()
-                        ? new Date()
-                        : moment(birthday, dateFormat).toDate()
-                    }
-                    mode="date"
-                    onChange={updateBirthday}
-                  />
-                )}
-              </View>
 
               <View style={styles.halfDataContainer}>
                 <Text
-                  style={getDynamicTextStyle(isBirthdayDefault())}
+                  style={birthdayStyle}
                   //placeholder="Idade"
                   //placeholderTextColor={colors.mainDark}
                 >
-                  {age}
+                  {isValidBDay ? age : "Idade"}
                 </Text>
               </View>
             </View>
@@ -190,7 +171,12 @@ const EditProfileScreen2 = () => {
               />
             </View>
             <View style={styles.dataContainer}>
-              <TextInput
+              <TextInputMask
+                type={"cel-phone"}
+                options={{
+                  maskType: "BRL",
+                  withDDD: true,
+                }}
                 style={styles.activeDataText}
                 placeholder="Celular"
                 placeholderTextColor={colors.mediumBlue}
@@ -248,10 +234,11 @@ const EditProfileScreen2 = () => {
               }}
             >
               <DropDownPicker
+                placeholderTextColor
                 items={teams2}
                 multiple={true}
                 multipleText="Participando de %d projetos"
-                placeholder="Projetos que participa"
+                placeholder="Projetos que participa: "
                 defaultValue={activeProjects}
                 zIndex={5000}
                 style={styles.pickerStyle}
@@ -299,7 +286,7 @@ const EditProfileScreen2 = () => {
                 //multipleText="Participando de %d projetos"
                 //zIndex={5000}
                 defaultValue={department}
-                placeholder="Departamento atual"
+                placeholder="Setor atual"
                 //style={{ flexDirection: "row-reverse" }}
                 zIndex={4000}
                 style={styles.pickerStyle}
@@ -414,6 +401,7 @@ const styles = StyleSheet.create({
   },
 
   scrollContainer: {
+    marginTop: 10,
     height: 450,
     flex: 0,
     flexGrow: 1,
@@ -460,10 +448,14 @@ const styles = StyleSheet.create({
   },
 
   inactiveDataText: {
-    fontSize: 14,
-    fontFamily: "roboto-regular",
-    color: colors.mediumBlue,
+    ...{ color: colors.mediumBlue },
+    ...self.activeDataText,
+    //fontSize: 14,
+    //fontFamily: "roboto-regular",
+    //color: colors.mediumBlue,
   },
+
+  invalidDataText: { ...self.activeDataText, ...{ color: colors.invalid } },
 
   dataContainer: {
     marginTop: 20,
@@ -472,24 +464,12 @@ const styles = StyleSheet.create({
     width: "100%",
     //width: 300,
     borderRadius: 15,
-    backgroundColor: "rgba(79, 125, 223, 0.21)",
+    backgroundColor: colors.softBlue,
     display: "flex",
     flexDirection: "row",
     alignContent: "center",
     alignItems: "center",
     justifyContent: "center",
-  },
-
-  rowContainer: {
-    //flex: 1,
-    //backgroundColor: "#fff",
-    width: "100%",
-    position: "relative",
-    flexDirection: "row",
-    justifyContent: "space-between",
-
-    height: 50,
-    marginTop: 20,
   },
 
   halfDataContainer: {
@@ -504,6 +484,25 @@ const styles = StyleSheet.create({
     alignContent: "center",
     alignItems: "center",
     justifyContent: "center",
+  },
+
+  /*
+  halfDataContainer: {
+    ...self.dataContainer,
+    ...{ marginTop: 0, width: "49%" },
+  },
+  */
+
+  rowContainer: {
+    //flex: 1,
+    //backgroundColor: "#fff",
+    width: "100%",
+    position: "relative",
+    flexDirection: "row",
+    justifyContent: "space-between",
+
+    height: 50,
+    marginTop: 20,
   },
 
   titleContainer: {
@@ -551,12 +550,15 @@ const styles = StyleSheet.create({
   },
 
   dropDownItem: {
-    justifyContent: "center",
-    alignItems: "center",
-    textAlign: "center",
+    justifyContent: "flex-start",
+    //alignItems: "flex-start",
+    //textAlign: "center",
   },
 
   dropDownLabel: {
+    /*
+    ...self.activeDataText,
+    */
     fontSize: 14,
     fontFamily: "roboto-regular",
     //textAlign: "right",
