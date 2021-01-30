@@ -21,7 +21,7 @@ const ConfirmEmailScreen = props => {
             <View style={styles.wrapText}> 
                 <Text style={styles.text}>Não recebeu o email de recuperação? </Text>
                 <Text style={styles.text}>Cheque sua caixa de SPAM ou 
-                    <ClickableText title="clique aqui para reenviar o email"/> 
+                    <Text style={styles.clickableText}> clique aqui para reenviar o email</Text>
                 </Text>
             </View>
         </View>
@@ -39,11 +39,16 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         marginTop: 60
     },
+    clickableText:{
+        marginTop: 2,
+        color: Colors.lighterBlue
+    }, 
     wrapText:{
         marginTop: 20,
         flexDirection: 'column',
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        marginHorizontal: 25
     },
     image:{
         width: 100,

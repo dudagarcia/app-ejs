@@ -1,32 +1,28 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { View, StyleSheet, TextInput, Keyboard } from 'react-native';
 
-import dismissKeyboard from 'react-native-dismiss-keyboard';
+import { event } from 'react-native-reanimated';
 import Colors from '../constants/colors';
 
 const EmailCode = props => {
     const[code, setCode] = useState([]);
+    let array = [];
     
     const ref_first = useRef();
     const ref_second = useRef();
     const ref_third = useRef();
     const ref_fourth = useRef();
     const ref_fifth = useRef();
-    const ref_sixth = useRef();
-
-    function dismissKeyboardAction() {
-        Keyboard.dismiss();
-    }
+    const ref_sixth = useRef(); 
 
     function codeConcat(event){
-        setCode(code => [...code, event]);
+        setCode(code => [...code,event]);
+        console.log(code);
     }
 
     function excludeEvent(){
-        code.pop();
-        useEffect( () => {
-            setCode(code);
-        }, []);
+        
+        console.log(code);
     }
 
     return(
@@ -51,7 +47,7 @@ const EmailCode = props => {
                     ref={ref_second}
                     onKeyPress={ (event) => { 
                         if(event.nativeEvent.key === 'Backspace'){
-                            excludeEvent();
+                            excludeEvent(1);
                             ref_first.current.focus();      
                         }  
                     } }
@@ -70,7 +66,12 @@ const EmailCode = props => {
             <View style={styles.char}>
                 <TextInput 
                     ref={ref_third}
-                    onKeyPress={ (event) => { if(event.nativeEvent.key === 'Backspace') ref_second.current.focus(); }} 
+                    onKeyPress={ (event) => { 
+                        if(event.nativeEvent.key === 'Backspace'){
+                            excludeEvent(2);
+                            ref_second.current.focus();
+                        }  
+                    }} 
                     onChangeText={ (event) => { 
                         if(event){ 
                             ref_fourth.current.focus(); 
@@ -86,7 +87,12 @@ const EmailCode = props => {
             <View style={styles.char}>
                 <TextInput 
                     ref={ref_fourth}
-                    onKeyPress={ (event) => { if(event.nativeEvent.key === 'Backspace') ref_third.current.focus(); } }
+                    onKeyPress={ (event) => { 
+                        if(event.nativeEvent.key === 'Backspace'){
+                            excludeEvent(3);
+                            ref_third.current.focus();
+                        } 
+                    } }
                     onChangeText={ (event) => { 
                         if(event){ 
                             ref_fifth.current.focus(); 
@@ -102,7 +108,12 @@ const EmailCode = props => {
             <View style={styles.char}>
                 <TextInput 
                     ref={ref_fifth}
-                    onKeyPress={ (event) => { if(event.nativeEvent.key === 'Backspace') ref_fourth.current.focus(); } }
+                    onKeyPress={ (event) => { 
+                        if(event.nativeEvent.key === 'Backspace'){
+                            excludeEvent(4);
+                            ref_fourth.current.focus();
+                        } 
+                    } }
                     onChangeText={ (event) => { 
                         if(event){ 
                             ref_sixth.current.focus(); 
@@ -118,8 +129,18 @@ const EmailCode = props => {
             <View style={styles.char}>
                 <TextInput 
                     ref={ref_sixth}
-                    onKeyPress={ (event) => { if(event.nativeEvent.key === 'Backspace') ref_fifth.current.focus(); } }
-                    onChangeText={ (event) => { event && dismissKeyboardAction();}}
+                    onKeyPress={ (event) => { 
+                        if(event.nativeEvent.key === 'Backspace'){
+                            excludeEvent(5);
+                            ref_fifth.current.focus();
+                        }  
+                    } }
+                    onChangeText={ (event) => { 
+                        if(event){
+                            codeConcat(event);
+                            Keyboard.dismiss();
+                        }
+                    }}
                     keyboardType="numeric"
                     maxLength={1} 
                     secureTextEntry={true}
