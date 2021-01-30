@@ -6,7 +6,6 @@ import Colors from '../constants/colors';
 
 const EmailCode = props => {
     const[code, setCode] = useState([]);
-    const[isEditable, setIsEditable] = useState(false);
     let array = [];
     
     const ref_first = useRef();
@@ -16,20 +15,18 @@ const EmailCode = props => {
     const ref_fifth = useRef();
     const ref_sixth = useRef(); 
 
-    function codeConcat(event){
-        setCode(code => [...code,event]);
+    function codeConcat(event, pos){
+        array = code;
+        array[pos] = event;
+        setCode(array);
         console.log(code);
     }
 
     function excludeEvent(pos){
         array = code;
         array[pos] = '';
-        //setCode()
+        setCode(array);
         console.log(code);
-    }
-
-    function updateState(){
-        setIsEditable(!isEditable);
     }
 
 
@@ -42,12 +39,14 @@ const EmailCode = props => {
                     onChangeText={ (event) => { 
                         if(event){ 
                             ref_second.current.focus(); 
-                            codeConcat(event); 
+                            codeConcat(event, 0); 
                         }
                     }}
+                    onKeyPress={ (event) => { 
+                        if(event.nativeEvent.key === 'Backspace')
+                            excludeEvent(0);   
+                    } }
                     keyboardType="numeric"
-                    editable={true}
-                    onFocus={ () => updateState() }
                     maxLength={1} 
                     secureTextEntry={true}
                     style={styles.line}
@@ -65,12 +64,10 @@ const EmailCode = props => {
                     onChangeText={ (event) => { 
                         if(event){ 
                             ref_third.current.focus(); 
-                            codeConcat(event); 
+                            codeConcat(event, 1); 
                         }
                     }}
                     keyboardType="numeric"
-                    editable={true}
-                    onFocus={ () => updateState() }
                     maxLength={1} 
                     secureTextEntry={true}
                     style={styles.line}
@@ -88,12 +85,10 @@ const EmailCode = props => {
                     onChangeText={ (event) => { 
                         if(event){ 
                             ref_fourth.current.focus(); 
-                            codeConcat(event); 
+                            codeConcat(event, 2); 
                         }
                     }}
                     keyboardType="numeric"
-                    editable={false}
-                    onFocus={ () => updateState() }
                     maxLength={1} 
                     secureTextEntry={true}
                     style={styles.line}
@@ -112,12 +107,10 @@ const EmailCode = props => {
                         if(event){ 
                             setIsEditable(false);
                             ref_fifth.current.focus(); 
-                            codeConcat(event); 
+                            codeConcat(event, 3); 
                         }
                     }}
                     keyboardType="numeric"
-                    editable={false}
-                    onFocus={ () => updateState() }
                     maxLength={1} 
                     secureTextEntry={true}
                     style={styles.line}
@@ -135,12 +128,10 @@ const EmailCode = props => {
                     onChangeText={ (event) => { 
                         if(event){ 
                             ref_sixth.current.focus(); 
-                            codeConcat(event); 
+                            codeConcat(event, 4); 
                         }
                     }}
                     keyboardType="numeric"
-                    editable={false}
-                    onFocus={ () => updateState() }
                     maxLength={1} 
                     secureTextEntry={true}
                     style={styles.line}
@@ -157,13 +148,11 @@ const EmailCode = props => {
                     } }
                     onChangeText={ (event) => { 
                         if(event){
-                            codeConcat(event);
+                            codeConcat(event, 5);
                             Keyboard.dismiss();
                         }
                     }}
                     keyboardType="numeric"
-                    editable={false}
-                    onFocus={ () => updateState() }
                     maxLength={1} 
                     secureTextEntry={true}
                     style={styles.line}
