@@ -1,7 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { View, StyleSheet, TextInput, Keyboard } from 'react-native';
-
-import { event } from 'react-native-reanimated';
 import Colors from '../constants/colors';
 
 const EmailCode = props => {
@@ -105,7 +103,6 @@ const EmailCode = props => {
                     } }
                     onChangeText={ (event) => { 
                         if(event){ 
-                            setIsEditable(false);
                             ref_fifth.current.focus(); 
                             codeConcat(event, 3); 
                         }
