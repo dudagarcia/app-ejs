@@ -5,7 +5,6 @@ import images from "../../constants/images";
 import { MinhasTarefas, MenuItem, BackContent } from "./components";
 
 
-
 const MainScreen = (props) => {
 
   const [menuPositionX, setMenuPosition] = useState(new Animated.Value(1));
@@ -31,6 +30,7 @@ const MainScreen = (props) => {
       useNativeDriver: true,
     }).start();
     setSmallMenuDisplay("none");
+    setSelectedMenuItem("");
   }
 
 
