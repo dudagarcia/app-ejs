@@ -50,11 +50,6 @@ const MainScreen = (props) => {
             </View>
           </View>
 
-          <Text
-            onPress={() => props.navigation.navigate({ routeName: "Profile" })}
-          >
-            AQUIII -----
-          </Text>
           <View style={styles.contentContainer}>
             <View style={styles.usernameContainer}>
               <Text style={styles.username}>Olá, User!</Text>
@@ -69,6 +64,7 @@ const MainScreen = (props) => {
                   onClick={() => {
                     smallMenuAnimation("Perfil");
                   }}
+                  navigation={this.props.navigation}
                   smallMenuDisplay={smallMenuDisplay}
                 />
 

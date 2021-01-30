@@ -14,7 +14,7 @@ const MenuItem = (props) => {
 
     return (
         <TouchableOpacity key='Teste' onPress={props.onClick}>
-            <View style={styles.mainContainer}>
+            <View style={styles.mainContainer} onPress={() => props.navigation.navigate('ViewProfile')}>
                 <View  style={styles.fullItemContainer}>
                     <Image
                         source={props.image}
