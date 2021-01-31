@@ -1,15 +1,15 @@
 import React from "react";
-import { View, Image, Text, StyleSheet } from "react-native";
+import { TouchableOpacity, Image, Text, StyleSheet } from "react-native";
 import colors from "../../../../../../constants/colors";
 import images from "../../../../../../constants/images";
 
 
 const CardPerfil = ({ perfil }) => {
   return (
-    <View style={styles.container}>
+    <TouchableOpacity style={styles.container}>
       <Image source={images.logo.uri} style={styles.image} />
       <Text style={styles.name}>{perfil.nome}</Text>
-    </View>
+    </TouchableOpacity>
   );
 };
 
@@ -28,11 +28,6 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
     alignItems: "center",
     marginVertical: 5,
-    backgroundColor: colors.softBlue,
-    borderTopLeftRadius: 35,
-    borderBottomLeftRadius: 35,
-    borderRightColor: colors.mediumBlue,
-    borderRightWidth: 2.5,
   },
   name: {
     color: colors.mainDark,
