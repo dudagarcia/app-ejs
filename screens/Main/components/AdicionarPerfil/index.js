@@ -1,7 +1,7 @@
 import React from 'react';
-import { View, Text, StyleSheet, Button } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { InputProfile } from '../../../../components';
+import { InputProfile, BlueTitle } from '../../../../components';
 import colors from '../../../../constants/colors';
 
 
@@ -9,7 +9,7 @@ const AdicionarPerfil = props => {
   return (
     <View style={styles.mainContainer}>
         <View style={styles.titleContainer}>
-            <Text style={styles.title}>Adicionar Perfil</Text>
+            <BlueTitle title='Adicionar Perfil'/>
         </View>
         <InputProfile text="E-mail" style={styles.input}/>
         <InputProfile text="Senha" style={styles.input}/>
@@ -33,11 +33,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'center',
         marginBottom: 90
-    },
-    title:{
-        color: colors.mainDark,
-        fontWeight: 'bold',
-        fontSize: 20
     },
     input:{
         marginTop: 20
