@@ -5,3 +5,4 @@ export { default as LogoImage } from "./LogoImage";
 export { default as MainButton } from "./MainButton";
 export { default as Title } from "./Title";
 export { default as Input } from "./Input";
+export { default as InputProfile } from "./InputProfile";

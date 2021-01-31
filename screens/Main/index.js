@@ -86,7 +86,6 @@ const MainScreen = (props) => {
                   onClick={() => {
                     smallMenuAnimation("Perfil");
                   }}
-                  navigation={this.props.navigation}
                   smallMenuDisplay={smallMenuDisplay}
                 />
 
