@@ -7,3 +7,5 @@ export { default as Title } from "./Title";
 export { default as Input } from "./Input";
 export { default as InputProfile } from "./InputProfile";
 export { default as BlueTitle } from './BlueTitle';
+export { default as BlueButton } from './BlueButton';
+export { default as MultiplePicker } from './MultiplePicker';
