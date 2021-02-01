@@ -4,8 +4,8 @@ import colors from '../../constants/colors';
 
 const BlueButton = props => {
     return(
-        <View>
-            <TouchableOpacity activeOpacity={.4} style={styles.button}> 
+        <View style={styles.container}>
+            <TouchableOpacity activeOpacity={.4} style={styles.button} onPress={props.onPress}> 
                 <Text style={{...styles.text,...props.style}}>{props.title}</Text>
             </TouchableOpacity>
         </View>
@@ -14,12 +14,14 @@ const BlueButton = props => {
 
 const styles = StyleSheet.create({
     button:{
+        display: 'flex',
+        justifyContent: 'center',
+        alignContent: 'center',
+        alignItems: 'center',
         borderRadius: 67,
         backgroundColor: colors.mainDark,
         width: 174,
         height: 59,
-        marginTop: 225,
-        marginRight: 5,
     },
     text:{
         color: '#ffffff',
@@ -27,8 +29,12 @@ const styles = StyleSheet.create({
         fontWeight: "700",
         fontSize: 18,
         alignItems: 'center',
-        marginLeft: 40,
-        marginTop: 15
+    },
+    container: {
+        display: 'flex',
+        justifyContent: 'center',
+        alignContent: 'center',
+        alignItems: 'center'
     }
 });
 
