@@ -7,7 +7,6 @@ import { NoTarefas, Tarefas, NewTarefaButton, OptionsButton, TextButton, ModalAd
 const MinhasTarefas = (props) => {
 
     const [tarefas, setTarefas] = useState(<NoTarefas />);
-    const [teste, setTeste] = useState('aaa');
     const [modalAddTarefaVisible, setModalAddTarefaVisible] = useState(false);
 
     const closeModal = () =>{

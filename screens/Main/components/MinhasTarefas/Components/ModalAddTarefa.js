@@ -3,6 +3,7 @@ import { Modal, View, TextInput, StyleSheet } from 'react-native';
 import { TextButton, OptionsButton } from './';
 import images from '../../../../../constants/images';
 
+
 const ModalAddTarefa = (props) => {
 
     const [display, setDisplay] = useState('flex');
@@ -19,7 +20,8 @@ const ModalAddTarefa = (props) => {
                         <TextInput
                             style={styles.inputName}
                             placeholder='Nova Tarefa'
-                            placeholderTextColor='rgba(255, 255, 255, 0.56)' />
+                            placeholderTextColor='rgba(255, 255, 255, 0.56)' 
+                        />
                     </View>
                     <View style={styles.inputDetailsContainer}>
                         <TextInput
@@ -42,7 +44,6 @@ const ModalAddTarefa = (props) => {
                     </View>
                 </View>
             </View>
-
         </Modal>
     );
 }
