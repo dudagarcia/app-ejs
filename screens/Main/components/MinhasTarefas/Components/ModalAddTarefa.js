@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Modal, View, TextInput, StyleSheet } from 'react-native';
-import { TextButton, OptionsButton } from './';
+import { OptionsButton } from './';
 import images from '../../../../../constants/images';
+import { TextButton } from '../../../../../components';
 
 
 const ModalAddTarefa = (props) => {

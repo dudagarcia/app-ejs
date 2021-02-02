@@ -4,7 +4,8 @@ import { useState } from "react";
 import { Text, StyleSheet, View } from "react-native";
 import AdicionarSetor from "../AdicionarSetor";
 import GerenciarPerfis from "../GerenciarPerfis";
-import { MinhasTarefas, AdicionarPerfil, GerenciarProjetos } from "../index";
+import { MinhasTarefas, AdicionarPerfil, GerenciarProjetos, Disponibilidades } from "../index";
+import { screenSize } from "../../../../constants";
 
 const BackContent = ({ smallMenuDisplay, itemName }) => {
   const [content, setContent] = useState();
@@ -35,6 +36,10 @@ const BackContent = ({ smallMenuDisplay, itemName }) => {
         setContent(<GerenciarProjetos />);
         break;
 
+      case "Disponibilidades":
+        setContent(<Disponibilidades />);
+        break;
+
       default:
         setContent(<View />);
         break;
@@ -62,8 +67,8 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 30,
     elevation: 8,
     backgroundColor: "#fff",
-    height: 600,
-    width: 395,
+    height: screenSize.height * 0.8,
+    width: screenSize.width * 0.95,
     marginLeft: -10,
     marginTop: 60,
     paddingBottom: 50,

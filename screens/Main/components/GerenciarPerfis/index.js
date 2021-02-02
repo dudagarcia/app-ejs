@@ -3,60 +3,10 @@ import { View, Text, StyleSheet } from "react-native";
 import colors from '../../../../constants/colors';
 import { Tabs } from '../../../../components';
 import { MeuSetor, TodosOsMembros} from './components';
+import { perfis } from '../../../../constants';
 
 
 const GerenciarPerfis = () => {
-
-  const perfis = [
-    {
-      id: 1,
-      nome: 'Artur Egidio Launikas e Cupelli'
-    },
-    {
-      id: 2,
-      nome: 'Duda Linda Perfeita Rainha'
-    },
-    {
-      id: 2,
-      nome: 'Artur Egidio Launikas e Cupelli'
-    },
-    {
-      id: 1,
-      nome: 'Artur Egidio Launikas e Cupelli'
-    },
-    {
-      id: 2,
-      nome: 'Duda Linda Perfeita Rainha'
-    },
-    {
-      id: 2,
-      nome: 'Artur Egidio Launikas e Cupelli'
-    },
-    {
-      id: 1,
-      nome: 'Artur Egidio Launikas e Cupelli'
-    },
-    {
-      id: 2,
-      nome: 'Duda Linda Perfeita Rainha'
-    },
-    {
-      id: 2,
-      nome: 'Artur Egidio Launikas e Cupelli'
-    },
-    {
-      id: 1,
-      nome: 'Artur Egidio Launikas e Cupelli'
-    },
-    {
-      id: 2,
-      nome: 'Duda Linda Perfeita Rainha'
-    },
-    {
-      id: 2,
-      nome: 'Artur Egidio Launikas e Cupelli'
-    }
-  ]
 
   return (
     <View style={styles.mainContainer}>

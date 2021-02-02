@@ -1,8 +1,7 @@
-import React, { useState, useRef } from "react";
-import { StyleSheet, View, Text, Image, Animated, ImageBackground } from "react-native";
-import colors from "../../constants/colors";
-import images from "../../constants/images";
-import { MinhasTarefas, MenuItem, BackContent } from "./components";
+import React, { useState } from "react";
+import { StyleSheet, View, Text, Image, Animated, ImageBackground, Dimensions } from "react-native";
+import { colors, images, screenSize} from '../../constants';
+import { MenuItem, BackContent } from "./components";
 
 
 const MainScreen = (props) => {
@@ -14,7 +13,7 @@ const MainScreen = (props) => {
 
   const smallMenuAnimation = (itemName) => {
     Animated.timing(menuPositionX, {
-      toValue: -318,
+      toValue: (-0.76)*screenSize.width,
       duration: 500,
       useNativeDriver: true,
     }).start();
@@ -25,14 +24,13 @@ const MainScreen = (props) => {
 
   const backHome = () => {
     Animated.timing(menuPositionX, {
-      toValue: 1,
+      toValue: 2,
       duration: 500,
       useNativeDriver: true,
     }).start();
     setSmallMenuDisplay("none");
     setSelectedMenuItem("");
   }
-
 
 
   return (
@@ -187,7 +185,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
     position: "absolute",
-    marginTop: -70,
+    marginTop: "-25%",
     marginLeft: 115,
   },
 
@@ -229,7 +227,7 @@ const styles = StyleSheet.create({
     shadowColor: "#fff",
     shadowRadius: 5,
     elevation: 15,
-    height: 600,
+    height: "80%",
     marginTop: 60,
   },
 
@@ -241,13 +239,13 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",
-    height: "90%",
+    height: "95%",
   },
 
   menuContainer: {},
 
   usernameContainer: {
-    marginTop: 28,
+    marginTop: 15,
     display: "flex",
     alignContent: "center",
     flexDirection: "row",

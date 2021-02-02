@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { InputProfile, BlueTitle, BlueButton } from "../../../../components";
-import colors from "../../../../constants/colors";
+import { screenSize } from "../../../../constants";
 
 const AdicionarPerfil = (props) => {
   return (
@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
   
   buttonContainer: {
     position: 'absolute',
-    marginTop: 515,
+    marginTop: screenSize.height*0.70,
     display: 'flex',
     alignSelf: 'center'
 },

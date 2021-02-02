@@ -10,3 +10,4 @@ export { default as InputProfile } from "./InputProfile";
 export { default as BlueTitle } from './BlueTitle';
 export { default as BlueButton } from './BlueButton';
 export { default as MultiplePicker } from './MultiplePicker';
+export { default as TextButton } from './TextButton';

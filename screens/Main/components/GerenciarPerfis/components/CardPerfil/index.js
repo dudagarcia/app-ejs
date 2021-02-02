@@ -1,7 +1,6 @@
 import React from "react";
 import { TouchableOpacity, Image, Text, StyleSheet } from "react-native";
-import colors from "../../../../../../constants/colors";
-import images from "../../../../../../constants/images";
+import { colors, images } from '../../../../../../constants';
 
 
 const CardPerfil = ({ perfil }) => {
