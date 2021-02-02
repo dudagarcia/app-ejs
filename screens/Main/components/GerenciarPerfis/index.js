@@ -3,6 +3,7 @@ import { View, Text, StyleSheet } from "react-native";
 import colors from '../../../../constants/colors';
 import { Tabs, BlueButton } from '../../../../components';
 import { MeuSetor, TodosOsMembros, AdicionarPerfil } from './components';
+import { perfis } from '../../../../constants';
 
 
 const GerenciarPerfis = () => {

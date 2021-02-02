@@ -6,6 +6,7 @@ import { AdicionarProjeto, Arquivados, Ativos, CardProjeto } from "./components"
 import { useState } from "react";
 
 const GerenciarProjetos = () => {
+
   const [addProject, setAddProject] = useState(false);
 
   const projetos = [

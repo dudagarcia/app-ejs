@@ -6,3 +6,4 @@ export {default as AdicionarSetor} from './AdicionarSetor';
 export {default as GerenciarPerfis} from './GerenciarPerfis';
 export {default as GerenciarProjetos} from './GerenciarProjetos';
 export {default as GerenciarSetores} from './GerenciarSetores';
+export {default as Disponibilidades} from './Disponibilidades';

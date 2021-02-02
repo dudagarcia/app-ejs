@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, Modal, TextInput, TouchableOpacity, Image } from 'react-native';
+import { screenSize } from '../../../../constants';
 import colors from '../../../../constants/colors';
 import images from '../../../../constants/images';
 import { NoTarefas, Tarefas, NewTarefaButton, OptionsButton, TextButton, ModalAddTarefa } from './Components';
@@ -76,7 +77,7 @@ const styles = StyleSheet.create({
 
     buttonContainer: {
         position: 'absolute',
-        marginTop: 515,
+        marginTop: screenSize.height*0.7,
         display: 'flex',
         alignSelf: 'center'
     },

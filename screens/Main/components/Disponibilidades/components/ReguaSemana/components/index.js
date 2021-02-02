@@ -1,0 +1,1 @@
+export {default as DiaHoraTouch} from './DiaHoraTouch';
