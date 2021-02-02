@@ -44,10 +44,21 @@ export const ProfileStyles = StyleSheet.create({
     fontFamily: "roboto-bold",
   },
 
-  profilePictureStyle: {
+  profilePictureContainer: {
     width: 120,
     height: 120,
     borderRadius: 60,
+    overflow: "hidden",
+  },
+
+  profilePictureStyle: {
+    flex: 1,
+    width: "100%",
+    height: "100%",
+    resizeMode: "contain",
+    borderRadius: 60,
+    overflow: "hidden",
+    zIndex: 2000,
   },
 
   scrollContent: {
