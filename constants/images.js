@@ -75,6 +75,38 @@ export default {
     uri: require("../assets/images/agendaIconNotSelected.png"),
   },
 
+  doubleMemberIcon: {
+    uri: require("../assets/images/doubleMemberSelected.png"),
+  },
+
+  doubleMemberIconNotSelected: {
+    uri: require("../assets/images/doubleMemberNotSelected.png"),
+  },
+
+  addMemberMenuIcon: {
+    uri: require("../assets/images/addMemberSelected.png"),
+  },
+
+  addMemberMenuIconNotSelected: {
+    uri: require("../assets/images/addMemberNotSelected.png"),
+  },
+
+  handsIconSelected: {
+    uri: require("../assets/images/handsIconSelected.png"),
+  },
+
+  handsIconNotSelected: {
+    uri: require("../assets/images/handsIconNotSelected.png"),
+  },
+
+  bagIconSelected: {
+    uri: require("../assets/images/bagIconSelected.png"),
+  },
+
+  bagIconNotSelected: {
+    uri: require("../assets/images/bagIcon.png"),
+  },
+
   simonStudying: {
     uri: require("../assets/images/simonStudying.png"),
   },
@@ -106,4 +138,5 @@ export default {
   cameraIcon: {
     uri: require("../assets/images/cameraIcon.png"),
   },
+
 };

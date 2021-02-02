@@ -1,13 +1,14 @@
-import { StatusBar } from 'expo-status-bar';
-import React, {useState} from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import * as Font from 'expo-font';
-import { AppLoading } from 'expo';
-import MainScreen from './screens/MainScreen.js';
-import LoginNavigator from './navigation/LoginNavigator';
-import AccountScreen from './screens/AccountScreen';
-import ResetPasswordScreen from './screens/ResetPasswordScreen.js';
-
+import { StatusBar } from "expo-status-bar";
+import React, { useState } from "react";
+import { StyleSheet, Text, View } from "react-native";
+import * as Font from "expo-font";
+import { AppLoading } from "expo";
+import Main from "./screens/Main";
+import {
+  AccountScreen,
+  ResetPasswordScreen,
+  EditProfileScreen,
+} from "./screens";
 
 const fetchFonts = () => {
   return Font.loadAsync({
@@ -29,9 +30,7 @@ export default function App() {
     );
   }
 
-  return (
-    <LoginNavigator />
-  );
+  return <Main />;
 }
 
 const styles = StyleSheet.create({

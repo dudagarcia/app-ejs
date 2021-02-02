@@ -1,13 +1,6 @@
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
-
-import LoginScreen from  '../screens/LoginScreen';
-import AccountScreen from '../screens/AccountScreen';
-import ConfirmEmailScreen from '../screens/ConfirmEmailScreen';
-import CodeRecoveryScreen from '../screens/CodeRecoveryScreen';
-import ResetPasswordScreen from '../screens/ResetPasswordScreen';
-import AlteredPasswordScreen from '../screens/AlteredPasswordScreen';
-import MainScreen from '../screens/MainScreen';
+import { AccountScreen, ConfirmEmailScreen, CodeRecoveryScreen, ResetPasswordScreen, AlteredPasswordScreen, MainScreen} from '../screens'
 
 const LoginNavigator = createStackNavigator({
     Login: { screen: LoginScreen, navigationOptions: { headerShown: false } },
