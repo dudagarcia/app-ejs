@@ -5,3 +5,4 @@ export {default as AdicionarPerfil} from './AdicionarPerfil';
 export {default as AdicionarSetor} from './AdicionarSetor';
 export {default as GerenciarPerfis} from './GerenciarPerfis';
 export {default as GerenciarProjetos} from './GerenciarProjetos';
+export {default as GerenciarSetores} from './GerenciarSetores';

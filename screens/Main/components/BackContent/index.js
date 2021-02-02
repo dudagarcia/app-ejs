@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Text, StyleSheet, View } from "react-native";
 import AdicionarSetor from "../AdicionarSetor";
 import GerenciarPerfis from "../GerenciarPerfis";
-import { MinhasTarefas, AdicionarPerfil, GerenciarProjetos } from "../index";
+import { MinhasTarefas, AdicionarPerfil, GerenciarProjetos, GerenciarSetores } from "../index";
 
 const BackContent = ({ smallMenuDisplay, itemName }) => {
   const [content, setContent] = useState();
@@ -31,8 +31,8 @@ const BackContent = ({ smallMenuDisplay, itemName }) => {
         setContent(<GerenciarPerfis />);
         break;
 
-      case "Gerenciar Projetos":
-        setContent(<GerenciarProjetos />);
+      case "Gerenciar Setores":
+        setContent(<GerenciarSetores />);
         break;
 
       default:

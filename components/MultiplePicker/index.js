@@ -30,29 +30,31 @@ const MultiplePicker = props => {
 
 
     return(
-        <View style={styles.picker}>
-            <DropDownPicker
-                items={people}
-                multiple={true}
-                multipleText="%d diretores selecionados"
-                placeholder="Selecionar diretores"
-                defaultValue={members}
-                zIndex={5000}
-                style={ProfileStyles.pickerStyle}
-                containerStyle={ProfileStyles.dropDownContainer}
-                itemStyle={ProfileStyles.dropDownItem}
-                labelStyle={ProfileStyles.dropDownLabel}
-                selectedtLabelStyle={ProfileStyles.activeDataText}
-                activeLabelStyle={ProfileStyles.activeDataText}
-                onChangeItem={(item) => setActiveMembers(item)}
-                dropDownMaxHeight={getDropDownMaxHeight(people)}
-                onOpen={() =>
-                    setMembersViewHeight(
-                    getDropDownMaxHeight(people) + containerHeight
-                  )
-                }
-                onClose={() => setMembersViewHeight(containerHeight)}
-              />
+        <View style={styles.body}>
+            <View style={styles.picker}>
+                <DropDownPicker
+                    items={people}
+                    multiple={true}
+                    multipleText="%d diretores selecionados"
+                    placeholder={props.placeholder}
+                    defaultValue={members}
+                    zIndex={5000}
+                    style={ProfileStyles.pickerStyle}
+                    containerStyle={ProfileStyles.dropDownContainer}
+                    itemStyle={ProfileStyles.dropDownItem}
+                    labelStyle={ProfileStyles.dropDownLabel}
+                    selectedtLabelStyle={ProfileStyles.activeDataText}
+                    activeLabelStyle={ProfileStyles.activeDataText}
+                    onChangeItem={(item) => setActiveMembers(item)}
+                    dropDownMaxHeight={getDropDownMaxHeight(people)}
+                    onOpen={() =>
+                        setMembersViewHeight(
+                        getDropDownMaxHeight(people) + containerHeight
+                    )
+                    }
+                    onClose={() => setMembersViewHeight(containerHeight)}
+                />
+            </View>
         </View>
     );
 };
@@ -60,8 +62,10 @@ const MultiplePicker = props => {
 const styles = StyleSheet.create({
     picker:{
         marginTop: marginsBetweenElements,
-        width: "82%",
         flex: 0
+    },
+    body:{
+        width: 266,
     }
 });
 

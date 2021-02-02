@@ -1,11 +1,10 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { BlueTitle, InputProfile, BlueButton, MultiplePicker, SingularPicker } from '../../../../components';
+import { BlueTitle, InputProfile, BlueButton, MultiplePicker, SingularPicker } from '../../../../../../components';
 
 const AdicionarSetor = () => {
     return (
         <View style={styles.view}>
-            <BlueTitle style={styles.title} title="Adicionar Setor"/>
             <InputProfile text="Nome do setor" style={styles.input}/>
             <SingularPicker placeholder="Selecionar Diretor"/>
             <BlueButton style={styles.button} title="Adicionar"/>
@@ -23,7 +22,8 @@ const styles = StyleSheet.create({
     view:{
         flex: 1,
         flexDirection: 'column',
-        alignItems: 'center'
+        alignItems: 'center',
+        marginTop:100
     },
     input:{
         marginTop: 25

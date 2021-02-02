@@ -128,17 +128,6 @@ const MainScreen = (props) => {
                 />
 
                 <MenuItem
-                  title="Adicionar Perfil"
-                  image={images.addMemberMenuIcon.uri}
-                  imageNotSelected={images.addMemberMenuIconNotSelected.uri}
-                  selectedMenuItem={selectedMenuItem}
-                  onClick={() => {
-                    smallMenuAnimation("Adicionar Perfil");
-                  }}
-                  smallMenuDisplay={smallMenuDisplay}
-                />
-
-                <MenuItem
                   title="Gerenciar Projetos"
                   image={images.handsIconSelected.uri}
                   imageNotSelected={images.handsIconNotSelected.uri}
@@ -150,12 +139,12 @@ const MainScreen = (props) => {
                 />
 
                 <MenuItem
-                  title="Adicionar Setor"
+                  title="Gerenciar Setores"
                   image={images.bagIconSelected.uri}
                   imageNotSelected={images.bagIconNotSelected.uri}
                   selectedMenuItem={selectedMenuItem}
                   onClick={() => {
-                    smallMenuAnimation("Adicionar Setor");
+                    smallMenuAnimation("Gerenciar Setores");
                   }}
                   smallMenuDisplay={smallMenuDisplay}
                 />

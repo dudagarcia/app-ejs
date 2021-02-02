@@ -13,7 +13,7 @@ const InputProfile = props => {
 const styles = StyleSheet.create({
     container:{
         backgroundColor: Colors.softBlue,
-        borderRadius: 45,
+        borderRadius: 19,
         width: 266,
         height: 59
     },
