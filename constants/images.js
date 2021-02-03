@@ -135,5 +135,8 @@ export default {
     uri: require("../assets/images/trashcanIcon.png"),
   },
 
+  cameraIcon: {
+    uri: require("../assets/images/cameraIcon.png"),
+  },
 
 };
