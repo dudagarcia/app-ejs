@@ -29,7 +29,8 @@ const styles = StyleSheet.create({
         marginTop: 25
     },
     button:{
-        marginTop: 240
+        marginTop: 400,
+        position:'absolute'
     }    
 });
 

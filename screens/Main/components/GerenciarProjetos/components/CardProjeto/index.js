@@ -1,11 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import colors from '../../../../../../constants/colors';
-
+import { ModalDetails } from '../../../../../../components';
 
 const CardProjeto = ({ projeto }) => {
+
+    const [modalVisible, setModalVisible] = useState(false);
+    
     return (
-      <TouchableOpacity style={styles.container}>
+      <TouchableOpacity style={styles.container}  onPress={() => {setModalVisible(true)}}>
+        <ModalDetails visible={modalVisible}/>
         <View style={styles.circulo}/>
         <Text style={styles.name}>{projeto.nome}</Text>
       </TouchableOpacity>

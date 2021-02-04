@@ -24,7 +24,8 @@ const styles = StyleSheet.create({
     marginTop: 60
   },
   button:{
-    marginTop: 120
+    marginTop: 415,
+    position: 'absolute'
   },
   input:{
     marginTop: 20

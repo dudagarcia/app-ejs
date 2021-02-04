@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
     },
     buttonContainer:{
         position: "absolute",
-        marginTop: 505,
+        marginTop: 500,
         display: "flex"
     },
     listContainer:{

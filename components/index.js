@@ -12,3 +12,4 @@ export { default as BlueButton } from './BlueButton';
 export { default as MultiplePicker } from './MultiplePicker';
 export { default as SingularPicker } from './SingularPicker';
 export { default as TextButton } from './TextButton';
+export { default as ModalDetails } from './ModalDetails';
