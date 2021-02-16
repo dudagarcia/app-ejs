@@ -7,7 +7,7 @@ const AdicionarSetor = () => {
         <View style={styles.view}>
             <InputProfile text="Nome do setor" style={styles.input}/>
             <SingularPicker placeholder="Selecionar Diretor"/>
-            <BlueButton style={styles.button} title="Adicionar"/>
+            <BlueButton style={styles.button} title="Salvar"/>
         </View>
     );
 }

@@ -5,7 +5,7 @@ class Tasks{
         this.details = details;
         this.date = date;
         this.time = time;
-        this.repetition = repetition;
+        this.repetition = repetition; //bool
         this.contributors = contributors; //array
         this.done = done; //bool
     }

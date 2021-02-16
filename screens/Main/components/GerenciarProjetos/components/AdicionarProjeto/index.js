@@ -10,7 +10,7 @@ const AdicionarProjeto = () => {
       <MultiplePicker style={styles.dropdown} placeholder="Selecionar Participantes"/>
       <SingularPicker placeholder="Status do Projeto"/>
       <InputProfile style={styles.input} text='Descrição do projeto'/>
-      <BlueButton title="Adicionar" style={styles.button}/>
+      <BlueButton title="Salvar" style={styles.button}/>
     </View>
 
   );
