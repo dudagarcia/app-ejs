@@ -10,57 +10,6 @@ const GerenciarPerfis = () => {
 
   const [addProfile, setAddProfile] = useState(false);
 
-  const perfis = [
-    {
-      id: 1,
-      nome: 'Artur Egidio Launikas e Cupelli'
-    },
-    {
-      id: 2,
-      nome: 'Duda Linda Perfeita Rainha'
-    },
-    {
-      id: 2,
-      nome: 'Artur Egidio Launikas e Cupelli'
-    },
-    {
-      id: 1,
-      nome: 'Artur Egidio Launikas e Cupelli'
-    },
-    {
-      id: 2,
-      nome: 'Duda Linda Perfeita Rainha'
-    },
-    {
-      id: 2,
-      nome: 'Artur Egidio Launikas e Cupelli'
-    },
-    {
-      id: 1,
-      nome: 'Artur Egidio Launikas e Cupelli'
-    },
-    {
-      id: 2,
-      nome: 'Duda Linda Perfeita Rainha'
-    },
-    {
-      id: 2,
-      nome: 'Artur Egidio Launikas e Cupelli'
-    },
-    {
-      id: 1,
-      nome: 'Artur Egidio Launikas e Cupelli'
-    },
-    {
-      id: 2,
-      nome: 'Duda Linda Perfeita Rainha'
-    },
-    {
-      id: 2,
-      nome: 'Artur Egidio Launikas e Cupelli'
-    }
-  ]
-
   return (
     <View style={styles.mainContainer}>
       <View style={styles.titleContainer}>
