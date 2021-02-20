@@ -2,7 +2,7 @@ import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 import { Text, StyleSheet, View } from "react-native";
-import AdicionarSetor from "../AdicionarSetor";
+import { AdicionarSetor } from "../GerenciarSetores";
 import GerenciarPerfis from "../GerenciarPerfis";
 import { MinhasTarefas, AdicionarPerfil, GerenciarProjetos, GerenciarSetores, Disponibilidades } from "../index";
 import { screenSize } from "../../../../constants";

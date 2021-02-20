@@ -7,7 +7,7 @@ const AdicionarSetor = () => {
         <View style={styles.view}>
             <InputProfile text="Nome do setor" style={styles.input}/>
             <SingularPicker placeholder="Selecionar Diretor"/>
-            <BlueButton style={styles.button} title="Adicionar"/>
+            <BlueButton style={styles.button} title="Salvar"/>
         </View>
     );
 }
@@ -29,7 +29,8 @@ const styles = StyleSheet.create({
         marginTop: 25
     },
     button:{
-        marginTop: 240
+        marginTop: 400,
+        position:'absolute'
     }    
 });
 

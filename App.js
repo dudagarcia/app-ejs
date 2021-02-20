@@ -4,8 +4,11 @@ import { StyleSheet, Text, View } from "react-native";
 import * as Font from "expo-font";
 import { AppLoading } from "expo";
 import Main from "./screens/Main";
-import { AccountScreen, ResetPasswordScreen } from "./screens";
-
+import {
+  AccountScreen,
+  ResetPasswordScreen,
+  EditProfileScreen,
+} from "./screens";
 
 const fetchFonts = () => {
   return Font.loadAsync({

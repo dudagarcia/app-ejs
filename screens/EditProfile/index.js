@@ -8,6 +8,7 @@ import {
   TextInput,
   TouchableOpacity,
   ScrollView,
+  Dimensions,
 } from "react-native";
 
 import colors from "../../constants/colors";
@@ -27,11 +28,7 @@ import {
   marginsBetweenElements,
   dateFormat,
 } from "../ViewProfile/ProfileConstants";
-//import ImagePickerComponent from "../components/ImagePicker";
-
-//import * as ImagePicker from "expo-image-picker";
-//import Constants from "expo-constants";
-//import * as Permissions from "expo-permissions";
+import ImagePicker from "./components/ImagePicker";
 
 const EditProfileScreen = () => {
   const [name, setName] = useState("");
@@ -53,7 +50,6 @@ const EditProfileScreen = () => {
   );
 
   const [profilePic, setProfilePic] = useState(images.simonAmazed.uri);
-  const [image, setImage] = useState();
 
   const departments = [
     { value: "Projetos", label: "Projetos" },
@@ -78,6 +74,13 @@ const EditProfileScreen = () => {
     );
   };
 
+  const updImg = (newImage) => {
+    if (!newImage.cancelled) {
+      //console.log(newImage);
+      setProfilePic(newImage);
+    }
+  };
+
   /*
   console.log(
     name,
@@ -100,10 +103,12 @@ const EditProfileScreen = () => {
         <View style={ProfileStyles.container}>
           <View style={ProfileStyles.logoContainer}>
             <View style={ProfileStyles.logoBorda}>
-              <Image
-                source={profilePic}
-                style={ProfileStyles.profilePictureStyle}
-              />
+              <View style={ProfileStyles.profilePictureContainer}>
+                <Image
+                  source={profilePic}
+                  style={ProfileStyles.profilePictureStyle}
+                />
+              </View>
             </View>
           </View>
           <View style={ProfileStyles.titleContainer}>
@@ -314,6 +319,20 @@ const EditProfileScreen = () => {
             style={ProfileStyles.buttonIcon}
           />
         </TouchableOpacity>
+      </View>
+      <View
+        style={{
+          marginTop: 125,
+          marginLeft: Dimensions.get("window").width * 0.54,
+          //marginLeft: "53%",
+          //marginRight: "38%",
+          position: "absolute",
+          zIndex: 3000,
+          width: 32,
+          height: 32,
+        }}
+      >
+        <ImagePicker setImage={updImg} buttonIcon={images.cameraIcon.uri} />
       </View>
     </View>
   );

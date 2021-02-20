@@ -4,6 +4,7 @@ import { colors, images } from '../../../../../../constants';
 
 
 const CardPerfil = ({ perfil }) => {
+
   return (
     <TouchableOpacity style={styles.container}>
       <Image source={images.logo.uri} style={styles.image} />
