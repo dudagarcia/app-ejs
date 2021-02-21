@@ -6,24 +6,14 @@ import { MeuSetor, TodosOsMembros, AdicionarPerfil } from './components';
 import { perfis } from '../../../../constants';
 import { listAllUsers } from '../../../../services/user';
 import { useEffect } from "react";
+import { connect } from "react-redux";
 
 
 const GerenciarPerfis = props => {
 
   const [addProfile, setAddProfile] = useState(false);
-  const [allUsers, setAllUsers] = useState();
   const [loading, setLoading] = useState();
 
-  const getAllUsers = async () => {
-    setLoading(true);
-    const response = await listAllUsers();
-    setAllUsers(response?.data);
-    setLoading(false);
-  }
-
-  useEffect(()=>{
-    getAllUsers()
-  },[]);
 
   return (
     <View style={styles.mainContainer}>
@@ -37,8 +27,8 @@ const GerenciarPerfis = props => {
               <Tabs
                 header1='Meu Setor'
                 header2='Todos os Membros'
-                content1={<MeuSetor perfis={perfis} loading={loading}/>}
-                content2={<TodosOsMembros perfis={allUsers} loading={loading}/>}
+                content1={<MeuSetor perfis={props.users.mySection} loading={loading}/>}
+                content2={<TodosOsMembros perfis={props.users.allUsers} loading={loading}/>}
               />
             </View>
             <BlueButton style={styles.button} title="Adicionar Perfil" onPress={() => {setAddProfile(true)}}/>
@@ -86,4 +76,9 @@ const styles = StyleSheet.create({
   }
 });
 
-export default GerenciarPerfis;
+const mapStateToProps = (state) => ({
+    users: state.users,
+    user: state.user
+});
+
+export default connect(mapStateToProps)(GerenciarPerfis);

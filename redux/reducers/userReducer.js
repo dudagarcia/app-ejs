@@ -20,7 +20,7 @@ export default userReducer = (state = initialState, action) => {
         
         case ActionTypes.ADD_USER: 
             return action.payload;
-
+            
         default:
             return state;
 

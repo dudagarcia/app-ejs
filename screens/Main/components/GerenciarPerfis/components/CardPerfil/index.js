@@ -1,5 +1,5 @@
 import React from "react";
-import { TouchableOpacity, Image, Text, StyleSheet } from "react-native";
+import { TouchableOpacity, Image, Text, StyleSheet, ProgressViewIOSComponent } from "react-native";
 import { colors, images } from '../../../../../../constants';
 
 
@@ -8,7 +8,7 @@ const CardPerfil = ({ perfil }) => {
   return (
     <TouchableOpacity style={styles.container}>
       <Image source={images.logo.uri} style={styles.image} />
-      <Text style={styles.name}>{perfil.name}</Text>
+      <Text style={styles.name}>{perfil.name || perfil.email}</Text>
     </TouchableOpacity>
   );
 };
