@@ -24,6 +24,7 @@ const LoginScreen = props => {
         if(response.data.length === 1){
             props.navigation.navigate('Main');
             onSignIn(response.data[0].id);
+            setError(false)
 
         }else {
             setError(true)

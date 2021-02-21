@@ -41,17 +41,28 @@ const MainScreen = (props) => {
 
   const searchLoggedUser = async () => {
     setLoading(true);
-    const userId = await isSignedIn();
-    const { data } = await searchUserById({ id: userId});
-    dispatch({ type: ActionTypes.ADD_USER, payload: data[0]});
+      const userId = await isSignedIn();
+      const { data } = await searchUserById({ id: userId});
+      dispatch({ type: ActionTypes.ADD_USER, payload: data[0]});
     setLoading(false);
   }
+
+  const filterByRole = (item) => {
+    return item.roleId === props.user.roleId
+  }
+
+  const searchAllUsers = async () => {
+    const { data } = await listAllUsers();
+    dispatch({ type: ActionTypes.ADD_ALL_USER, payload: {allUsers: data, mySection: data.filter(filterByRole)}});
+  }
+
 
   useEffect(()=>{
     BackHandler.addEventListener('hardwareBackPress',()=>{
       props.navigation.goBack(null);
     })
     searchLoggedUser();
+    searchAllUsers();
   },[])
 
   return (
@@ -273,7 +284,8 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = state => ({
-  user: state.user
+  user: state.user,
+  users: state.users
 });
 
 export default connect(mapStateToProps)(MainScreen);

@@ -9,7 +9,7 @@ const MeuSetor = ({perfis}) => {
       <ScrollView style={styles.container}>
           {
             perfis.map((perfil)=>{
-              return <CardPerfil perfil={perfil || {nome: 'teste'}}/>
+              return <CardPerfil perfil={perfil}/>
             })
           }
       </ScrollView>
