@@ -1,36 +1,35 @@
 import React, { useState } from 'react';
-import { Text, StyleSheet, View, Image } from 'react-native';
-import Images from '../../constants/images.js';
-import Colors from '../../constants/colors.js';
-import AsyncStorage from '@react-native-community/async-storage';
-import { ClickableText, LogoImage, MainButton, Title, Input } from '../../components';
+import { Text, StyleSheet, View, Image, ActivityIndicator } from 'react-native';
+import { colors, images} from '../../constants';
+import { LogoImage, Title, Input } from '../../components';
+import { loginUser } from '../../services/user';
+import { onSignIn } from '../../services/auth';
+import LoginButton from './components/LoginButton';
 
 const LoginScreen = props => {
 
     const [email, setEmail] = useState(null);
     const [password, setPassword] = useState(null);
-    const [login, setLogin] = useState(null);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(false);
 
-    async function sendForm(){
-        let response = await fetch('http://192.168.0.30:3000/login', {
-            method: 'POST',
-            headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                email: email,
-                password: password
-            })
-        });
-        let json = await response.json();
-        if(json !== 'error'){
-            let userData = await AsyncStorage.setItem('userData', JSON.stringify(json));
-            let resData = await AsyncStorage.getItem('userData');
-            console.log(JSON.parse(resData)); 
-            props.navigation.navigate({ routeName: 'Main'});
+    const sendForm = async () =>{
+        setLoading(true);
+        const userLoginInfo = {
+            email: email,
+            password: password
         }
-        else await AsyncStorage.clear();
+        const response = await loginUser(userLoginInfo);
+        
+        if(response.data.length === 1){
+            props.navigation.navigate('Main');
+            onSignIn(response.data[0].id);
+
+        }else {
+            setError(true)
+        }
+
+        setLoading(false);
     }
 
     return (
@@ -38,34 +37,50 @@ const LoginScreen = props => {
         <View style={styles.body}>
             <LogoImage/>
             
-            <Title>Bem-Vindx Tarefas Jr.</Title>
+            <Title>Bem-Vindx ao Tarefas Jr.</Title>
             
             <Image 
                 style={styles.simon}
-                source={Images.simonSmile.uri}/>
+                source={images.simonSmile.uri}/>
             <Input
-                image={Images.email.uri} 
+                image={images.email.uri} 
                 password={false}
                 placeholder='Email Corporativo'
                 onChangeText={text => setEmail(text)}
             />
  
             <Input 
-                image={Images.cadeado.uri} 
+                image={images.cadeado.uri} 
                 placeholder='Senha'
                 password={true}
                 onChangeText={text => setPassword(text)}
             />
 
+            {
+                error && (
+                    <Text> Email e/ou senha incorretos!</Text>
+                )
+            }
+
             <Text style={styles.text}>Esqueceu a senha? Clique 
                 <Text  
-                    onPress={() => { props.navigation.navigate({ routeName: 'Account'}); }} 
+                    onPress={() => { props.navigation.navigate('Account'); }} 
                     style={styles.clickableText}
                 > aqui
                 </Text>
             </Text>
             
-            <MainButton style={styles.loginButton} title='Login' onPress={() => sendForm() }/>
+            <LoginButton style={styles.loginButton} onPress={() => sendForm() }>
+                    {
+                        loading ? 
+                        (
+                            <ActivityIndicator color={colors.mainDark} size={20}/>
+                        ):(
+                            <Text style={styles.buttonText}>Login</Text>
+                        )
+                    }
+
+            </LoginButton>
 
         </View>
     );
@@ -77,13 +92,13 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: 'column',
         justifyContent: 'center',
-        backgroundColor: Colors.mainDark,
+        backgroundColor: colors.mainDark,
         color: 'white',
         alignItems: 'center',
     },
     clickableText:{
         marginTop: 2,
-        color: Colors.lighterBlue
+        color: colors.lighterBlue
     },  
     simon:{
         width: 80,
@@ -97,8 +112,14 @@ const styles = StyleSheet.create({
     },
     loginButton:{
         marginTop: 40
+    },
+    buttonText: {
+        color: colors.mainDark,
+        fontWeight: "bold",
+        fontSize: 17
     }
 
 });
+
 
 export default LoginScreen;

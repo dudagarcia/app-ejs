@@ -1,15 +1,24 @@
 import React from "react";
-import { View, Text, ScrollView, StyleSheet } from "react-native";
+import { View, Text, ScrollView, StyleSheet, ActivityIndicator } from "react-native";
 import { CardPerfil } from '../index';
 
 
-const TodosOsMembros = ({ perfis }) => {
+const TodosOsMembros = ({ perfis, loading }) => {
   return (
-    <ScrollView style={styles.container}>
-      {perfis.map((perfil) => {
-        return <CardPerfil perfil={perfil} />;
-      })}
-    </ScrollView>
+    <>
+    {
+      loading ? (
+        <ActivityIndicator color={'red'}/>
+      ) : (
+      <ScrollView style={styles.container}>
+        {perfis.map((perfil) => {
+          return <CardPerfil perfil={perfil} />;
+        })}
+      </ScrollView>
+
+      )
+    }
+    </>
   );
 };
 

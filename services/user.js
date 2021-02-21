@@ -6,26 +6,22 @@ api.get("/user/login")
         console.error("erro login" + err);
     });
     
-const response = await api.post("/user/create", { email, password, admin });
+export const loginUser = async (data) => {
 
-const response2 = await api.put("/user/update", { name, birthDate, age, email, password, phoneNumber, sectionId, roleId, photo, emailCode, admin, id });
+    return await api.post("/user/login", data);
+}
 
-api.delete("/user/delete", { id });
+export const createUser = async () => {
 
-api.get("/user/select")
-    .then((response) => doAlgo(response.data))
-    .catch((err) => {
-        console.error("erro select user" + err);
-    });
+    return await api.post("/user/create", { email: "EMAIL@teste", password: "SENHA@teste", admin: true });
+}
 
-api.get("/user/listAll")
-    .then((response) => doAlgo(response.data))
-    .catch((err) => {
-        console.error("erro select user" + err);
-    });
+export const listAllUsers = async () => {
 
-api.get("/user/listSome")
-    .then((response) => doAlgo(response.data))
-    .catch((err) => {
-        console.error("erro select user" + err);
-    });
+    return await api.post("/user/listAll");
+}
+
+export const searchUserById = async (data) => {
+
+    return await api.post("/user/listSome", data);
+}

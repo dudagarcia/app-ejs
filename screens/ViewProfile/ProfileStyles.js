@@ -5,18 +5,26 @@ import {
   containerHeight,
   dropdownItemHeight,
 } from "./ProfileConstants";
+import { Dimensions } from 'react-native';
 
 export const ProfileStyles = StyleSheet.create({
   backgroundImage: {
     flex: 1,
     resizeMode: "cover",
     position: "absolute",
+    justifyContent: 'center',
+    alignContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'blue'
   },
 
   body: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: "#f0f0f0",
     flexDirection: "column",
+    justifyContent: 'center',
+    alignContent: 'center',
+    alignItems: 'center',
   },
 
   logoContainer: {
@@ -73,34 +81,18 @@ export const ProfileStyles = StyleSheet.create({
   },
 
   container: {
-    /*
-    flex: 1,
-    flexDirection: "column",
-    justifyContent: "flex-start",
-    */
-    /*
-    flexDirection: "column",
-    //flex: 1,
-    justifyContent: "flex-start",
-    alignItems: "flex-start",
-    
-    //zIndex: 1,
-    */
     alignSelf: "center",
     flex: 0,
     backgroundColor: "#fff",
     marginHorizontal: "5%",
-    //marginLeft: 30,
     borderRadius: 25,
     padding: 30,
     shadowColor: "#fff",
     shadowRadius: 5,
     elevation: 8,
-    //height: viewHeight(),
-    //width: 320,
     width: "90%",
-    height: 520,
-    //position: "absolute",
+    height: "80%",
+    maxHeight: 620,
     marginTop: 70,
   },
 
@@ -109,6 +101,7 @@ export const ProfileStyles = StyleSheet.create({
     fontFamily: "roboto-regular",
     fontSize: 14,
     textAlign: "center",
+    width: "100%"
   },
 
   inactiveDataText: {
@@ -123,7 +116,6 @@ export const ProfileStyles = StyleSheet.create({
     marginHorizontal: 0,
     height: containerHeight,
     width: "100%",
-    //width: 300,
     borderRadius: 15,
     backgroundColor: colors.softBlue,
     display: "flex",
@@ -134,7 +126,6 @@ export const ProfileStyles = StyleSheet.create({
   },
 
   halfDataContainer: {
-    //marginTop: 20,
     marginHorizontal: 0,
     height: containerHeight,
     width: "49%",
@@ -147,15 +138,7 @@ export const ProfileStyles = StyleSheet.create({
     justifyContent: "center",
   },
 
-  /*
-  halfDataContainer: {
-    ...self.dataContainer,
-    ...{ marginTop: 0, width: "49%" },
-  },
-  */
   rowContainer: {
-    //flex: 1,
-    //backgroundColor: "#fff",
     width: "100%",
     position: "relative",
     flexDirection: "row",
@@ -174,12 +157,10 @@ export const ProfileStyles = StyleSheet.create({
     flexDirection: "row",
     alignSelf: "center",
     marginHorizontal: "6%",
-    width: "88%",
-    justifyContent: "space-evenly",
-    position: "absolute",
-    marginTop: 572,
+    width: "100%",
+    justifyContent: "space-around",
+    marginTop: 20,
     resizeMode: "cover",
-    zIndex: 3000,
   },
 
   buttonIcon: {
@@ -195,6 +176,14 @@ export const ProfileStyles = StyleSheet.create({
     borderBottomRightRadius: 15,
   },
 
+  imagePicker: {
+    position: "absolute",
+    width: 40,
+    height: 40,
+    marginTop: 100,
+    marginLeft: 120,
+  },
+
   dropDownContainer: {
     width: "100%",
     height: containerHeight,
@@ -202,21 +191,13 @@ export const ProfileStyles = StyleSheet.create({
 
   dropDownItem: {
     justifyContent: "flex-start",
-    //alignItems: "flex-start",
-    //textAlign: "center",
     height: dropdownItemHeight,
   },
 
   dropDownLabel: {
-    /*
-    ...self.activeDataText,
-    */
     fontSize: 14,
     fontFamily: "roboto-regular",
-    //textAlign: "right",
     color: colors.mediumBlue,
-    //alignItems: "center",
-    //justifyContent: "center",
     textAlign: "center",
   },
 });

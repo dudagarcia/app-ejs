@@ -8,7 +8,7 @@ const CardPerfil = ({ perfil }) => {
   return (
     <TouchableOpacity style={styles.container}>
       <Image source={images.logo.uri} style={styles.image} />
-      <Text style={styles.name}>{perfil.nome}</Text>
+      <Text style={styles.name}>{perfil.name}</Text>
     </TouchableOpacity>
   );
 };

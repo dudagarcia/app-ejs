@@ -4,11 +4,26 @@ import colors from '../../../../constants/colors';
 import { Tabs, BlueButton } from '../../../../components';
 import { MeuSetor, TodosOsMembros, AdicionarPerfil } from './components';
 import { perfis } from '../../../../constants';
+import { listAllUsers } from '../../../../services/user';
+import { useEffect } from "react";
 
 
 const GerenciarPerfis = () => {
 
   const [addProfile, setAddProfile] = useState(false);
+  const [allUsers, setAllUsers] = useState();
+  const [loading, setLoading] = useState();
+
+  const getAllUsers = async () => {
+    setLoading(true);
+    const response = await listAllUsers();
+    setAllUsers(response?.data);
+    setLoading(false);
+  }
+
+  useEffect(()=>{
+    getAllUsers()
+  },[]);
 
   return (
     <View style={styles.mainContainer}>
@@ -22,8 +37,8 @@ const GerenciarPerfis = () => {
               <Tabs
                 header1='Meu Setor'
                 header2='Todos os Membros'
-                content1={<MeuSetor perfis={perfis}/>}
-                content2={<TodosOsMembros perfis={perfis}/>}
+                content1={<MeuSetor perfis={perfis} loading={loading}/>}
+                content2={<TodosOsMembros perfis={allUsers} loading={loading}/>}
               />
             </View>
             <BlueButton style={styles.button} title="Adicionar Perfil" onPress={() => {setAddProfile(true)}}/>

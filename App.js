@@ -1,14 +1,15 @@
 import { StatusBar } from "expo-status-bar";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import * as Font from "expo-font";
 import { AppLoading } from "expo";
-import Main from "./screens/Main";
-import {
-  AccountScreen,
-  ResetPasswordScreen,
-  EditProfileScreen,
-} from "./screens";
+import Login from "./screens/Login";
+import { AccountScreen, ResetPasswordScreen, EditProfileScreen, } from "./screens";
+import { SignedInNavigator, SignedOutNavigator } from "./navigation/routes";
+import { isSignedIn, onSignIn, onSignOut } from "./services/auth";
+import { searchUserById } from "./services/user";
+import store from './redux/store';
+import { Provider } from 'react-redux';
 
 const fetchFonts = () => {
   return Font.loadAsync({
@@ -17,20 +18,40 @@ const fetchFonts = () => {
   });
 };
 
-export default function App() {
+const App = () => {
   const [dataLoaded, setDataLoaded] = useState(false);
+  const [logged, setLogged] = useState(null);
+  const [user, setUser] = useState();
 
-  if (!dataLoaded) {
-    return (
-      <AppLoading
-        startAsync={fetchFonts}
-        onFinish={() => setDataLoaded(true)}
-        onError={(err) => console.log(err)}
-      />
-    );
+  const verifyUserLogged = () => {
+    isSignedIn().then(res => setLogged(res));
+    if(logged) {
+      searchUserById({ id: logged}).then((res)=>setUser(res))
+    }
+
   }
 
-  return <Main />;
+  useEffect(()=>{
+    verifyUserLogged()
+  },[]);
+
+  return (
+    <Provider store={store}>
+      {
+        !dataLoaded ? 
+        (
+          <AppLoading
+          startAsync={fetchFonts}
+          onFinish={() => setDataLoaded(true)}
+          onError={(err) => console.log(err)}
+        />
+        ) : 
+        (
+          logged ? <SignedInNavigator/> : <SignedOutNavigator />
+        )
+    }
+    </Provider>
+  );
 }
 
 const styles = StyleSheet.create({
@@ -41,3 +62,5 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
 });
+
+export default App;
