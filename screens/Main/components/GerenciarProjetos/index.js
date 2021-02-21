@@ -70,7 +70,7 @@ const GerenciarProjetos = () => {
       ) : (
         <>
           <View style={styles.projetosContainer}>
-              <AdicionarProjeto/>
+              <AdicionarProjeto setAddProject={setAddProject}/>
           </View>
         </>
       )

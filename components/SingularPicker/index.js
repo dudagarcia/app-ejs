@@ -10,7 +10,7 @@ import { ProfileStyles } from "../../screens/ViewProfile/ProfileStyles";
 
 const SingularPicker = props => {
     
-    const [status, setStatus] = useState("");
+    
     const [viewHeight, setViewHeight] = useState(containerHeight);
 
     const options = [
@@ -46,7 +46,7 @@ const SingularPicker = props => {
                     labelStyle={ProfileStyles.dropDownLabel}
                     selectedtLabelStyle={ProfileStyles.activeDataText}
                     activeLabelStyle={ProfileStyles.activeDataText}
-                    onChangeItem={(item) => setStatus(item.value)}
+                    onChangeItem={(item) => props.setStatus(item.value)}
                     dropDownMaxHeight={getDropDownMaxHeight(options)}
                     onOpen={
                     () =>

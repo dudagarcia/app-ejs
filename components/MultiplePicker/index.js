@@ -11,17 +11,8 @@ import { ProfileStyles } from "../../screens/ViewProfile/ProfileStyles";
 
 const MultiplePicker = props => {
 
-    const [members, setMembers] = useState([]);
     const [membersViewHeight, setMembersViewHeight] = useState(containerHeight);
-    const [activeMembers, setActiveMembers] = useState([]);
 
-    const people = [
-        { value: "fulaninho", label: "fulaninho" },
-        { value: "ciclaninho", label: "ciclaninho" },
-        { value: "duda", label: "duda" },
-        { value: "artur", label: "artur" },
-        { value: "alguem", label: "alguem" },
-    ];
     const getDropDownMaxHeight = (items) => {
         return (
           items.length * dropdownItemHeight + marginsBetweenElements
@@ -33,7 +24,7 @@ const MultiplePicker = props => {
         <View style={styles.body}>
             <View style={styles.picker}>
                 <DropDownPicker
-                    items={people}
+                    items={props.data}
                     multiple={true}
                     multipleText="%d diretores selecionados"
                     placeholder={props.placeholder}
@@ -45,11 +36,11 @@ const MultiplePicker = props => {
                     labelStyle={ProfileStyles.dropDownLabel}
                     selectedtLabelStyle={ProfileStyles.activeDataText}
                     activeLabelStyle={ProfileStyles.activeDataText}
-                    onChangeItem={(item) => setActiveMembers(item)}
-                    dropDownMaxHeight={getDropDownMaxHeight(people)}
+                    onChangeItem={(item) => props.setContributors(item)}
+                    dropDownMaxHeight={getDropDownMaxHeight(props.data)}
                     onOpen={() =>
                         setMembersViewHeight(
-                        getDropDownMaxHeight(people) + containerHeight
+                        getDropDownMaxHeight(props.data) + containerHeight
                     )
                     }
                     onClose={() => setMembersViewHeight(containerHeight)}
