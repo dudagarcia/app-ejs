@@ -15,42 +15,41 @@ import DropDownPicker from "react-native-dropdown-picker";
 import { TextInputMask } from "react-native-masked-text";
 import moment from "moment";
 import { ProfileStyles } from "../ViewProfile/ProfileStyles";
-import { containerHeight, maxDropDownItems, dropdownItemHeight, marginsBetweenElements, dateFormat, } from "../ViewProfile/ProfileConstants";
+import {
+  containerHeight,
+  maxDropDownItems,
+  dropdownItemHeight,
+  marginsBetweenElements,
+  dateFormat,
+} from "../ViewProfile/ProfileConstants";
 import ImagePicker from "./components/ImagePicker";
 import { connect } from "react-redux";
+import { updateUser } from "../../services/user";
 
 const EditProfileScreen = (props) => {
 
-  const [user, setUser] = useState(props.user)
+  // Profile of this user
+  const [user, setUser] = useState(props.user);
 
+  // User Info
   const [name, setName] = useState(user.name);
   const [email, setEmail] = useState(user.email);
   const [cellphone, setCellphone] = useState(String(user.phoneNumber));
-  const [birthday, setBirthday] = useState(moment(user.birthDate).format('DD/MM/YYYY'));
+  const [birthday, setBirthday] = useState(moment(user.birthDate).format("DD/MM/YYYY"));
   const [birthdayStyle, setBirthdayStyle] = useState(ProfileStyles.inactiveDataText);
   const [isValidBDay, setValidBDay] = useState(false);
-  const [age, setAge] = useState(moment(birthday).fromNow().split(' ', 1)[0]);
+  const [age, setAge] = useState(moment(birthday).fromNow().split(" ", 1)[0]);
   const [activeProjects, setActiveProjects] = useState([]);
-  const [department, setDepartment] = useState("");
+  const [section, setSection] = useState(user.sectionId);
+  const [role, setRole] = useState(user.roleId || 1);
   const [projectsViewHeight, setProjectsViewHeight] = useState(containerHeight);
   const [departmentViewHeight, setDepartmentViewHeight] = useState(containerHeight);
   const [profilePic, setProfilePic] = useState(images.simonAmazed.uri);
 
-  const departments = [
-    { value: "Projetos", label: "Projetos" },
-    { value: "Marketing", label: "Marketing" },
-    { value: "Vendas", label: "Vendas" },
-    { value: "Financas e Pessoas", label: "Finanças e Pessoas" },
-    { value: "Presidência", label: "Presidência" },
-  ];
+  // Dropdown Options
+  const [sections, setSections] = useState(props.sections.map(item => {return {value: item.id, label: item.name} }));
+  const [projects, setProjects] = useState(props.projects.active.map(item => {return {value: item.id, label: item.name} }));
 
-  const projects = [
-    { value: "App-EJs", label: "App-EJs" },
-    { value: "Doula", label: "Doula" },
-    { value: "Ecommerce", label: "Ecommerce" },
-    { value: "Estoque", label: "Estoque" },
-    { value: "Vidraceiros", label: "Vidraceiros" },
-  ];
 
   const getDropDownMaxHeight = (items) => {
     return items.length * dropdownItemHeight + marginsBetweenElements;
@@ -63,16 +62,34 @@ const EditProfileScreen = (props) => {
   };
 
   const verifyUser = () => {
-    if(props.otherUser) setUser(props.otherUser)
-    else setUser(props.user)
-  }
-  
-  useEffect(()=> {
-    BackHandler.addEventListener('hardwareBackPress',()=>{
+    if (props.otherUser) setUser(props.otherUser);
+    else setUser(props.user);
+  };
+
+  const handleUpdateUser = async () => {
+    
+    const userToUpdate = {
+      name: name, 
+      id: user.id, 
+      sectionId: section,
+      roleId: 1,
+      phoneNumber: Number(cellphone.replace('(','').replace(')','').replace('-','').replace(' ','')),
+      birthDate: moment(birthday).format('YYYY-MM-DD'),
+      email: email
+    }
+   const res = await updateUser(userToUpdate);
+    if(res.data.affectedRows === 1) {
       props.navigation.goBack();
-    })
-    verifyUser()
-  }, [])
+
+    } else console.log(res)
+  };
+
+  useEffect(() => {
+    BackHandler.addEventListener("hardwareBackPress", () => {
+      props.navigation.goBack();
+    });
+    verifyUser();
+  }, []);
 
   return (
     <View style={ProfileStyles.body}>
@@ -86,12 +103,9 @@ const EditProfileScreen = (props) => {
               />
             </View>
           </View>
-              <View style={ProfileStyles.imagePicker}>
-                <ImagePicker
-                  setImage={updImg}
-                  buttonIcon={images.cameraIcon.uri}
-                />
-              </View>
+          <View style={ProfileStyles.imagePicker}>
+            <ImagePicker setImage={updImg} buttonIcon={images.cameraIcon.uri} />
+          </View>
         </View>
         <View style={ProfileStyles.titleContainer}>
           <Text style={ProfileStyles.title}>Perfil</Text>
@@ -142,7 +156,9 @@ const EditProfileScreen = (props) => {
             </View>
 
             <View style={ProfileStyles.halfDataContainer}>
-              <Text style={birthdayStyle}>{isValidBDay ? `${age} anos` : "Idade"}</Text>
+              <Text style={birthdayStyle}>
+                {isValidBDay ? `${age} anos` : "Idade"}
+              </Text>
             </View>
           </View>
 
@@ -211,8 +227,8 @@ const EditProfileScreen = (props) => {
             }}
           >
             <DropDownPicker
-              items={departments}
-              defaultValue={department}
+              items={sections}
+              defaultValue={sections[0].value}
               placeholder="Setor atual"
               zIndex={4000}
               style={ProfileStyles.pickerStyle}
@@ -221,18 +237,22 @@ const EditProfileScreen = (props) => {
               labelStyle={ProfileStyles.dropDownLabel}
               selectedtLabelStyle={ProfileStyles.activeDataText}
               activeLabelStyle={ProfileStyles.activeDataText}
-              onChangeItem={(item) => setDepartment(item.value)}
-              dropDownMaxHeight={getDropDownMaxHeight(departments)}
+              onChangeItem={(item) => setSection(item.value)}
+              dropDownMaxHeight={getDropDownMaxHeight(sections)}
               onOpen={() =>
                 setDepartmentViewHeight(
-                  getDropDownMaxHeight(departments) + containerHeight
+                  getDropDownMaxHeight(sections) + containerHeight
                 )
               }
               onClose={() => setDepartmentViewHeight(containerHeight)}
             />
           </View>
           <View style={ProfileStyles.buttonsContainer}>
-            <TouchableOpacity onPress={() => {props.navigation.goBack();}}>
+            <TouchableOpacity
+              onPress={() => {
+                props.navigation.goBack();
+              }}
+            >
               <Image
                 source={images.logoutIcon.uri}
                 style={ProfileStyles.buttonIcon}
@@ -248,7 +268,7 @@ const EditProfileScreen = (props) => {
                 backgroundColor: "#1A0387",
                 borderRadius: 67,
               }}
-              onPress={() => { }}
+              onPress={handleUpdateUser}
             >
               <View>
                 <Text
@@ -277,8 +297,10 @@ const EditProfileScreen = (props) => {
   );
 };
 
-const mapStateToProps = (state) =>( {
-  user: state.user
+const mapStateToProps = (state) => ({
+  user: state.user,
+  sections: state.sections,
+  projects: state.projects
 });
 
 export default connect(mapStateToProps)(EditProfileScreen);

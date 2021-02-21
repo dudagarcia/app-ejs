@@ -10,6 +10,11 @@ export const createUser = async (data) => {
     return await api.post("/user/create", data);
 }
 
+export const updateUser = async (data) => {
+
+    return await api.post("/user/update", data);
+}
+
 export const listAllUsers = async () => {
 
     return await api.post("/user/listAll");

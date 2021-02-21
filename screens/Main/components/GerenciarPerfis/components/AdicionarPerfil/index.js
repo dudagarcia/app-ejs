@@ -21,6 +21,7 @@ const AdicionarPerfil = props => {
       password: password
     }
     const response = await createUser(userInfo);
+    console.log(response)
     if(response.data.affectedRows === 1){
       setSuccess(true);
       props.setAddProfile(false);

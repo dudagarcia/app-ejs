@@ -1,18 +1,11 @@
 import api from './api';
 
-export const createProject = async (data) => {
-    return await api.post("/projects/create", data);
+export const listActiveProjects = async () => {
+
+    return await api.post("/projects/list", {status: true});
 }
 
-export const updateProject = async (data) => {
-    return await api.put("/projects/update", data);
-}
+export const listNotActiveProjects = async () => {
 
-const listProjects = async => {
-    return api.get("/projects/list")
-            .then((response) => doAlgo(response.data))
-            .catch((err) => {
-            console.error("erro select user" + err);
-        }); 
+    return await api.post("/projects/list", {status: false});
 }
-

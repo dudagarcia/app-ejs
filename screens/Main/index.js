@@ -3,6 +3,8 @@ import { StyleSheet, View, Text, Image, Animated, ImageBackground, Dimensions, B
 import { colors, images, screenSize} from '../../constants';
 import { MenuItem, BackContent } from "./components";
 import { createUser, listAllUsers, searchUserById } from '../../services/user';
+import { listAllSections } from '../../services/section';
+import { listActiveProjects, listNotActiveProjects } from '../../services/project';
 import { isSignedIn, onSignOut } from '../../services/auth';
 import { useEffect } from "react";
 import { connect, useDispatch } from 'react-redux';
@@ -56,6 +58,17 @@ const MainScreen = (props) => {
     dispatch({ type: ActionTypes.ADD_ALL_USER, payload: {allUsers: data, mySection: data.filter(filterByRole)}});
   }
 
+  const searchAllSections = async () => {
+    const { data } = await listAllSections();
+    dispatch({ type: ActionTypes.ADD_SECTIONS, payload: data});
+  }
+
+  const searchAllProjects = async () => {
+    const active = await listActiveProjects();
+    const notActive = await listNotActiveProjects();
+    dispatch({ type: ActionTypes.ADD_PROJECT, payload: { active: active.data, notActive: notActive.data}});
+  }
+
 
   useEffect(()=>{
     BackHandler.addEventListener('hardwareBackPress',()=>{
@@ -63,6 +76,8 @@ const MainScreen = (props) => {
     })
     searchLoggedUser();
     searchAllUsers();
+    searchAllSections();
+    searchAllProjects();
   },[])
 
   return (
@@ -285,7 +300,9 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => ({
   user: state.user,
-  users: state.users
+  users: state.users,
+  sections: state.sections,
+  projects: state.projects
 });
 
 export default connect(mapStateToProps)(MainScreen);
