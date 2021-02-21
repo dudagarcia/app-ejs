@@ -28,12 +28,14 @@ const AdicionarProjeto = props => {
     const response = await createProject(projectInfo);
     if(response.data.affectedRows === 1){
       setSuccess(true);
-      props.setAddProject();
+      props.setAddProject(false);
     }
     else{
       setError(true);
     }
   }
+
+  const data = ['Ativo', 'Inativo'];
 
   return (
     <View style={styles.container}>
@@ -44,7 +46,7 @@ const AdicionarProjeto = props => {
         placeholder="Selecionar Participantes"
         setContributors={setContributors}
       />
-      <SingularPicker placeholder="Status do Projeto" setStatus={setStatus}/>
+      <SingularPicker data={data} placeholder="Status do Projeto" setPicker={setStatus}/>
       <InputProfile style={styles.input} text='Descrição do projeto' onChangeText={text => setDescription(text)}/>
       <BlueButton title="Salvar" style={styles.button} onPress={() => sendForm()}/>
     </View>

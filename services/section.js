@@ -1,8 +1,12 @@
 import api from './api';
 
-const response = await api.post("/section/create", { name, description });
+export const createSection = async (data) =>{
+    return await api.post("/section/create", data);
+}
 
-const response2 = await api.put("/section/update", { name, description, id });
+export const updateSection = async (data) => {
+    return await api.put("/section/update", data);
+}
 
 api.delete("/section/delete", { id });
 
