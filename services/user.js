@@ -1,19 +1,13 @@
 import api from './api';
 
-api.get("/user/login")
-    .then((response) => doSomething(response.data))
-    .catch((err) => {
-        console.error("erro login" + err);
-    });
-    
 export const loginUser = async (data) => {
 
     return await api.post("/user/login", data);
 }
 
-export const createUser = async () => {
+export const createUser = async (data) => {
 
-    return await api.post("/user/create", { email: "EMAIL@teste", password: "SENHA@teste", admin: true });
+    return await api.post("/user/create", data);
 }
 
 export const listAllUsers = async () => {
