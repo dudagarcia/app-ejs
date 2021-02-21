@@ -1,6 +1,10 @@
 import api from './api';
 
-const createProject = await api.post("/projects/create", { name, contributors, status, description });
+export const createProject = async (data) => {
+    return await api.post("/projects/create", data);
+}
+
+export const createProject = await api.post("/projects/create", { name, contributors, status, description });
 
 const updateProject = await api.put("/projects/update", { name, contributors, status, description, id });
 

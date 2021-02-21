@@ -5,7 +5,13 @@ import Colors from '../../constants/colors';
 const InputProfile = props => {
     return(
         <View style={{...props.style, ...styles.container}}>
-            <TextInput placeholder={props.text} placeholderTextColor={Colors.mediumBlue} style={styles.placeholder}/> 
+            <TextInput 
+                placeholder={props.text} 
+                placeholderTextColor={Colors.mediumBlue} 
+                style={styles.placeholder} 
+                onChangeText={props.onChangeText}
+                secureTextEntry={props.password}
+            /> 
         </View>
     );
 };

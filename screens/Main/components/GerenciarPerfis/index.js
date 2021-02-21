@@ -8,7 +8,7 @@ import { listAllUsers } from '../../../../services/user';
 import { useEffect } from "react";
 
 
-const GerenciarPerfis = () => {
+const GerenciarPerfis = props => {
 
   const [addProfile, setAddProfile] = useState(false);
   const [allUsers, setAllUsers] = useState();
@@ -46,7 +46,7 @@ const GerenciarPerfis = () => {
         ) : (
           <>
             <View>
-              <AdicionarPerfil />
+              <AdicionarPerfil setAddProfile={setAddProfile}/>
             </View>
           </>
         )
