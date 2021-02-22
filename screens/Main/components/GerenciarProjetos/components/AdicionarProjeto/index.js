@@ -7,15 +7,16 @@ import { createProject } from '../../../../../../services/project';
 
 const AdicionarProjeto = props => {
   
+  const [allUsers, setAllUsers] = useState(props.users.allUsers.map(item => {return {value: item.id, label: item.name || item.email} }));
   const [name, setName] = useState(null);
   const [contributors, setContributors] = useState([]);
-  const [status, setStatus] = useState("");
+  const [status, setStatus] = useState(1);
   const [description, setDescription] = useState(null);
   const [loading, isLoading] = useState(false);
   const [error, setError] = useState(false);
   const [success, setSuccess] = useState(false);
 
-
+  console.log(contributors)
   const sendForm = async () => { 
     isLoading(true);
     const projectInfo = {
@@ -28,25 +29,30 @@ const AdicionarProjeto = props => {
     const response = await createProject(projectInfo);
     if(response.data.affectedRows === 1){
       setSuccess(true);
-      props.setAddProject();
+      props.setAddProject(false);
     }
     else{
       setError(true);
     }
   }
 
+  const data = [
+    { value: 1, label: 'Ativo'},
+    { value: 0, label: 'Inativo'}
+  ];
+
   return (
     <View style={styles.container}>
       <InputProfile style={styles.input} text='Nome do projeto' onChangeText={text => setName(text)}/>
       <MultiplePicker 
-        data={props.users.allUsers} 
+        data={allUsers} 
         style={styles.dropdown} 
         placeholder="Selecionar Participantes"
         setContributors={setContributors}
       />
-      <SingularPicker placeholder="Status do Projeto" setStatus={setStatus}/>
+      <SingularPicker data={data} placeholder="Status do Projeto" setPicker={setStatus} status={status}/>
       <InputProfile style={styles.input} text='Descrição do projeto' onChangeText={text => setDescription(text)}/>
-      <BlueButton title="Salvar" style={styles.button} onPress={() => sendForm()}/>
+      <BlueButton title="Salvar" style={styles.button} onPress={sendForm}/>
     </View>
 
   );

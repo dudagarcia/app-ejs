@@ -4,3 +4,10 @@ export const listAllSections = async () => {
 
     return await api.post("/section/list");
 }
+export const createSection = async (data) =>{
+    return await api.post("/section/create", data);
+}
+
+export const updateSection = async (data) => {
+    return await api.put("/section/update", data);
+}

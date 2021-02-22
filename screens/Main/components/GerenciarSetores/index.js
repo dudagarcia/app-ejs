@@ -43,7 +43,7 @@ const GerenciarSetores = props => {
                 ) : (
                     <>
                     <View>
-                        <AdicionarSetor/>
+                        <AdicionarSetor setAddSetor={setAddSetor}/>
                     </View>
                     </>
                 )

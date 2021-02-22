@@ -25,6 +25,7 @@ import {
 import ImagePicker from "./components/ImagePicker";
 import { connect } from "react-redux";
 import { updateUser } from "../../services/user";
+import { updateProject } from "../../services/project";
 
 const EditProfileScreen = (props) => {
 
@@ -47,9 +48,12 @@ const EditProfileScreen = (props) => {
   const [profilePic, setProfilePic] = useState(images.simonAmazed.uri);
 
   // Dropdown Options
-  const [sections, setSections] = useState(props.sections.map(item => {return {value: item.id, label: item.name} }));
-  const [projects, setProjects] = useState(props.projects.active.map(item => {return {value: item.id, label: item.name} }));
+  const [sections, setSections] = useState(props.sections.map(item => {return {value: item.id, label: item.name, selected: item.id === user.sectionId} }));
+  const [projects, setProjects] = useState(props.projects.active.map(getActiveProjects));
 
+  function getActiveProjects (item) {
+     return {value: item.id, label: item.name, selected: item.contributors.includes(`${user.id}`)}
+  }
 
   const getDropDownMaxHeight = (items) => {
     return items.length * dropdownItemHeight + marginsBetweenElements;
@@ -82,7 +86,24 @@ const EditProfileScreen = (props) => {
       props.navigation.goBack();
 
     } else console.log(res)
+
+    handleAddProject()
   };
+
+  const handleAddProject = async () => {
+    activeProjects.map(async item => {
+      const proj = projects.filter(i => i.id === item)
+      const projectToUpdate = {
+        name: proj[0].name,
+        status: proj[0].status,
+        id: proj[0].id,
+        description: proj[0].description,
+        contributors: (proj[0].contributors)+`,${props.user.id}`
+      }
+       const res = await updateProject(projectToUpdate);
+    })
+
+  }
 
   useEffect(() => {
     BackHandler.addEventListener("hardwareBackPress", () => {

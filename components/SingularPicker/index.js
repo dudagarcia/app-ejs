@@ -13,10 +13,6 @@ const SingularPicker = props => {
     
     const [viewHeight, setViewHeight] = useState(containerHeight);
 
-    const options = [
-        { value: "Ativo", label: "Ativo" },
-        { value: "Inativo", label: "Inativo" },
-      ];
 
     const getDropDownMaxHeight = (items) => {
         return (
@@ -36,8 +32,8 @@ const SingularPicker = props => {
                 }}
             >
                 <DropDownPicker
-                    items={options}
-                    defaultValue={status}
+                    items={props.data}
+                    defaultValue={props.status}
                     placeholder={props.placeholder}
                     zIndex={4000}
                     style={ProfileStyles.pickerStyle}
@@ -46,12 +42,12 @@ const SingularPicker = props => {
                     labelStyle={ProfileStyles.dropDownLabel}
                     selectedtLabelStyle={ProfileStyles.activeDataText}
                     activeLabelStyle={ProfileStyles.activeDataText}
-                    onChangeItem={(item) => props.setStatus(item.value)}
-                    dropDownMaxHeight={getDropDownMaxHeight(options)}
+                    onChangeItem={(item) => props.setPicker(item.value)}
+                    dropDownMaxHeight={getDropDownMaxHeight(props.data)}
                     onOpen={
                     () =>
                         setViewHeight(
-                        getDropDownMaxHeight(options) + containerHeight
+                        getDropDownMaxHeight(props.data) + containerHeight
                         )
                     }
                     onClose={() => setViewHeight(containerHeight)}
