@@ -1,14 +1,15 @@
 import React from 'react';
 import { View, ScrollView, StyleSheet } from 'react-native';
 import { CardProjeto } from '../index';
+import { connect } from 'react-redux';
 
 // import { Container } from './styles';
 
-const Arquivados = ({projetos}) => {
+const Arquivados = props => {
   return (
     <ScrollView style={styles.container}>
     {
-      projetos.map((projeto)=>{
+      props.projects.notActive.map((projeto)=>{
         return <CardProjeto projeto={projeto}/>
       })
     }
@@ -16,10 +17,14 @@ const Arquivados = ({projetos}) => {
   );
 }
 
+const mapStateToProps = (state) => ({
+  projects: state.projects
+});
+
 const styles = StyleSheet.create({
     container:{
     }
 });
 
 
-export default Arquivados;
+export default connect(mapStateToProps)(Arquivados);

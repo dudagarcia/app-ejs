@@ -1,19 +1,25 @@
 import React from "react";
 import { ScrollView, StyleSheet } from "react-native";
 import { CardProjeto } from "../index";
+import { connect } from 'react-redux';
 
-const Ativos = ({ projetos }) => {
+const Ativos = props => {
+
   return (
     <ScrollView style={styles.container}>
-      {projetos.map((projeto) => {
+      {props.projects.active.map((projeto) => {
         return <CardProjeto projeto={projeto} />;
       })}
     </ScrollView>
   );
 };
 
+const mapStateToProps = (state) => ({
+  projects: state.projects
+});
+
 const styles = StyleSheet.create({
   container: {},
 });
 
-export default Ativos;
+export default connect(mapStateToProps)(Ativos);

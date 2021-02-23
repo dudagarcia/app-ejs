@@ -1,30 +1,13 @@
 import React, { useState } from 'react';
 import { View, StyleSheet, Text, ScrollView } from 'react-native';
 import { BlueButton, BlueTitle, InputProfile } from '../../../../components';
-import { AdicionarSetor } from './components';
+import { AdicionarSetor, CardSetor } from './components';
 import { CardPerfil } from '../GerenciarPerfis/components';
+import { connect } from 'react-redux';
 
 const GerenciarSetores = props => {
     const [addSetor, setAddSetor] = useState(false);
-
-    const setores = [
-        {
-            id: 1,  nome: 'PROJETOS'
-        },
-        {
-            id: 2,  nome: 'MARKETING'
-        },
-        {
-            id: 3,  nome: 'FINANÇAS E PESSOAS'
-        },
-        {
-            id: 4,  nome: 'VENDAS'
-        },
-        {
-            id: 5,  nome: 'DIRETORIA'
-        },
-    ]
-
+    
     return(
         <View style={styles.body}>
             <BlueTitle style={styles.title} title="Gerenciar Setores"/>
@@ -33,7 +16,7 @@ const GerenciarSetores = props => {
                     <>
                     <View style={styles.container}>
                         <ScrollView style={styles.listContainer}>
-                            {   setores.map((setor)=>{  return <CardPerfil perfil={setor}/> })  }
+                            {   props.sections.map((setor)=>{  return <CardPerfil perfil={setor}/> })  }
                         </ScrollView>
                         <View style={styles.buttonContainer}>
                             <BlueButton title="Novo Setor" onPress={() => { setAddSetor(true)}}/>
@@ -52,6 +35,10 @@ const GerenciarSetores = props => {
     );
 };
 
+const mapStateToProps = (state) => ({
+    sections: state.sections
+})
+
 const styles = StyleSheet.create({
     body:{
         flexDirection: 'column',
@@ -69,4 +56,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default GerenciarSetores;
+export default connect(mapStateToProps)(GerenciarSetores);

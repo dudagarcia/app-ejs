@@ -3,15 +3,15 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import colors from '../../../../../../constants/colors';
 import { ModalDetails } from '../../../../../../components';
 
-const CardProjeto = ({ projeto }) => {
+const CardSetor = ({props}) => {
 
     const [modalVisible, setModalVisible] = useState(false);
     
     return (
       <TouchableOpacity style={styles.container}  onPress={() => {setModalVisible(true)}}>
-        <ModalDetails text={"Novo projeto adicionado!"} visible={modalVisible}/>
+        <ModalDetails text={"Novo setor adicionado!"} visible={modalVisible}/>
         <View style={styles.circulo}/>
-        <Text style={styles.name}>{projeto.name}</Text>
+        <Text style={styles.name}>{props.name}</Text>
       </TouchableOpacity>
     );
   };
@@ -38,5 +38,5 @@ const CardProjeto = ({ projeto }) => {
     },
   });
   
-  export default CardProjeto;
+  export default CardSetor;
   
