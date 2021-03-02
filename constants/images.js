@@ -139,4 +139,7 @@ export default {
     uri: require("../assets/images/cameraIcon.png"),
   },
 
+  simonSad: {
+    uri: require("../assets/images/simonSad.png"),
+  },
 };
