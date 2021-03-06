@@ -14,6 +14,14 @@ const MinhasTarefas = (props) => {
         setModalAddTarefaVisible(false);
     }
 
+    const getTarefas = async () => {
+        
+    }
+
+    useEffect(()=>{
+
+    },[])
+
     return (
         <>
             <ModalAddTarefa 

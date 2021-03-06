@@ -9,3 +9,8 @@ export const updateTask = async (data) => {
 
     return await api.post("/tasks/update", data);
 }
+
+export const getMyTasks = async (data) => {
+
+    return await api.post("/tasks/get", data);
+}

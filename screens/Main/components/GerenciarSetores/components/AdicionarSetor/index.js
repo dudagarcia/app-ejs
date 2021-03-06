@@ -29,7 +29,6 @@ const AdicionarSetor = props => {
         }
     }
     
-    console.log(users)
     return (
         <View style={styles.view}>
             <InputProfile text="Nome do setor" style={styles.input} onChangeText={text => setName(text)}/>
