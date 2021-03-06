@@ -42,7 +42,7 @@ const AdicionarSetor = props => {
         onChangeText={(text) => setName(text)}
       />
       <SingularPicker
-        data={props.users.allUsers}
+        data={users}
         placeholder="Selecionar Diretor"
         setPicker={setManager}
       />
