@@ -1,41 +1,62 @@
 import React from "react";
 import { View, Text, StyleSheet, Image } from "react-native";
-import MainButton from "../../components/MainButton";
-import Title from "../../components/Title";
-import LogoImage from "../../components/LogoImage";
+import { useState } from "react";
 import Colors from "../../constants/colors";
-import EmailCode from "../../components/EmailCode";
-import { CodeFeedback } from "./components";
 import Images from "../../constants/images";
+import { MainButton, LogoImage, EmailCode, Title } from "../../components";
 
 const CodeRecoveryScreen = (props) => {
+  const [content, setContent] = useState(
+    <Title style={styles.text}> Digite o código enviado </Title>
+  );
+
   var randomNumber = Math.floor(Math.random() * 999999) + 100000;
   console.log(randomNumber);
 
-  function checkCode(check) {
-    if (check) {
-      /*<View style={styles.body_correct}> 
-                <Text style={styles.text_codeFeedback}>Código correto!</Text>
-                <Image style={styles.image_codeFeedback} source={Images.simonSmile.uri}/>
-            </View>*/
-      <CodeFeedback correct={true} />;
+  const setResponse = (correct) => {
+    if (correct > 0) {
+      setContent(
+        <View style={styles.bodyCorrect}>
+          <Text style={styles.textCodeFeedback}>Código correto!</Text>
+          <Image
+            style={styles.imageCodeFeedback}
+            source={Images.simonSmile.uri}
+          />
+        </View>
+      );
+    } else {
+      setContent(
+        <View style={{ ...styles.bodyCorrect, ...styles.bodyIncorrect }}>
+          <Text style={styles.textCodeFeedback}>Código incorreto!</Text>
+          <Image
+            style={styles.imageCodeFeedback}
+            source={Images.simonIrritado.uri}
+          />
+        </View>
+      );
+    }
+  };
+
+  const checkCode = (check) => {
+    console.log(check);
+    setResponse(check);
+    if (check > 0) {
       setTimeout(() => {
         props.navigation.navigate({ routeName: "ResetPassword" });
       }, 2000);
     }
-    if (!check) {
-      <CodeFeedback correct={false} />;
-    }
-  }
+  };
 
   return (
     <View style={styles.body}>
       <LogoImage style={styles.logo} />
-      <Title style={styles.text}> Digite o código enviado </Title>
+      <View style={styles.contentContainer}>{content}</View>
       <EmailCode />
       <MainButton
         style={styles.button}
-        onPress={() => checkCode(true)}
+        onPress={() => {
+          checkCode(1);
+        }}
         title="Verificar"
       />
     </View>
@@ -49,19 +70,26 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     alignItems: "center",
   },
+  contentContainer: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "center",
+  },
   logo: {
-    marginTop: 90,
-    marginBottom: 70,
+    marginTop: 60,
+    marginBottom: 20,
   },
   text: {
-    marginTop: 80,
-    marginBottom: 30,
+    marginTop: 40,
+    marginBottom: 20,
     fontFamily: "roboto-bold",
+    textAlign: "center",
   },
+
   button: {
-    marginTop: 220,
+    marginTop: 120,
   },
-  body_correct: {
+  bodyCorrect: {
     borderColor: "white",
     borderWidth: 3,
     borderRadius: 14,
@@ -72,16 +100,16 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginBottom: 120,
   },
-  body_incorrect: {
+  bodyIncorrect: {
     backgroundColor: "red",
   },
-  text_codeFeedback: {
+  textCodeFeedback: {
     fontFamily: "roboto-bold",
     color: "white",
     textAlign: "center",
     fontSize: 26,
   },
-  image_codeFeedback: {
+  imageCodeFeedback: {
     width: 85,
     height: 94,
     marginTop: 20,
