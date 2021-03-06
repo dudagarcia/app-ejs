@@ -7,12 +7,12 @@ import thunk from 'redux-thunk';
 
 export default createStore(
 
-        combineReducers({
-            user: userReducer,
-            users: allUsersReducer,
-            sections: sectionsReducer,
-            projects: projectsReducer
-            
-        }), applyMiddleware(thunk)
+    combineReducers({
+        user: userReducer,
+        users: allUsersReducer,
+        sections: sectionsReducer,
+        projects: projectsReducer
+
+    }), applyMiddleware(thunk)
 
 );

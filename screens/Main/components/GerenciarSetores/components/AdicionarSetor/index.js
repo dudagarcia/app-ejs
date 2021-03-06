@@ -10,12 +10,14 @@ import {
 import { connect } from "react-redux";
 import { createSection } from "../../../../../../services/section";
 
-const AdicionarSetor = (props) => {
-  const [name, setName] = useState("");
-  const [manager, setManager] = useState("");
-  const [loading, isLoading] = useState(false);
-  const [error, setError] = useState(false);
-  const [success, setSuccess] = useState(false);
+const AdicionarSetor = props => {
+    
+    const [name, setName] = useState("");
+    const [manager, setManager] = useState("");
+    const [loading, isLoading] = useState(false);
+    const [error, setError] = useState(false);
+    const [success, setSuccess] = useState(false);
+    const [users, setUsers] = useState(props.users.allUsers.map(item => {return {value: item.id, label: item.name || item.email} }));
 
   const sendForm = async () => {
     isLoading(true);
