@@ -1,26 +1,31 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { View, Text, StyleSheet, Modal } from "react-native";
 import { colors, screenSize } from "../../../../constants";
 import { Tabs } from "../../../../components";
-import { ButtonConfig, MeuSetor, ModalCadastrarDisponibilidade, TodosOsMembros } from "./components";
+import {
+  ButtonConfig,
+  MeuSetor,
+  ModalCadastrarDisponibilidade,
+  TodosOsMembros,
+} from "./components";
 import { perfis } from "../../../../constants";
 import { BlueButton } from "../../../../components";
 
 const Disponibilidades = () => {
-
   const [modalVerificarOpen, setModalVerificarOpen] = useState(false);
   const [modalCadastrarOpen, setModalCadastrarOpen] = useState(false);
 
   return (
     <>
+      <Modal visible={modalVerificarOpen}>
+        <Text>AAA</Text>
+      </Modal>
 
-    <Modal visible={modalVerificarOpen}>
-      <Text>AAA</Text>
-    </Modal>
-
-      <ModalCadastrarDisponibilidade 
-        visible={modalCadastrarOpen} 
-        closeModal={()=>{setModalCadastrarOpen(false)}}
+      <ModalCadastrarDisponibilidade
+        visible={modalCadastrarOpen}
+        closeModal={() => {
+          setModalCadastrarOpen(false);
+        }}
       />
 
       <View style={styles.mainContainer}>
@@ -33,15 +38,23 @@ const Disponibilidades = () => {
             header2="Todos os Membros"
             content1={
               <MeuSetor
-                perfis={perfis.filter((perfil) => {return perfil.id > 4;})}
+                perfis={perfis.filter((perfil) => {
+                  return perfil.id > 4;
+                })}
               />
             }
             content2={<TodosOsMembros perfis={perfis} />}
           />
         </View>
         <View style={styles.buttonContainer}>
-          <BlueButton title="Conferir" />
-          <ButtonConfig onPress={()=>{setModalCadastrarOpen(true)}}/>
+          <BlueButton onPress={() => {}}>
+            {<Text style={styles.buttonText}>Conferir</Text>}
+          </BlueButton>
+          <ButtonConfig
+            onPress={() => {
+              setModalCadastrarOpen(true);
+            }}
+          />
         </View>
       </View>
     </>
@@ -78,7 +91,14 @@ const styles = StyleSheet.create({
     marginTop: screenSize.height * 0.7,
     display: "flex",
     alignSelf: "center",
-    flexDirection: "row"
+    flexDirection: "row",
+  },
+  buttonText: {
+    color: "#ffffff",
+    fontFamily: "roboto-bold",
+    fontWeight: "700",
+    fontSize: 18,
+    alignItems: "center",
   },
 });
 

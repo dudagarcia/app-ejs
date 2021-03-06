@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 import { View, Text, StyleSheet, ActivityIndicator } from "react-native";
-import { InputProfile, BlueTitle, BlueButton } from "../../../../../../components";
-import { createUser } from '../../../../../../services/user';
-import { connect } from 'react-redux';
+import {
+  InputProfile,
+  BlueTitle,
+  BlueButton,
+} from "../../../../../../components";
+import { createUser } from "../../../../../../services/user";
+import { connect } from "react-redux";
 import { colors } from "../../../../../../constants";
 
-
-const AdicionarPerfil = props => {
-  
+const AdicionarPerfil = (props) => {
   const [loading, isLoading] = useState(false);
   const [error, setError] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -18,36 +20,50 @@ const AdicionarPerfil = props => {
     isLoading(true);
     const userInfo = {
       email: email,
-      password: password
-    }
+      password: password,
+    };
     const response = await createUser(userInfo);
-    console.log(response)
-    if(response.data.affectedRows === 1){
+    console.log(response);
+    if (response.data.affectedRows === 1) {
       setSuccess(true);
       props.setAddProfile(false);
-    }
-    else{
+    } else {
       setError(true);
     }
-  }
+  };
 
   return (
     <View style={styles.mainContainer}>
-      <InputProfile text="E-mail" style={styles.input} onChangeText={text => setEmail(text)}/>
-      <InputProfile text="Senha" style={styles.input} onChangeText={text => setPassword(text)} password={true}/>
+      <InputProfile
+        text="E-mail"
+        style={styles.input}
+        onChangeText={(text) => setEmail(text)}
+      />
+      <InputProfile
+        text="Senha"
+        style={styles.input}
+        onChangeText={(text) => setPassword(text)}
+        password={true}
+      />
       <View style={styles.buttonContainer}>
-        <BlueButton title="Adicionar" onPress={() => sendForm()} />
+        <BlueButton
+          onPress={() => {
+            sendForm();
+          }}
+        >
+          {<Text style={styles.buttonText}>Adicionar</Text>}
+        </BlueButton>
       </View>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
     flexDirection: "column",
     alignItems: "center",
-    marginTop: 40
+    marginTop: 40,
   },
   titleContainer: {
     display: "flex",
@@ -58,13 +74,21 @@ const styles = StyleSheet.create({
   input: {
     marginTop: 20,
   },
-  
+
   buttonContainer: {
-    position: 'absolute',
+    position: "absolute",
     marginTop: 455,
-    display: 'flex',
-    alignSelf: 'center'
-},
+    display: "flex",
+    alignSelf: "center",
+  },
+
+  buttonText: {
+    color: "#ffffff",
+    fontFamily: "roboto-bold",
+    fontWeight: "700",
+    fontSize: 18,
+    alignItems: "center",
+  },
 });
 
 export default AdicionarPerfil;

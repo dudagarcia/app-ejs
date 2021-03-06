@@ -1,46 +1,55 @@
 import React, { useState } from "react";
 import { View, Text, StyleSheet } from "react-native";
-import colors from '../../../../constants/colors';
-import { Tabs, BlueButton } from '../../../../components';
-import { MeuSetor, TodosOsMembros, AdicionarPerfil } from './components';
-import { perfis } from '../../../../constants';
-import { listAllUsers } from '../../../../services/user';
+import colors from "../../../../constants/colors";
+import { Tabs, BlueButton } from "../../../../components";
+import { MeuSetor, TodosOsMembros, AdicionarPerfil } from "./components";
+import { perfis } from "../../../../constants";
+import { listAllUsers } from "../../../../services/user";
 import { useEffect } from "react";
 import { connect } from "react-redux";
 
-
-const GerenciarPerfis = props => {
-
+const GerenciarPerfis = (props) => {
   const [addProfile, setAddProfile] = useState(false);
   const [loading, setLoading] = useState();
-
 
   return (
     <View style={styles.mainContainer}>
       <View style={styles.titleContainer}>
         <Text style={styles.title}>Gerenciar Perfis</Text>
       </View>
-      {
-        !addProfile ? (
-          <>
-            <View style={styles.membrosContainer}>
-              <Tabs
-                header1='Meu Setor'
-                header2='Todos os Membros'
-                content1={<MeuSetor perfis={props.users.mySection} loading={loading}/>}
-                content2={<TodosOsMembros perfis={props.users.allUsers} loading={loading}/>}
-              />
-            </View>
-            <BlueButton style={styles.button} title="Adicionar Perfil" onPress={() => {setAddProfile(true)}}/>
-          </>
-        ) : (
-          <>
-            <View>
-              <AdicionarPerfil setAddProfile={setAddProfile}/>
-            </View>
-          </>
-        )
-      }
+      {!addProfile ? (
+        <>
+          <View style={styles.membrosContainer}>
+            <Tabs
+              header1="Meu Setor"
+              header2="Todos os Membros"
+              content1={
+                <MeuSetor perfis={props.users.mySection} loading={loading} />
+              }
+              content2={
+                <TodosOsMembros
+                  perfis={props.users.allUsers}
+                  loading={loading}
+                />
+              }
+            />
+          </View>
+          <BlueButton
+            style={styles.button}
+            onPress={() => {
+              setAddProfile(true);
+            }}
+          >
+            {<Text style={styles.buttonText}>Adicionar Perfil</Text>}
+          </BlueButton>
+        </>
+      ) : (
+        <>
+          <View>
+            <AdicionarPerfil setAddProfile={setAddProfile} />
+          </View>
+        </>
+      )}
     </View>
   );
 };
@@ -70,15 +79,24 @@ const styles = StyleSheet.create({
     alignContent: "flex-start",
     alignItems: "center",
   },
-  button:{
+
+  button: {
     marginTop: 30,
-    marginBottom: -70
-  }
+    marginBottom: -70,
+  },
+
+  buttonText: {
+    color: "#ffffff",
+    fontFamily: "roboto-bold",
+    fontWeight: "700",
+    fontSize: 18,
+    alignItems: "center",
+  },
 });
 
 const mapStateToProps = (state) => ({
-    users: state.users,
-    user: state.user
+  users: state.users,
+  user: state.user,
 });
 
 export default connect(mapStateToProps)(GerenciarPerfis);

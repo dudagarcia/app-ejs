@@ -1,12 +1,16 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import colors from "../../../../constants/colors";
-import { BlueButton, Tabs } from "../../../../components";
-import { AdicionarProjeto, Arquivados, Ativos, CardProjeto } from "./components";
+import { Tabs, BlueButton } from "../../../../components";
+import {
+  AdicionarProjeto,
+  Arquivados,
+  Ativos,
+  CardProjeto,
+} from "./components";
 import { useState } from "react";
 
 const GerenciarProjetos = () => {
-
   const [addProject, setAddProject] = useState(false);
 
   const projetos = [
@@ -52,29 +56,45 @@ const GerenciarProjetos = () => {
       <View style={styles.titleContainer}>
         <Text style={styles.title}>Gerenciar Projetos</Text>
       </View>
-      {
-      !addProject ? (
+      {!addProject ? (
         <>
           <View style={styles.projetosContainer}>
             <Tabs
               header1="Ativos"
               header2="Arquivados"
-              content1={<Ativos projetos={projetos.filter((proj) => {return proj.ativo;})}/>}
-              content2={<Arquivados projetos={projetos.filter((proj) => {return !proj.ativo;})}/>}
+              content1={
+                <Ativos
+                  projetos={projetos.filter((proj) => {
+                    return proj.ativo;
+                  })}
+                />
+              }
+              content2={
+                <Arquivados
+                  projetos={projetos.filter((proj) => {
+                    return !proj.ativo;
+                  })}
+                />
+              }
             />
           </View>
           <View style={styles.buttonContainer}>
-            <BlueButton title="Adicionar Projeto" onPress={()=>setAddProject(true)}/>
+            <BlueButton
+              onPress={() => {
+                setAddProject(true);
+              }}
+            >
+              {<Text style={styles.buttonText}>Adicionar Projeto</Text>}
+            </BlueButton>
           </View>
         </>
       ) : (
         <>
           <View style={styles.projetosContainer}>
-              <AdicionarProjeto setAddProject={setAddProject}/>
+            <AdicionarProjeto setAddProject={setAddProject} />
           </View>
         </>
-      )
-      }
+      )}
     </View>
   );
 };
@@ -110,6 +130,14 @@ const styles = StyleSheet.create({
     marginTop: 515,
     display: "flex",
     alignSelf: "center",
+  },
+
+  buttonText: {
+    color: "#ffffff",
+    fontFamily: "roboto-bold",
+    fontWeight: "700",
+    fontSize: 18,
+    alignItems: "center",
   },
 });
 
