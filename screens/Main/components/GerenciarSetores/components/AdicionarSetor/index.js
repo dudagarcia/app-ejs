@@ -11,6 +11,7 @@ const AdicionarSetor = props => {
     const [loading, isLoading] = useState(false);
     const [error, setError] = useState(false);
     const [success, setSuccess] = useState(false);
+    const [users, setUsers] = useState(props.users.allUsers.map(item => {return {value: item.id, label: item.name || item.email} }));
 
     const sendForm = async () => {
         isLoading(true);
@@ -28,10 +29,11 @@ const AdicionarSetor = props => {
         }
     }
     
+    console.log(users)
     return (
         <View style={styles.view}>
             <InputProfile text="Nome do setor" style={styles.input} onChangeText={text => setName(text)}/>
-            <SingularPicker data={props.users.allUsers} placeholder="Selecionar Diretor" setPicker={setManager}/>
+            <SingularPicker data={users} placeholder="Selecionar Diretor" setPicker={setManager}/>
             <BlueButton style={styles.button} title="Salvar" onPress={() => sendForm()}/>
         </View>
     );
