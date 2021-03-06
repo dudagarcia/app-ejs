@@ -21,6 +21,7 @@ const ModalAddTarefa = (props) => {
     const [users, setUsers] = useState([]);
 
     console.log(props.user.id)
+    console.log(users)
 
     const handleCreateTask = async () => {
         props.closeModal();
