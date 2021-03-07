@@ -11,3 +11,8 @@ export const updateTask = async(data) => {
 export const listDone = async(data) => {
     return await api.post("/tasks/listDone");
 }
+
+export const getMyTasks = async (data) => {
+
+    return await api.post("/tasks/get", data);
+}
