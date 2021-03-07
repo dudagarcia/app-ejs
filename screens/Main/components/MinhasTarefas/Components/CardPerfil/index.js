@@ -47,13 +47,6 @@ const CardPerfil = ({ perfil, onSelect, onRemove }) => {
 };
 
 const styles = StyleSheet.create({
-  image: {
-    width: 33,
-    height: 33,
-    borderRadius: 25,
-    borderWidth: 2,
-    borderColor: colors.lighterBlue,
-  },
   container: {
     flexDirection: "row",
     height: 40,

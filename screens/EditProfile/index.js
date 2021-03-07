@@ -70,6 +70,8 @@ const EditProfileScreen = (props) => {
     else setUser(props.user);
   };
 
+  console.log(props.user.photo)
+
   const handleUpdateUser = async () => {
     
     const userToUpdate = {
