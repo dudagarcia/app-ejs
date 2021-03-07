@@ -62,6 +62,10 @@ const EditProfileScreen = (props) => {
   const updImg = (newImage) => {
     if (!newImage.cancelled) {
       setProfilePic(newImage);
+      const imageFile = await imageToBlob(newImage);
+      const formData = new FormData();
+      formData.append('imageFile', imageFile);
+      handleUpdateUser(formData);
     }
   };
 
@@ -70,7 +74,7 @@ const EditProfileScreen = (props) => {
     else setUser(props.user);
   };
 
-  const handleUpdateUser = async () => {
+  const handleUpdateUser = async (formData) => {
     
     const userToUpdate = {
       name: name, 
@@ -79,13 +83,15 @@ const EditProfileScreen = (props) => {
       roleId: 1,
       phoneNumber: Number(cellphone.replace('(','').replace(')','').replace('-','').replace(' ','')),
       birthDate: moment(birthday).format('YYYY-MM-DD'),
-      email: email
+      email: email,
+      photo: formData
     }
    const res = await updateUser(userToUpdate);
+   console.log(res);
     if(res.data.affectedRows === 1) {
       props.navigation.goBack();
-
-    } else console.log(res)
+      console.log("sim");
+    } else console.log("nao");
 
     handleAddProject()
   };

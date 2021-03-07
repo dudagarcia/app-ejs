@@ -43,6 +43,8 @@ const ImagePickerComponent = (props) => {
     return false;
   };
 
+ 
+
   return (
     <TouchableOpacity
       onPress={takeImageHandler}
