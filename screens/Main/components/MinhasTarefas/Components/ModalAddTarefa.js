@@ -20,8 +20,7 @@ const ModalAddTarefa = (props) => {
     const [hour, setHour] = useState([]);
     const [users, setUsers] = useState([]);
 
-    console.log(props.user.id)
-    console.log(users)
+    console.log(day)
 
     const handleCreateTask = async () => {
         props.closeModal();
@@ -29,7 +28,7 @@ const ModalAddTarefa = (props) => {
         const taskToCreate = {
             name: name,
             details: details,
-            date: day || '0000-00-00',
+            date: moment(day) || '0000-00-00',
             repetition: repetition,
             contributors: users || '',
             done: false,
@@ -91,6 +90,10 @@ const ModalAddTarefa = (props) => {
                                 onPress={()=>setAddUsersVisible(true)}
                             />
                         </View>
+                        <TextButton 
+                            title='Cancelar'
+                            onPress={props.closeModal} 
+                        />
                         <TextButton 
                             title='Salvar'
                             onPress={handleCreateTask} 

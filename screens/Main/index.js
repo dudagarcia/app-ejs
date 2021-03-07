@@ -19,7 +19,6 @@ const MainScreen = (props) => {
   const [selectedMenuItem, setSelectedMenuItem] = useState("");
   const [loading, setLoading] = useState(false);
 
-
   const smallMenuAnimation = (itemName) => {
     Animated.timing(menuPositionX, {
       toValue: (-0.76)*screenSize.width,

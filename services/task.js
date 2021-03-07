@@ -14,5 +14,5 @@ export const listDone = async(data) => {
 
 export const getMyTasks = async (data) => {
 
-    return await api.post("/tasks/get", data);
+    return await api.post("/tasks/list", data);
 }

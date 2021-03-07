@@ -75,8 +75,7 @@ const EditProfileScreen = (props) => {
   };
 
   const handleUpdateUser = async (formData) => {
-    
-    const userToUpdate = {
+  const userToUpdate = {
       name: name, 
       id: user.id, 
       sectionId: section,
