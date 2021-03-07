@@ -59,7 +59,7 @@ const EditProfileScreen = (props) => {
     return items.length * dropdownItemHeight + marginsBetweenElements;
   };
 
-  const updImg = (newImage) => {
+  const updImg = async (newImage) => {
     if (!newImage.cancelled) {
       setProfilePic(newImage);
       const imageFile = await imageToBlob(newImage);
@@ -86,7 +86,7 @@ const EditProfileScreen = (props) => {
       photo: formData
     }
    const res = await updateUser(userToUpdate);
-   console.log(res);
+   
     if(res.data.affectedRows === 1) {
       props.navigation.goBack();
       console.log("sim");
