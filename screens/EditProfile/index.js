@@ -27,7 +27,7 @@ import { connect } from "react-redux";
 import { updateUser } from "../../services/user";
 import { updateProject } from "../../services/project";
 
-const EditProfileScreen = (props) => {
+const EditProfileScreen = props => {
 
   // Profile of this user
   const [user, setUser] = useState(props.user);
@@ -276,7 +276,7 @@ const EditProfileScreen = (props) => {
           <View style={ProfileStyles.buttonsContainer}>
             <TouchableOpacity
               onPress={() => {
-                props.navigation.goBack();
+                props.navigation.navigate({ routeName: "LeaveAccount" });
               }}
             >
               <Image
@@ -310,7 +310,9 @@ const EditProfileScreen = (props) => {
               </View>
             </TouchableOpacity>
 
-            <TouchableOpacity onPress={() => {}}>
+            <TouchableOpacity onPress={() => {
+              props.navigation.navigate({ routeName: "DeleteAccount" })
+            }}>
               <Image
                 source={images.trashcanIcon.uri}
                 style={ProfileStyles.buttonIcon}

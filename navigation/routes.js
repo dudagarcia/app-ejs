@@ -1,6 +1,6 @@
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
-import { AccountScreen, ConfirmEmailScreen, CodeRecoveryScreen, ResetPasswordScreen, AlteredPasswordScreen, MainScreen, LoginScreen, ViewProfileScreen, EditProfileScreen} from '../screens'
+import { AccountScreen, ConfirmEmailScreen, CodeRecoveryScreen, ResetPasswordScreen, AlteredPasswordScreen, MainScreen, LoginScreen, ViewProfileScreen, EditProfileScreen, LeaveAccountScreen, DeleteAccountScreen} from '../screens'
 
 const SignedOutRoutes = createStackNavigator({
     Login: { screen: LoginScreen, navigationOptions: { headerShown: false } },
@@ -9,12 +9,13 @@ const SignedOutRoutes = createStackNavigator({
     CodeRecovery: { screen: CodeRecoveryScreen, navigationOptions: { headerShown: false } },
     ResetPassword: { screen: ResetPasswordScreen, navigationOptions: { headerShown: false } },
     AlteredPassword: { screen: AlteredPasswordScreen, navigationOptions: { headerShown: false } },
- 
 });
 
 const SignedInRoutes = createStackNavigator({
     Main: { screen: MainScreen, navigationOptions: { headerShown: false } },
     Profile: { screen: EditProfileScreen, navigationOptions: { headerShown: false}},   
+    DeleteAccount: { screen: DeleteAccountScreen, navigationOptions: { headerShown: false } },
+    LeaveAccount: { screen: LeaveAccountScreen, navigationOptions: { headerShown: false } },
 })
 
 export const SignedInNavigator = createAppContainer(SignedInRoutes);

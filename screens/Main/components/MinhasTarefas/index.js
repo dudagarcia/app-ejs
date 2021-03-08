@@ -34,7 +34,7 @@ const MinhasTarefas = (props) => {
 
             <View style={styles.mainContainer}>
                 <View style={styles.titleContainer}>
-                    <Text style={styles.title}>Minhas Tarefas</Text>
+                    <Text style={styles.title}>Tarefas</Text>
                 </View>
                 <View style={styles.tarefasContainer}>
                     {

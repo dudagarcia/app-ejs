@@ -1,5 +1,5 @@
 import React from "react";
-import { View, StyleSheet, Text, Image } from "react-native";
+import { View, StyleSheet, Text, Image, TouchableOpacity } from "react-native";
 import Colors from "../../constants/colors";
 import MainButton from "../../components/MainButton";
 import LogoImage from "../../components/LogoImage";
@@ -16,6 +16,11 @@ const DeleteAccountScreen = (props) => {
       </Text>
       <Image source={Images.simonSad.uri} style={styles.image} />
       <MainButton style={styles.button} title="Excluir" />
+      <TouchableOpacity onPress={ () => {
+        props.navigation.goBack();
+      }}>
+        <Text style={styles.text}>Voltar</Text>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -52,6 +57,7 @@ const styles = StyleSheet.create({
   },
   button: {
     marginTop: 40,
+    marginBottom: -20,
     width: 160,
   },
   check: {
