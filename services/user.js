@@ -24,3 +24,7 @@ export const searchUserById = async (data) => {
 
     return await api.post("/user/listSome", data);
 }
+
+export const deleteUser = async () => {
+    return await api.post("/user/delete", data);
+}
