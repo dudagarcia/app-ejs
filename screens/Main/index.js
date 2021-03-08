@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { StyleSheet, View, Text, Image, Animated, ImageBackground, Dimensions, BackHandler } from "react-native";
+import { StyleSheet, View, Text, Image, Animated, ImageBackground, BackHandler } from "react-native";
 import { colors, images, screenSize} from '../../constants';
 import { MenuItem, BackContent } from "./components";
 import { createUser, listAllUsers, searchUserById } from '../../services/user';

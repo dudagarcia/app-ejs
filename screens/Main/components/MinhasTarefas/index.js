@@ -1,35 +1,42 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, Modal, TextInput, TouchableOpacity, Image, ActivityIndicator } from 'react-native';
+import { View, Text, StyleSheet, ActivityIndicator } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 import { connect } from 'react-redux';
 import { screenSize } from '../../../../constants';
 import colors from '../../../../constants/colors';
 import images from '../../../../constants/images';
 import { getMyTasks } from '../../../../services/task';
-import { NoTarefas, Tarefas, NewTarefaButton, OptionsButton, TextButton, ModalAddTarefa } from './Components';
+import { NoTarefas, Tarefas, NewTarefaButton, ModalAddTarefa } from './Components';
 
 const MinhasTarefas = (props) => {
 
     const [tasks, setTasks] = useState();
     const [modalAddTarefaVisible, setModalAddTarefaVisible] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const [reload, setReload] = useState(false)
 
     const closeModal = () =>{
         setModalAddTarefaVisible(false);
     }
 
     const getTarefas = async () => {
+        setLoading(true);
         const response = await getMyTasks({userId : props.user.id});
         setTasks(response.data);
+        setLoading(false);
     }
 
     useEffect(()=>{
         getTarefas()
-    },[])
+    },[reload])
 
     return (
         <>
             <ModalAddTarefa 
                 modalAddTarefaVisible={modalAddTarefaVisible}
                 closeModal={closeModal}
+                newTask={reload}
+                setNewTask={setReload}
             />
 
             <View style={styles.mainContainer}>
@@ -38,10 +45,15 @@ const MinhasTarefas = (props) => {
                 </View>
                 <View style={styles.tarefasContainer}>
                     {
-                        tasks ?
-                            <Tarefas tasks={tasks}/>
+                        loading ?
+                            <ActivityIndicator color={colors.mainDark}/>
+                        :
+                        (
+                            tasks ?
+                            <Tarefas tasks={tasks} reload={reload} setReload={setReload}/>
                         :
                             <NoTarefas/>
+                        )
                     }
                 </View>
                 <View style={styles.buttonContainer}>

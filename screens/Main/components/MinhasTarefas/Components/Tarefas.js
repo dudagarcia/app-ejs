@@ -1,25 +1,37 @@
 import React, { useState } from "react";
-import { useEffect } from "react";
 import {
   View,
   Text,
   StyleSheet,
   ScrollView,
-  ActivityIndicator,
-  TouchableOpacity
+  Image,
+  TouchableOpacity,
+  Animated
 } from "react-native";
-import { Calendar, CalendarList } from "react-native-calendars";
-import { set } from "react-native-reanimated";
-import { colors } from "../../../../../constants";
+import { colors, images } from "../../../../../constants";
 import CardTarefa from "./CardTarefa";
 
-const Tarefas = ({ tasks }) => {
+const Tarefas = ({ tasks, reload, setReload }) => {
+  
+  const [arrowRotation, setArrowRotation] = useState(new Animated.Value(0));
   const [tarefasDone, setTarefasDone] = useState(tasks.filter((t)=> {return t.done}))
   const [tarefasNotDone, setTarefasNotDone] = useState(tasks.filter((t)=> {return !t.done}))
   const [visible, setVisible] = useState(false)
 
   const toggleVisibility = () => {
+    rotateArrow()
     setVisible(!visible)
+  }
+
+  const rotateArrow = () => {
+    Animated.timing(
+      arrowRotation,
+      {
+        toValue: visible ? 0 : 1,
+        duration: 300,
+        useNativeDriver: true
+      }
+    ).start()
   }
 
   return (
@@ -28,20 +40,30 @@ const Tarefas = ({ tasks }) => {
         {
           tarefasNotDone &&
             tarefasNotDone.map((task) => {
-            return <CardTarefa task={task} />;
+            return <CardTarefa task={task} reload={reload} setReload={setReload}/>;
         })}
       </View>
       <View style={styles.concluidasContainer}>
-        <Text onPress={toggleVisibility} style={styles.concluidas}>Concluídas</Text>
-          <TouchableOpacity 
+        <TouchableOpacity style={styles.concluidasHeader} onPress={toggleVisibility}>
+          <Text style={styles.concluidas}> Concluídas </Text>
+          <Animated.Image 
+            source={images.arrowDown.uri} 
+            style={{...styles.arrowDown,...{transform:[{
+              rotate: arrowRotation.interpolate({
+                inputRange: [0,1],
+                outputRange:['0deg','180deg']
+            }) }]}}}/>
+        </TouchableOpacity>
+
+          <View
             style={{...styles.concluidas,...{display: visible ? 'flex' : 'none'}}} 
           >
           {
             tarefasDone &&
               tarefasDone.map((task) => {
-              return <CardTarefa task={task} />;
+              return <CardTarefa task={task} reload={reload} setReload={setReload} />;
           })}
-          </TouchableOpacity>
+          </View>
       </View>
     </ScrollView>
   );
@@ -61,11 +83,26 @@ const styles = StyleSheet.create({
     paddingTop: 10
   },
 
+  concluidasHeader: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    height: 30,
+    marginBottom: 10
+  },
+
   concluidas: {
     color: colors.mainDark,
     fontWeight: "bold",
-    fontSize: 18
-  }
+    fontSize: 18,
+  },
+
+  arrowDown: {
+    width: 18,
+    height: 10,
+  },
+
 
 });
 

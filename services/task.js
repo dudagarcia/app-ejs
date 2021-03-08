@@ -16,3 +16,8 @@ export const getMyTasks = async (data) => {
 
     return await api.post("/tasks/list", data);
 }
+
+export const toggleDone = async (data) => {
+
+    return await api.post("/tasks/toggleDone", data);
+}

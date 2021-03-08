@@ -142,4 +142,8 @@ export default {
   simonSad: {
     uri: require("../assets/images/simonSad.png"),
   },
+
+  arrowDown: {
+    uri: require("../assets/images/arrowDown.png"),
+  },
 };
