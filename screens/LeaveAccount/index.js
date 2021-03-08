@@ -1,10 +1,11 @@
 import React from 'react';
-import { View, StyleSheet, Text, Image } from 'react-native';
+import { View, StyleSheet, Text, Image, TouchableOpacity } from 'react-native';
 import Colors from '../../constants/colors';
 import MainButton from '../../components/MainButton';
 import LogoImage from  '../../components/LogoImage';
 import Images from '../../constants/images';
 import CheckedAccountSimbol from '../../components/CheckedAccountSimbol';
+import { onSignOut } from '../../services/auth';
 
 const LeaveAccountScreen = props => {
     return(
@@ -13,7 +14,15 @@ const LeaveAccountScreen = props => {
             <CheckedAccountSimbol style={styles.check}/>
             <Text style={styles.text}>Tem certeza que deseja sair de sua conta?</Text>
             <Image source={Images.simonBye.uri} style={styles.image}/>
-            <MainButton style={styles.button} title="Sair"/>
+            <MainButton onPress={() => { 
+                onSignOut();
+                props.navigation.navigate({ routeName: "Login"});
+            }} style={styles.button} title="Sair"/>
+            <TouchableOpacity onPress={ () => {
+                props.navigation.goBack();
+            }} style={styles.goBack}>
+                <Text style={styles.text}>Voltar</Text>
+            </TouchableOpacity>
         </View>
     );
 };
@@ -22,6 +31,11 @@ const styles = StyleSheet.create({
     logo:{
         position:'absolute',
         marginTop: 100
+    },
+    goBack: {
+        width: 120,
+        marginTop: 40,
+        height: 20
     },
     body:{
         backgroundColor: Colors.mainDark,
@@ -46,6 +60,7 @@ const styles = StyleSheet.create({
     },
     button:{
         marginTop: 80,
+        marginBottom: -80,
         width:160
     },
     check:{
