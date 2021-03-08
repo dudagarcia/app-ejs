@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Text, StyleSheet, View } from "react-native";
 import { AdicionarSetor } from "../GerenciarSetores";
 import GerenciarPerfis from "../GerenciarPerfis";
-import { MinhasTarefas, AdicionarPerfil, GerenciarProjetos, GerenciarSetores, Disponibilidades } from "../index";
+import { MinhasTarefas, AdicionarPerfil, GerenciarProjetos, GerenciarSetores, Disponibilidades, Perfil } from "../index";
 import { screenSize } from "../../../../constants";
 
 const BackContent = ({ smallMenuDisplay, itemName }) => {
@@ -38,6 +38,10 @@ const BackContent = ({ smallMenuDisplay, itemName }) => {
 
       case "Disponibilidades":
         setContent(<Disponibilidades />);
+        break;
+
+      case "Perfil":
+        setContent(<Perfil />);
         break;
 
       default:

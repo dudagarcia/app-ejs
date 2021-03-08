@@ -129,7 +129,6 @@ const MainScreen = (props) => {
                   selectedMenuItem={selectedMenuItem}
                   onClick={() => {
                     smallMenuAnimation("Perfil");
-                    props.navigation.navigate('Profile', { otherUser: {name: "aa"}})
                   }}
                   smallMenuDisplay={smallMenuDisplay}
                 />
