@@ -29,7 +29,6 @@ const MainScreen = (props) => {
     setSelectedMenuItem(itemName);
   };
 
-
   const backHome = () => {
     Animated.timing(menuPositionX, {
       toValue: 2,
@@ -106,7 +105,7 @@ const MainScreen = (props) => {
 
           <View style={styles.contentContainer}>
             <View style={styles.usernameContainer}>
-              <Text style={styles.username}>Olá, {props.user.name.split(' ',1)} !</Text>
+              <Text style={styles.username}>Olá, {props.user.name ? props.user.name.split(' ',1) : "Bem-VindX!"} !</Text>
             </View>
             <View style={styles.menuContainer}>
               <Animated.View style={styles.menu}>
@@ -129,12 +128,13 @@ const MainScreen = (props) => {
                   selectedMenuItem={selectedMenuItem}
                   onClick={() => {
                     smallMenuAnimation("Perfil");
+                    props.navigation.navigate('Profile', { otherUser: {name: "aa"}})
                   }}
                   smallMenuDisplay={smallMenuDisplay}
                 />
 
                 <MenuItem
-                  title="Tarefas"
+                  title="Minhas Tarefas"
                   image={images.tarefasIcon.uri}
                   imageNotSelected={images.tarefasIconNotSelected.uri}
                   onClick={() => smallMenuAnimation("Tarefas")}
@@ -193,6 +193,15 @@ const MainScreen = (props) => {
                       onClick={() => {
                         smallMenuAnimation("Gerenciar Setores");
                       }}
+                      smallMenuDisplay={smallMenuDisplay}
+                    />
+
+                    <MenuItem
+                      title="Tarefas Membros"
+                      image={images.tarefasIcon.uri}
+                      imageNotSelected={images.tarefasIconNotSelected.uri}
+                      onClick={() => smallMenuAnimation("Tarefas Membros")}
+                      selectedMenuItem={selectedMenuItem}
                       smallMenuDisplay={smallMenuDisplay}
                     />
                   </>

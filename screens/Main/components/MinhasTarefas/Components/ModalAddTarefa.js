@@ -7,7 +7,6 @@ import ModalAddData from './ModalAddData';
 import ModalAddUsers from './ModalAddUsers';
 import { createTask } from '../../../../../services/task';
 import { connect } from 'react-redux';
-import moment from 'moment';
 
 const ModalAddTarefa = (props) => {
 
@@ -19,8 +18,7 @@ const ModalAddTarefa = (props) => {
     const [repetition, setRepetition] = useState(false);
     const [day, setDay] = useState();
     const [hour, setHour] = useState([]);
-    const [users, setUsers] = useState([]);
-
+    const [users, setUsers] = useState(new Map);
 
     const cleanTask = () => {
         setUsers([])

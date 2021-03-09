@@ -28,7 +28,6 @@ const App = () => {
     if(logged) {
       searchUserById({ id: logged}).then((res)=>setUser(res))
     }
-
   }
 
   useEffect(()=>{
