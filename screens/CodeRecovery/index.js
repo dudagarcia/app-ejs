@@ -10,6 +10,8 @@ const CodeRecoveryScreen = (props) => {
     <Title style={styles.text}> Digite o código enviado </Title>
   );
 
+  const [correct, setCorrect] = useState(false);
+
   var randomNumber = Math.floor(Math.random() * 999999) + 100000;
   console.log(randomNumber);
 
@@ -51,7 +53,7 @@ const CodeRecoveryScreen = (props) => {
     <View style={styles.body}>
       <LogoImage style={styles.logo} />
       <View style={styles.contentContainer}>{content}</View>
-      <EmailCode />
+      <EmailCode correct={setCorrect}/>
       <MainButton
         style={styles.button}
         onPress={() => {

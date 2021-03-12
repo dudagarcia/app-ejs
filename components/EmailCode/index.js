@@ -1,6 +1,8 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { View, StyleSheet, TextInput, Keyboard } from 'react-native';
 import Colors from '../../constants/colors';
+import { selectCode } from '../../services/user';
+import { connect } from 'react-redux';
 
 const EmailCode = props => {
     const[code, setCode] = useState([]);
@@ -27,7 +29,23 @@ const EmailCode = props => {
         console.log(code);
     }
 
-
+    const checkCode = async () => {
+        const user = {
+            id: props.id
+        }
+        const response = await selectCode(user);
+        if(response.data.length === 1){
+            if(code === response.data.code){ //deve ta errado
+                props.setCorrect(true);
+            }
+            else{
+                props.setCorrect(false);
+            }
+        }
+        else{
+            console.log(err);
+        }
+    }
 
     return(
         <View style={styles.body}>
@@ -147,6 +165,7 @@ const EmailCode = props => {
                         if(event){
                             codeConcat(event, 5);
                             Keyboard.dismiss();
+                            checkCode();
                         }
                     }}
                     keyboardType="numeric"
@@ -185,4 +204,8 @@ const styles = StyleSheet.create({
     }
 });
 
-export default EmailCode;
+const mapStateToProps = state => ({
+    id: state.user.id
+});
+
+export default connect(mapStateToProps)(EmailCode);
