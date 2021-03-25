@@ -11,8 +11,9 @@ import {
 import Icon from 'react-native-vector-icons/AntDesign';
 import { useState } from "react";
 import Colors from '../../../../constants/colors';
+import { useLinkProps } from "@react-navigation/native";
 
-const GerenciarProjetos = () => {
+const GerenciarProjetos = (props) => {
   const [addProject, setAddProject] = useState(false);
 
   const projetos = [
@@ -35,14 +36,12 @@ const GerenciarProjetos = () => {
 
   return (
     <View style={styles.mainContainer}>
-      <View style={styles.titleContainer}>
-        <TouchableOpacity onPress={() => console.log("Duda")}>
-          <Icon name="arrowleft" size={30} style={styles.icon} />
-        </TouchableOpacity>
-        <Text style={styles.title}>Gerenciar Projetos</Text>
-      </View>
+     
       {!addProject ? (
         <>
+          <View style={styles.titleContainer}>
+            <Text style={styles.title}>Gerenciar Projetos</Text>
+          </View>
           <View style={styles.projetosContainer}>
             <Tabs
               header1="Ativos"
