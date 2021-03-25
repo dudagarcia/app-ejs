@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity} from "react-native";
 import colors from "../../../../constants/colors";
 import { Tabs, BlueButton } from "../../../../components";
 import {
@@ -8,44 +8,27 @@ import {
   Ativos,
   CardProjeto,
 } from "./components";
+import Icon from 'react-native-vector-icons/AntDesign';
 import { useState } from "react";
+import Colors from '../../../../constants/colors';
+import { useLinkProps } from "@react-navigation/native";
 
-const GerenciarProjetos = () => {
+const GerenciarProjetos = (props) => {
   const [addProject, setAddProject] = useState(false);
 
   const projetos = [
     {
       id: 1,
-      nome: "Doula",
-      ativo: true,
-    },
-    {
-      id: 2,
-      nome: "Estoq",
-      ativo: true,
-    },
-    {
-      id: 3,
-      nome: "Restaurante",
-      ativo: true,
-    },
-    {
-      id: 4,
-      nome: "Ecommerce",
-      ativo: true,
-    },
-    {
-      id: 5,
       nome: "Dominar o Mundo",
       ativo: false,
     },
     {
-      id: 6,
+      id: 2,
       nome: "Implantar o Ecossocialismo",
       ativo: false,
     },
     {
-      id: 7,
+      id: 3,
       nome: "Vazar o novo álbum da Riri",
       ativo: false,
     },
@@ -53,11 +36,12 @@ const GerenciarProjetos = () => {
 
   return (
     <View style={styles.mainContainer}>
-      <View style={styles.titleContainer}>
-        <Text style={styles.title}>Gerenciar Projetos</Text>
-      </View>
+     
       {!addProject ? (
         <>
+          <View style={styles.titleContainer}>
+            <Text style={styles.title}>Gerenciar Projetos</Text>
+          </View>
           <View style={styles.projetosContainer}>
             <Tabs
               header1="Ativos"
@@ -139,6 +123,12 @@ const styles = StyleSheet.create({
     fontSize: 18,
     alignItems: "center",
   },
+
+  icon:{
+    marginLeft: -40,
+    marginRight: 15,
+    color: Colors.mainDark
+  }
 });
 
 export default GerenciarProjetos;

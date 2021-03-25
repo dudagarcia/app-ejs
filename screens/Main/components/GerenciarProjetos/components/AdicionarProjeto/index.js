@@ -8,6 +8,8 @@ import {
 } from "../../../../../../components";
 import { connect } from "react-redux";
 import { createProject } from "../../../../../../services/project";
+import Icon from 'react-native-vector-icons/AntDesign';
+import Colors from '../../../../../../constants/colors';
 
 const AdicionarProjeto = (props) => {
   const [allUsers, setAllUsers] = useState(
@@ -49,6 +51,12 @@ const AdicionarProjeto = (props) => {
 
   return (
     <View style={styles.container}>
+      <View style={styles.wrapper}>
+        <Icon name="arrowleft" style={styles.icon} size={30} onPress={() => { props.setAddProject(false); }}/>
+        <View style={styles.titleContainer}>
+              <Text style={styles.title}>Editar Projetos</Text>
+        </View>
+      </View>
       <InputProfile
         style={styles.input}
         text="Nome do projeto"
@@ -83,10 +91,9 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "column",
     alignItems: "center",
-    marginTop: 60,
   },
   button: {
-    marginTop: 415,
+    marginTop: 520,
     position: "absolute",
   },
   buttonText: {
@@ -97,10 +104,27 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   input: {
-    marginTop: 20,
+    marginTop: 30,
   },
   dropdown: {
     width: 100,
+  },
+  titleContainer: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "center",
+  },
+  icon:{
+
+    color: Colors.mainDark
+  },
+  title: {
+    color: Colors.mainDark,
+    fontWeight: "bold",
+    fontSize: 20,
+    marginTop: -30,
+    marginLeft: 20,
+    marginBottom: 60
   },
 });
 

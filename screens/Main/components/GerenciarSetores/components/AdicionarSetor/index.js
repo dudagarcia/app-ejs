@@ -9,6 +9,9 @@ import {
 } from "../../../../../../components";
 import { connect } from "react-redux";
 import { createSection, updateSection } from "../../../../../../services/section";
+import Icon from 'react-native-vector-icons/AntDesign';
+import Colors from '../../../../../../constants/colors';
+
 
 const AdicionarSetor = props => {
 
@@ -43,6 +46,12 @@ const AdicionarSetor = props => {
 
   return (
     <View style={styles.view}>
+      <View style={styles.wrapper}>
+        <Icon name="arrowleft" style={styles.icon} size={30} onPress={() => { props.setAddSetor(false); }}/>
+        <View style={styles.titleContainer}>
+              <Text style={styles.title}>Editar Setores</Text>
+        </View>
+      </View>
       <InputProfile
         text="Nome do setor"
         style={styles.input}
@@ -64,22 +73,22 @@ const AdicionarSetor = props => {
 
 const styles = StyleSheet.create({
   input: {
-    marginTop: 20,
+    marginTop: 40,
   },
   title: {
-    marginBottom: 85,
+    marginBottom: 40,
   },
   view: {
     flex: 1,
     flexDirection: "column",
     alignItems: "center",
-    marginTop: 100,
+    marginTop: 0,
   },
   input: {
-    marginTop: 25,
+    marginTop: 70,
   },
   button: {
-    marginTop: 400,
+    marginTop: 500,
     position: "absolute",
   },
   buttonText: {
@@ -88,6 +97,23 @@ const styles = StyleSheet.create({
     fontWeight: "700",
     fontSize: 18,
     alignItems: "center",
+  },
+  titleContainer: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "center",
+  },
+  icon:{
+    marginLeft: -40,
+    marginRight: 15,
+    color: Colors.mainDark
+  },
+  title: {
+    color: Colors.mainDark,
+    fontWeight: "bold",
+    fontSize: 20,
+    marginTop: -30,
+    marginBottom: 40
   },
 });
 

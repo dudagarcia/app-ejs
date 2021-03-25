@@ -15,16 +15,23 @@ export const updateUser = async (data) => {
     return await api.post("/user/update", data);
 }
 
+export const updateCode = async (data) => {
+    return await api.post("/user/updateCode", data);
+}
+
+export const selectCode = async (data) => {
+    return await api.post("/user/Code", data);
+}
+
 export const listAllUsers = async () => {
 
     return await api.post("/user/listAll");
 }
 
 export const searchUserById = async (data) => {
-
     return await api.post("/user/listSome", data);
 }
 
-export const deleteUser = async () => {
+export const deleteUser = async (data) => {
     return await api.post("/user/delete", data);
 }

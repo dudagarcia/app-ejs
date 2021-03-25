@@ -4,12 +4,14 @@ import { StyleSheet, Text, View } from "react-native";
 import * as Font from "expo-font";
 import { AppLoading } from "expo";
 import Login from "./screens/Login";
+import Main from "./screens/Main";
 import { AccountScreen, ResetPasswordScreen, EditProfileScreen, } from "./screens";
 import { SignedInNavigator, SignedOutNavigator } from "./navigation/routes";
 import { isSignedIn, onSignIn, onSignOut } from "./services/auth";
 import { searchUserById } from "./services/user";
 import store from './redux/store';
 import { Provider } from 'react-redux';
+import { GerenciarPerfis } from "./screens/Main/components";
 
 const fetchFonts = () => {
   return Font.loadAsync({

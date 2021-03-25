@@ -31,6 +31,7 @@ const LoginScreen = props => {
             password: password
         }
         const response = await loginUser(userLoginInfo);
+        console.log(response)
 
         if(response.data.length === 1){
             onSignIn(response.data[0].id);
@@ -72,7 +73,7 @@ const LoginScreen = props => {
 
             {
                 error && (
-                    <Text> Email e/ou senha incorretos!</Text>
+                    <Text style={styles.error}> Email e/ou senha incorretos!</Text>
                 )
             }
 
@@ -131,6 +132,9 @@ const styles = StyleSheet.create({
         color: colors.mainDark,
         fontWeight: "bold",
         fontSize: 17
+    },
+    error:{
+        color: 'white'
     }
 
 });

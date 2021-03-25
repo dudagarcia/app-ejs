@@ -3,8 +3,32 @@ import { StyleSheet, View } from 'react-native';
 import { LogoImage, MainButton, Title, Input } from '../../components';
 import Colors from '../../constants/colors';
 import Images from '../../constants/images';
+import { connect } from 'react-redux';
+import { update } from '../../services/user';
 
 const ResetPasswordScreen = props => {
+
+    const [password, setPassword] = useState(null);
+    const [samePasssword, setSamePassword] = useState(null);
+
+    const changePassword = async () => {
+        const user = {
+            password: password,
+            id: props.id
+        }
+        if(password === samePasssword){
+            const response = await update(user);
+            if(response.data.length === 1){
+                console.log(response);
+                props.navigation.navigate({ routeName: 'AlteredPassword' });
+            }
+            else{
+                console.log("error");
+            }
+        }
+        
+    }
+    
     return (
         <View style={styles.body}>
             <View style={styles.logo}>
@@ -15,15 +39,19 @@ const ResetPasswordScreen = props => {
                 style={styles.inputText}
                 image={Images.cadeado.uri}
                 password={true}
-                placeholder='Insira sua nova senha' />
+                placeholder='Insira sua nova senha' 
+                onChangeText={text => setPassword(text)}
+            />
 
             <Input
                 style={styles.inputText}
                 image={Images.cadeado.uri}
                 placeholder='Insira novamente a senha'
-                password={true} />
+                password={true} 
+                onChangeText={text => setSamePassword(text)}
+            />
             <MainButton style={styles.button} title="Alterar senha" onPress={() => {
-                props.navigation.navigate({ routeName: 'AlteredPassword' });
+                changePassword();
             }}/>
         </View>
     );
@@ -69,4 +97,8 @@ const styles = StyleSheet.create({
 
 });
 
-export default ResetPasswordScreen;
+const mapStateToProps = state => ({
+    id: state.user.id
+});
+
+export default connect(mapStateToProps)(ResetPasswordScreen);

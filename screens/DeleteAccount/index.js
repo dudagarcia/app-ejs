@@ -4,7 +4,7 @@ import Colors from "../../constants/colors";
 import MainButton from "../../components/MainButton";
 import LogoImage from "../../components/LogoImage";
 import Images from "../../constants/images";
-import { deleteUser } from "../../services/user";
+import { deleteUser } from '../../services/user';
 import CheckedAccountSimbol from "../../components/CheckedAccountSimbol";
 import { connect } from 'react-redux';
 
@@ -15,7 +15,7 @@ const DeleteAccountScreen = (props) => {
       id: props.id
     }
     const response = await deleteUser(userInfo);
-    if(response.data.length === 1){
+    if(response.data.affectedRows === 1){
       props.navigation.navigate({ routeName: "Login"});
     }
     else{
@@ -31,13 +31,17 @@ const DeleteAccountScreen = (props) => {
       <Text style={styles.text}>
         Tem certeza que deseja excluir essa conta?
       </Text>
-      <Image source={Images.simonSad.uri} style={styles.image} />
-      <MainButton onPress={() => { deleteAccount(); }} style={styles.button} title="Excluir" />
-      <TouchableOpacity onPress={ () => {
-        props.navigation.goBack();
-      }}>
-        <Text style={styles.text}>Voltar</Text>
-      </TouchableOpacity>
+      <View style={styles.container}>
+        <Image source={Images.simonSad.uri} style={styles.image} />
+        <View style={styles.buttons}>
+          <MainButton onPress={() => { deleteAccount(); }} style={styles.button} title="Excluir" />
+          <TouchableOpacity onPress={ () => {
+            props.navigation.goBack();
+          }}>
+            <Text style={styles.text}>Voltar</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
     </View>
   );
 };
@@ -70,7 +74,8 @@ const styles = StyleSheet.create({
   image: {
     width: 140,
     height: 140,
-    marginTop: 40,
+    marginTop: 70,
+    marginLeft: 15
   },
   button: {
     marginTop: 40,
@@ -81,6 +86,12 @@ const styles = StyleSheet.create({
     marginTop: 70,
     marginLeft: 92,
   },
+  container:{
+    marginTop: 40,
+  },
+  buttons:{
+    marginTop: 70
+  }
 });
 
 const mapStateToProps = state => ({
