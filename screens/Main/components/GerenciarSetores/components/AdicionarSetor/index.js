@@ -13,8 +13,8 @@ import { createSection, updateSection } from "../../../../../../services/section
 const AdicionarSetor = props => {
 
     
-    const [name, setName] = useState("");
-    const [manager, setManager] = useState("");
+    const [name, setName] = useState(props.selectedSection.name || "");
+    const [manager, setManager] = useState(props.selectedSection.name || "");
     const [loading, isLoading] = useState(false);
     const [error, setError] = useState(false);
     const [success, setSuccess] = useState(false);
@@ -53,7 +53,7 @@ const AdicionarSetor = props => {
         data={users}
         placeholder="Selecionar Diretor"
         setPicker={setManager}
-        status={Number(props.selectedSection.manager)}
+        status={props.selectedSection.manager}
       />
       <BlueButton style={styles.button} onPress={() => sendForm()}>
         {<Text style={styles.buttonText}>Salvar</Text>}
