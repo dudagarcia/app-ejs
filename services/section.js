@@ -9,5 +9,6 @@ export const createSection = async (data) =>{
 }
 
 export const updateSection = async (data) => {
-    return await api.put("/section/update", data);
+    return await api.post("/section/update", data);
+
 }

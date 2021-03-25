@@ -8,9 +8,10 @@ import {
   SingularPicker,
 } from "../../../../../../components";
 import { connect } from "react-redux";
-import { createSection } from "../../../../../../services/section";
+import { createSection, updateSection } from "../../../../../../services/section";
 
 const AdicionarSetor = props => {
+
     
     const [name, setName] = useState("");
     const [manager, setManager] = useState("");
@@ -25,10 +26,16 @@ const AdicionarSetor = props => {
       name: name,
       manager: manager,
     };
-    const response = await createSection(sectionInfo);
+
+    var response;
+    if(!props.selectedSection) response = await createSection(sectionInfo);
+    else response = await updateSection({...sectionInfo,...{id: props.selectedSection.id}});
+
     if (response.data.affectedRows === 1) {
       setSuccess(true);
       props.setAddSetor(false);
+      props.searchAllSections();
+      props.setSelectedSection(null);
     } else {
       setError(true);
     }
@@ -39,12 +46,14 @@ const AdicionarSetor = props => {
       <InputProfile
         text="Nome do setor"
         style={styles.input}
+        defaultValue={props.selectedSection?.name}
         onChangeText={(text) => setName(text)}
       />
       <SingularPicker
         data={users}
         placeholder="Selecionar Diretor"
         setPicker={setManager}
+        status={Number(props.selectedSection.manager)}
       />
       <BlueButton style={styles.button} onPress={() => sendForm()}>
         {<Text style={styles.buttonText}>Salvar</Text>}

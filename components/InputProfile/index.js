@@ -11,6 +11,7 @@ const InputProfile = props => {
                 style={styles.placeholder} 
                 onChangeText={props.onChangeText}
                 secureTextEntry={props.password}
+                defaultValue={props.defaultValue}
             /> 
         </View>
     );
