@@ -1,5 +1,5 @@
 import React from "react";
-import { Image, TouchableOpacity } from "react-native";
+import { Image, TouchableOpacity, StyleSheet } from "react-native";
 
 const ImageButton = (props) => {
   return (

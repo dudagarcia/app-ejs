@@ -1,18 +1,7 @@
 import React, { useState, useEffect } from "react";
-import {
-  View,
-  Text,
-  Image,
-  ImageBackground,
-  TextInput,
-  TouchableOpacity,
-  ScrollView,
-  BackHandler,
-} from "react-native";
+import { View, Text, Image, ScrollView, BackHandler } from "react-native";
 import { colors, screenSize, images } from "../../../../constants";
 //import images from "../../constants/images";
-import DropDownPicker from "react-native-dropdown-picker";
-import { TextInputMask } from "react-native-masked-text";
 import moment from "moment";
 import { ProfileStyles } from "./constants/ProfileStyles";
 import {
@@ -33,8 +22,8 @@ import {
   EditButton,
 } from "./components";
 import { connect } from "react-redux";
-import { updateUser } from "../../services/user";
-import { updateProject } from "../../services/project";
+import { updateUser } from "../../../../services/user";
+import { updateProject } from "../../../../services/project";
 
 const Perfil = (props) => {
   const [editable, setEditable] = useState(props.edit ? true : false);

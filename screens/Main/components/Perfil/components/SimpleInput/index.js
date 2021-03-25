@@ -1,7 +1,7 @@
 import React from "react";
 import { View, TextInput } from "react-native";
 import colors from "../../../../../../constants/colors";
-import ProfileStyles from "../../constants/constants/ProfileStyles";
+import ProfileStyles from "../../constants/ProfileStyles";
 
 const SimpleInput = (props) => {
   return (

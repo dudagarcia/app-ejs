@@ -1,17 +1,27 @@
 import React, { useState } from "react";
-import { StyleSheet, View, Text, Image, Animated, ImageBackground, BackHandler } from "react-native";
-import { colors, images, screenSize} from '../../constants';
+import {
+  StyleSheet,
+  View,
+  Text,
+  Image,
+  Animated,
+  ImageBackground,
+  BackHandler,
+} from "react-native";
+import { colors, images, screenSize } from "../../constants";
 import { MenuItem, BackContent } from "./components";
-import { createUser, listAllUsers, searchUserById } from '../../services/user';
-import { listAllSections } from '../../services/section';
-import { listActiveProjects, listNotActiveProjects } from '../../services/project';
-import { isSignedIn, onSignOut } from '../../services/auth';
+import { createUser, listAllUsers, searchUserById } from "../../services/user";
+import { listAllSections } from "../../services/section";
+import {
+  listActiveProjects,
+  listNotActiveProjects,
+} from "../../services/project";
+import { isSignedIn, onSignOut } from "../../services/auth";
 import { useEffect } from "react";
-import { connect, useDispatch } from 'react-redux';
-import * as ActionTypes from '../../redux/actions/actions';
+import { connect, useDispatch } from "react-redux";
+import * as ActionTypes from "../../redux/actions/actions";
 
 const MainScreen = (props) => {
-
   const dispatch = useDispatch();
 
   const [menuPositionX, setMenuPosition] = useState(new Animated.Value(1));
@@ -21,7 +31,7 @@ const MainScreen = (props) => {
 
   const smallMenuAnimation = (itemName) => {
     Animated.timing(menuPositionX, {
-      toValue: (-0.76)*screenSize.width,
+      toValue: -0.76 * screenSize.width,
       duration: 500,
       useNativeDriver: true,
     }).start();
@@ -37,46 +47,51 @@ const MainScreen = (props) => {
     }).start();
     setSmallMenuDisplay("none");
     setSelectedMenuItem("");
-  }
+  };
 
   const searchLoggedUser = async () => {
     setLoading(true);
-      const userId = await isSignedIn();
-      const { data } = await searchUserById({ id: userId});
-      dispatch({ type: ActionTypes.ADD_USER, payload: data[0]});
+    const userId = await isSignedIn();
+    const { data } = await searchUserById({ id: userId });
+    dispatch({ type: ActionTypes.ADD_USER, payload: data[0] });
     setLoading(false);
-  }
+  };
 
   const filterByRole = (item) => {
-    return item.roleId === props.user.roleId
-  }
+    return item.roleId === props.user.roleId;
+  };
 
   const searchAllUsers = async () => {
     const { data } = await listAllUsers();
-    dispatch({ type: ActionTypes.ADD_ALL_USER, payload: {allUsers: data, mySection: data.filter(filterByRole)}});
-  }
+    dispatch({
+      type: ActionTypes.ADD_ALL_USER,
+      payload: { allUsers: data, mySection: data.filter(filterByRole) },
+    });
+  };
 
   const searchAllSections = async () => {
     const { data } = await listAllSections();
-    dispatch({ type: ActionTypes.ADD_SECTIONS, payload: data});
-  }
+    dispatch({ type: ActionTypes.ADD_SECTIONS, payload: data });
+  };
 
   const searchAllProjects = async () => {
     const active = await listActiveProjects();
     const notActive = await listNotActiveProjects();
-    dispatch({ type: ActionTypes.ADD_PROJECT, payload: { active: active.data, notActive: notActive.data}});
-  }
+    dispatch({
+      type: ActionTypes.ADD_PROJECT,
+      payload: { active: active.data, notActive: notActive.data },
+    });
+  };
 
-
-  useEffect(()=>{
-    BackHandler.addEventListener('hardwareBackPress',()=>{
+  useEffect(() => {
+    BackHandler.addEventListener("hardwareBackPress", () => {
       props.navigation.goBack(null);
-    })
+    });
     searchLoggedUser();
     searchAllUsers();
     searchAllSections();
     searchAllProjects();
-  },[])
+  }, []);
 
   return (
     <View style={styles.body}>
@@ -84,8 +99,7 @@ const MainScreen = (props) => {
         source={images.backgroundMain.uri}
         style={styles.backgroundImage}
       >
-
-        <BackContent 
+        <BackContent
           smallMenuDisplay={smallMenuDisplay}
           itemName={selectedMenuItem}
         />
@@ -102,10 +116,13 @@ const MainScreen = (props) => {
             </View>
           </View>
 
-
           <View style={styles.contentContainer}>
             <View style={styles.usernameContainer}>
-              <Text style={styles.username}>Olá, {props.user.name ? props.user.name.split(' ',1) : "Bem-VindX!"} !</Text>
+              <Text style={styles.username}>
+                Olá,{" "}
+                {props.user.name ? props.user.name.split(" ", 1) : "Bem-VindX!"}{" "}
+                !
+              </Text>
             </View>
             <View style={styles.menuContainer}>
               <Animated.View style={styles.menu}>
@@ -115,10 +132,10 @@ const MainScreen = (props) => {
                   imageNotSelected={images.logo.uri}
                   selectedMenuItem={selectedMenuItem}
                   onClick={() => {
-                    backHome()
+                    backHome();
                   }}
                   smallMenuDisplay={smallMenuDisplay}
-                  style={{display: smallMenuDisplay}}
+                  style={{ display: smallMenuDisplay }}
                 />
 
                 <MenuItem
@@ -128,7 +145,7 @@ const MainScreen = (props) => {
                   selectedMenuItem={selectedMenuItem}
                   onClick={() => {
                     smallMenuAnimation("Perfil");
-                    props.navigation.navigate('Profile', { otherUser: {name: "aa"}})
+                    //props.navigation.navigate('Profile', { otherUser: {name: "aa"}})
                   }}
                   smallMenuDisplay={smallMenuDisplay}
                 />
@@ -159,11 +176,9 @@ const MainScreen = (props) => {
                   selectedMenuItem={selectedMenuItem}
                   smallMenuDisplay={smallMenuDisplay}
                 />
-                {
-                  Boolean(props.user.admin) && 
-                  (
-                    <>
-                      <MenuItem
+                {Boolean(props.user.admin) && (
+                  <>
+                    <MenuItem
                       title="Gerenciar Perfis"
                       image={images.doubleMemberIcon.uri}
                       imageNotSelected={images.doubleMemberIconNotSelected.uri}
@@ -172,7 +187,7 @@ const MainScreen = (props) => {
                         smallMenuAnimation("Gerenciar Perfis");
                       }}
                       smallMenuDisplay={smallMenuDisplay}
-                      />
+                    />
 
                     <MenuItem
                       title="Gerenciar Projetos"
@@ -205,9 +220,7 @@ const MainScreen = (props) => {
                       smallMenuDisplay={smallMenuDisplay}
                     />
                   </>
-                 )
-                }
-                
+                )}
               </Animated.View>
             </View>
           </View>
@@ -302,14 +315,13 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
   },
-
 });
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   user: state.user,
   users: state.users,
   sections: state.sections,
-  projects: state.projects
+  projects: state.projects,
 });
 
 export default connect(mapStateToProps)(MainScreen);

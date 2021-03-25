@@ -1,7 +1,7 @@
 import React from "react";
-import { View } from "react-native";
+import { View, StyleSheet } from "react-native";
 import images from "../../../../../../constants/images";
-//import ProfileStyles from "../../constants/constants/ProfileStyles";
+//import ProfileStyles from "../../constants/ProfileStyles";
 import { ImageButton } from "..";
 import { BlueButton } from "../../../../../../components";
 

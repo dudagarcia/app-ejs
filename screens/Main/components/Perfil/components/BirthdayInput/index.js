@@ -3,7 +3,7 @@ import { View } from "react-native";
 import colors from "../../../../../../constants/colors";
 import { TextInputMask } from "react-native-masked-text";
 import moment from "moment";
-import ProfileStyles from "../../constants/constants/ProfileStyles";
+import ProfileStyles from "../../constants/ProfileStyles";
 import { dateFormat } from "../../constants/ProfileConstants";
 
 const BirthdayInput = (props) => {

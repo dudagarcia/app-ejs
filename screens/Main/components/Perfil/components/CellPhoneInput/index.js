@@ -2,7 +2,7 @@ import React from "react";
 import { View } from "react-native";
 import colors from "../../../../../../constants/colors";
 import { TextInputMask } from "react-native-masked-text";
-import { ProfileStyles } from "../ViewProfile/ProfileStyles";
+import ProfileStyles from "../../constants/ProfileStyles";
 
 const CellPhoneInput = (props) => {
   return (

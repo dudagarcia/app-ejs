@@ -1,7 +1,7 @@
 import React from "react";
 import { View } from "react-native";
 import DropDownPicker from "react-native-dropdown-picker";
-import ProfileStyles from "../../constants/constants/ProfileStyles";
+import ProfileStyles from "../../constants/ProfileStyles";
 import {
   containerHeight,
   marginsBetweenElements,
