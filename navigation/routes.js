@@ -8,8 +8,8 @@ import {
   AlteredPasswordScreen,
   MainScreen,
   LoginScreen,
-  //ViewProfileScreen,
-  //EditProfileScreen,
+  ViewProfileScreen,
+  EditProfileScreen,
   LeaveAccountScreen,
   DeleteAccountScreen,
 } from "../screens";
@@ -37,7 +37,10 @@ const SignedOutRoutes = createStackNavigator({
 
 const SignedInRoutes = createStackNavigator({
   Main: { screen: MainScreen, navigationOptions: { headerShown: false } },
-  //Profile: { screen: EditProfileScreen, navigationOptions: { headerShown: false}},
+  Profile: {
+    screen: EditProfileScreen,
+    navigationOptions: { headerShown: false },
+  },
   DeleteAccount: {
     screen: DeleteAccountScreen,
     navigationOptions: { headerShown: false },
@@ -46,6 +49,7 @@ const SignedInRoutes = createStackNavigator({
     screen: LeaveAccountScreen,
     navigationOptions: { headerShown: false },
   },
+  Login: { screen: LoginScreen, navigationOptions: { headerShown: false } },
 });
 
 export const SignedInNavigator = createAppContainer(SignedInRoutes);

@@ -3,8 +3,24 @@ import { StyleSheet, View, Image } from 'react-native';
 import colors from '../../constants/colors';
 import images from '../../constants/images';
 import { Input, LogoImage, Title, MainButton } from '../../components';
+import { updateCode } from '../../services/user';
+import { connect } from 'react-redux';
 
 const AccountScreen = props => {
+
+    const sendEmail = async () => {
+        const user = {
+            id: props.id
+        }
+        const response = await updateCode(user);
+        if(response.data.length === 1){
+            console.log(response);
+            props.navigation.navigate({ routeName: 'ConfirmEmail'});
+        }
+        else{
+            console.log("error");
+        }
+    }
 
     return (
         <View style={styles.body}>
@@ -24,7 +40,7 @@ const AccountScreen = props => {
                 style={styles.button}
                 title='Enviar email para alterar senha'
                 onPress={() => { 
-                    props.navigation.navigate({ routeName: 'ConfirmEmail'});
+                    sendEmail();
                 }}
             />
         </View>
@@ -64,4 +80,8 @@ const styles = StyleSheet.create({
 
 });
 
-export default AccountScreen;
+const mapStateToProps = state => ({
+    id: state.user.id
+})
+
+export default connect(mapStateToProps)(AccountScreen);

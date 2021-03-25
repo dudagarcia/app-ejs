@@ -14,7 +14,10 @@ const LeaveAccountScreen = props => {
             <CheckedAccountSimbol style={styles.check}/>
             <Text style={styles.text}>Tem certeza que deseja sair de sua conta?</Text>
             <Image source={Images.simonBye.uri} style={styles.image}/>
-            <MainButton onPress={() => { onSignOut(); }} style={styles.button} title="Sair"/>
+            <MainButton onPress={() => { 
+                onSignOut();
+                props.navigation.navigate({ routeName: "Login"});
+            }} style={styles.button} title="Sair"/>
             <TouchableOpacity onPress={ () => {
                 props.navigation.goBack();
             }} style={styles.goBack}>
@@ -30,7 +33,9 @@ const styles = StyleSheet.create({
         marginTop: 100
     },
     goBack: {
-        width: 120
+        width: 120,
+        marginTop: 40,
+        height: 20
     },
     body:{
         backgroundColor: Colors.mainDark,

@@ -5,7 +5,11 @@ export const createTask = async(data) => {
 }
 
 export const updateTask = async(data) => {
-    return await api.put("/tasks/update", data);
+    return await api.post("/tasks/update", data);
+}
+
+export const deleteTask = async(data) => {
+    return await api.post("/tasks/delete", data);
 }
 
 export const listDone = async(data) => {
@@ -15,4 +19,9 @@ export const listDone = async(data) => {
 export const getMyTasks = async (data) => {
 
     return await api.post("/tasks/list", data);
+}
+
+export const toggleDone = async (data) => {
+
+    return await api.post("/tasks/toggleDone", data);
 }

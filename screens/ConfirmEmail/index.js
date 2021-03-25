@@ -1,10 +1,27 @@
 import React from 'react';
-import { Text, StyleSheet, View, Image } from 'react-native';
+import { Text, StyleSheet, View, Image, TouchableOpacity } from 'react-native';
 import Colors from '../../constants/colors';
 import Images from '../../constants/images';
-import { MainButton, LogoImage, ClickableText } from '../../components'
+import { MainButton, LogoImage, ClickableText } from '../../components';
+import { connect } from 'react-redux';
+import { updateCode } from '../../services/user';
 
 const ConfirmEmailScreen = props => {
+    
+    const sendEmail = async () => {
+        const user = {
+            id: props.id
+        }
+        const response = await updateCode(user);
+        if(response.data.length === 1){
+            console.log(response);
+            //reloda a pagina
+        }
+        else{
+            console.log("error");
+        }
+    }
+
     return(
         <View style={styles.body}>
             <View style={styles.logo}><LogoImage /></View>
@@ -19,7 +36,9 @@ const ConfirmEmailScreen = props => {
             <View style={styles.wrapText}> 
                 <Text style={styles.text}>Não recebeu o email de recuperação? </Text>
                 <Text style={styles.text}>Cheque sua caixa de SPAM ou 
-                    <Text style={styles.clickableText}> clique aqui para reenviar o email</Text>
+                    <TouchableOpacity onPress={() => { sendEmail(); }}>
+                        <Text style={styles.clickableText}> clique aqui para reenviar o email</Text>
+                    </TouchableOpacity>
                 </Text>
             </View>
         </View>
@@ -80,4 +99,8 @@ const styles = StyleSheet.create({
     }
 });
 
-export default ConfirmEmailScreen;
+const mapStateToProps = state => ({
+    id: state.user.id
+})
+
+export default connect(mapStateToProps)(ConfirmEmailScreen);

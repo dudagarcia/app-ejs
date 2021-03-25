@@ -18,25 +18,40 @@ const ModalAddTarefa = (props) => {
     const [repetition, setRepetition] = useState(false);
     const [day, setDay] = useState();
     const [hour, setHour] = useState([]);
-    const [users, setUsers] = useState([]);
+    const [users, setUsers] = useState(new Map);
 
-    console.log(day)
+    const cleanTask = () => {
+        setUsers([])
+        setHour([])
+        setDay('')
+        setRepetition(false)
+        setDetails('')
+        setName('')
+    }
 
     const handleCreateTask = async () => {
         props.closeModal();
 
+        const dayTask = new Date(day)
+        if(hour[0]) dayTask.setHours(hour[0]-3)
+        if(hour[1]) dayTask.setMinutes(hour[1])
+
         const taskToCreate = {
             name: name,
             details: details,
-            date: moment(day) || '0000-00-00',
+            date: dayTask,
             repetition: repetition,
             contributors: users || '',
             done: false,
             userId: props.user.id
         }
         const response = await createTask(taskToCreate)
-        console.log(response)
+        
+        cleanTask()
+
+        props.setNewTask(!props.task)
     }
+
 
     return (
     <>
@@ -92,7 +107,10 @@ const ModalAddTarefa = (props) => {
                         </View>
                         <TextButton 
                             title='Cancelar'
-                            onPress={props.closeModal} 
+                            onPress={() => {
+                                cleanTask()
+                                props.closeModal()
+                            }} 
                         />
                         <TextButton 
                             title='Salvar'

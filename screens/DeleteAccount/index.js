@@ -4,9 +4,26 @@ import Colors from "../../constants/colors";
 import MainButton from "../../components/MainButton";
 import LogoImage from "../../components/LogoImage";
 import Images from "../../constants/images";
+import { deleteUser } from "../../services/user";
 import CheckedAccountSimbol from "../../components/CheckedAccountSimbol";
+import { connect } from 'react-redux';
 
 const DeleteAccountScreen = (props) => {
+
+  const deleteAccount = async () => {
+    const userInfo = {
+      id: props.id
+    }
+    const response = await deleteUser(userInfo);
+    if(response.data.length === 1){
+      props.navigation.navigate({ routeName: "Login"});
+    }
+    else{
+      console.log("error");
+    }
+    
+  }
+
   return (
     <View style={styles.body}>
       <LogoImage style={styles.logo} />
@@ -15,7 +32,7 @@ const DeleteAccountScreen = (props) => {
         Tem certeza que deseja excluir essa conta?
       </Text>
       <Image source={Images.simonSad.uri} style={styles.image} />
-      <MainButton style={styles.button} title="Excluir" />
+      <MainButton onPress={() => { deleteAccount(); }} style={styles.button} title="Excluir" />
       <TouchableOpacity onPress={ () => {
         props.navigation.goBack();
       }}>
@@ -66,4 +83,8 @@ const styles = StyleSheet.create({
   },
 });
 
-export default DeleteAccountScreen;
+const mapStateToProps = state => ({
+  id: state.user.id
+})
+
+export default connect(mapStateToProps)(DeleteAccountScreen);

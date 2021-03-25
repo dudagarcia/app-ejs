@@ -3,16 +3,27 @@ import { Text, StyleSheet, View, Image, ActivityIndicator } from 'react-native';
 import { colors, images} from '../../constants';
 import { LogoImage, Title, Input } from '../../components';
 import { loginUser } from '../../services/user';
-import { onSignIn } from '../../services/auth';
+import { isSignedIn, onSignIn } from '../../services/auth';
 import LoginButton from './components/LoginButton';
+import { searchUserById } from '../../services/user';
+import { useDispatch } from 'react-redux';
+import * as ActionTypes from '../../redux/actions/actions';
 
 const LoginScreen = props => {
+
+    const dispatch = useDispatch()
 
     const [email, setEmail] = useState(null);
     const [password, setPassword] = useState(null);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
 
+    const searchLoggedUser = async () => {
+          const userId = await isSignedIn();
+          const { data } = await searchUserById({ id: userId});
+          dispatch({ type: ActionTypes.ADD_USER, payload: data[0]});
+    }
+    
     const sendForm = async () =>{
         setLoading(true);
         const userLoginInfo = {
@@ -20,13 +31,15 @@ const LoginScreen = props => {
             password: password
         }
         const response = await loginUser(userLoginInfo);
-        
+
         if(response.data.length === 1){
-            props.navigation.navigate('Main');
             onSignIn(response.data[0].id);
             setError(false)
+            searchLoggedUser();
+            props.navigation.navigate('Main');
 
         }else {
+            console.log("eerrooo")
             setError(true)
         }
 
