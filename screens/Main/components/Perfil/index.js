@@ -1,12 +1,23 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, Image, StyleSheet } from 'react-native';
+import Images from '../../../../constants/images';
 
 const Perfil = () => {
   return(
       <View>
-          <Text>Tela de Perfil</Text>
+          <Image source={Images.simonAmazed.uri} style={styles.simon}/>
       </View>
   );
 }
+
+const styles = StyleSheet.create({
+  simon:{
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'column',
+    marginLeft: 75,
+    marginTop: 190
+  }
+});
 
 export default Perfil;

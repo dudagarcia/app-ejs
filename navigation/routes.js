@@ -15,9 +15,11 @@ const SignedInRoutes = createStackNavigator({
     Main: { screen: MainScreen, navigationOptions: { headerShown: false } },
     Profile: { screen: EditProfileScreen, navigationOptions: { headerShown: false}},   
     DeleteAccount: { screen: DeleteAccountScreen, navigationOptions: { headerShown: false } },
-    LeaveAccount: { screen: LeaveAccountScreen, navigationOptions: { headerShown: false } },
+    LeaveAccount: { screen: LeaveAccountScreen, navigationOptions: { headerShown: false }},
     Login: { screen: LoginScreen, navigationOptions: {headerShown: false }}
 })
+
+
 
 export const SignedInNavigator = createAppContainer(SignedInRoutes);
 export const SignedOutNavigator = createAppContainer(SignedOutRoutes);

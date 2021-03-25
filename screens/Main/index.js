@@ -151,14 +151,6 @@ const MainScreen = (props) => {
                   smallMenuDisplay={smallMenuDisplay}
                 />
 
-                <MenuItem
-                  title="Agenda"
-                  image={images.agendaIcon.uri}
-                  imageNotSelected={images.agendaIconNotSelected.uri}
-                  onClick={() => smallMenuAnimation("Agenda")}
-                  selectedMenuItem={selectedMenuItem}
-                  smallMenuDisplay={smallMenuDisplay}
-                />
                 {
                   Boolean(props.user.admin) && 
                   (
@@ -204,6 +196,16 @@ const MainScreen = (props) => {
                       selectedMenuItem={selectedMenuItem}
                       smallMenuDisplay={smallMenuDisplay}
                     />
+
+                    <MenuItem
+                      title="Feed"
+                      image={images.agendaIcon.uri}
+                      imageNotSelected={images.agendaIconNotSelected.uri}
+                      onClick={() => smallMenuAnimation("Agenda")}
+                      selectedMenuItem={selectedMenuItem}
+                      smallMenuDisplay={smallMenuDisplay}
+                    />
+                    
                   </>
                  )
                 }

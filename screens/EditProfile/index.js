@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   ScrollView,
   BackHandler,
+  StyleSheet
 } from "react-native";
 import colors from "../../constants/colors";
 import images from "../../constants/images";
@@ -15,6 +16,8 @@ import DropDownPicker from "react-native-dropdown-picker";
 import { TextInputMask } from "react-native-masked-text";
 import moment from "moment";
 import { ProfileStyles } from "../ViewProfile/ProfileStyles";
+import Icon from 'react-native-vector-icons/AntDesign';
+import Colors from '../../constants/colors';
 import {
   containerHeight,
   maxDropDownItems,
@@ -121,20 +124,22 @@ const EditProfileScreen = props => {
     <View style={ProfileStyles.body}>
       <View style={ProfileStyles.container}>
         <View style={ProfileStyles.logoContainer}>
-          <View style={ProfileStyles.logoBorda}>
-            <View style={ProfileStyles.profilePictureContainer}>
-              <Image
-                source={profilePic}
-                style={ProfileStyles.profilePictureStyle}
-              />
+          <View style={styles.foto}>
+            <View style={ProfileStyles.logoBorda}>
+              <View style={ProfileStyles.profilePictureContainer}>
+                <Image
+                  source={profilePic}
+                  style={ProfileStyles.profilePictureStyle}
+                />
+              </View>
             </View>
           </View>
-          <View style={ProfileStyles.imagePicker}>
-            <ImagePicker setImage={updImg} buttonIcon={images.cameraIcon.uri} />
-          </View>
+        
         </View>
         <View style={ProfileStyles.titleContainer}>
-          <Text style={ProfileStyles.title}>Perfil</Text>
+          <TouchableOpacity onPress={() => props.navigation.navigate({ routeName: "Main" })}>
+            <Icon name="arrowleft" style={styles.icon} size={30}/>
+          </TouchableOpacity>
         </View>
         <ScrollView
           style={ProfileStyles.scrollContainer}
@@ -324,6 +329,16 @@ const EditProfileScreen = props => {
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  icon:{
+    color: Colors.mainDark,
+  },
+  foto:{
+    marginLeft: 20,
+  },
+  
+});
 
 const mapStateToProps = (state) => ({
   user: state.user,
