@@ -25,7 +25,7 @@ const AdicionarProjeto = (props) => {
   const [error, setError] = useState(false);
   const [success, setSuccess] = useState(false);
 
-  const deleteProject = async () => {
+  const deletarProjeto = async () => {
     const projectInfo = {
       id: props.selectedProject.id
     }
