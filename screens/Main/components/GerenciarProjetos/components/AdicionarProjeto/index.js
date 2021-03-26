@@ -22,7 +22,7 @@ const AdicionarProjeto = (props) => {
   const [contributors, setContributors] = useState(
     props?.selectedProject?.contributors.includes(',') ?
     props?.selectedProject?.contributors.split(',').map(x=>+x) :
-    [1]
+    []
     );
   const [status, setStatus] = useState(props?.selectedProject?.status || 0);
   const [description, setDescription] = useState(props?.selectedProject?.description || null);
@@ -74,7 +74,7 @@ const AdicionarProjeto = (props) => {
         onChangeText={(text) => setName(text)}
       />
       <MultiplePicker
-        defaultValue={contributors}
+        defaultValue={contributors?.length > 0 ? contributors : null}
         data={allUsers}
         style={styles.dropdown}
         placeholder="Selecionar Participantes"
