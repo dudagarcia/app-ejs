@@ -8,6 +8,9 @@ const ModalCadastrarDisponibilidade = ({ closeModal, modal, visible }) => {
     <Modal animationType="fade" visible={visible} transparent={true}>
       <View style={styles.modalContainer}>
         <View style={styles.mainContainer}>
+          <View style={styles.cancelarContainer}>
+            <TextButton title="Cancelar" onPress={closeModal} />
+          </View>
           <View style={styles.salvarContainer}>
             <TextButton title="Salvar" onPress={closeModal} />
           </View>
@@ -57,6 +60,14 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
     justifyContent: "flex-end",
+  },
+
+  cancelarContainer: {
+    width: "100%",
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: 'flex-start',
+    marginTop: 10
   },
 
   titleContainer: {

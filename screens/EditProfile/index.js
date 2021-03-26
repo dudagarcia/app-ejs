@@ -62,16 +62,6 @@ const EditProfileScreen = props => {
     return items.length * dropdownItemHeight + marginsBetweenElements;
   };
 
-  const updImg = async (newImage) => {
-    if (!newImage.cancelled) {
-      setProfilePic(newImage);
-      const imageFile = await imageToBlob(newImage);
-      const formData = new FormData();
-      formData.append('imageFile', imageFile);
-      handleUpdateUser(formData);
-    }
-  };
-
   const verifyUser = () => {
     if (props.otherUser) setUser(props.otherUser);
     else setUser(props.user);
@@ -85,8 +75,7 @@ const EditProfileScreen = props => {
       roleId: 1,
       phoneNumber: Number(cellphone.replace('(','').replace(')','').replace('-','').replace(' ','')),
       birthDate: moment(birthday).format('YYYY-MM-DD'),
-      email: email,
-      photo: formData
+      email: email
     }
    const res = await updateUser(userToUpdate);
    

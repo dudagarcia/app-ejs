@@ -123,7 +123,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 20,
     marginTop: -30,
-    marginLeft: 20,
+    marginLeft: 25,
     marginBottom: 60
   },
 });
