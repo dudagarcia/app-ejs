@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet, ActivityIndicator } from "react-native";
+import { View, Text, StyleSheet, ActivityIndicator, TouchableOpacity, Image } from "react-native";
 import {
   InputProfile,
   BlueTitle,
@@ -45,7 +45,7 @@ const AdicionarPerfil = (props) => {
       console.log("nada top");
       setError(true);
     }
-    setLoading(false);
+    isLoading(false);
   };
 
   const deletarPerfil = async () => {

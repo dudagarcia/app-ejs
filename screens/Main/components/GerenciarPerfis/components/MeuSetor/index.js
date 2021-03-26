@@ -8,8 +8,8 @@ const MeuSetor = (props) => {
   return (
       <ScrollView style={styles.container}>
           {
-            props.perfis?.map((perfil)=>{
-              return <CardPerfil perfil={perfil} onPress={()=> {props?.openEditScreen(perfil)} } />;
+            props.perfis.map((perfil)=>{
+              return <CardPerfil perfil={perfil} onPress={()=> {props.openEditScreen(perfil)} } />;
             })
           }
       </ScrollView>

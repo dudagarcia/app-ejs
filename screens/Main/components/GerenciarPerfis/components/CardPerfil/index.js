@@ -1,5 +1,5 @@
 import React from "react";
-import { TouchableOpacity, Image, Text, StyleSheet, ProgressViewIOSComponent } from "react-native";
+import { TouchableOpacity, Image, Text, StyleSheet } from "react-native";
 import { colors, images } from '../../../../../../constants';
 
 
