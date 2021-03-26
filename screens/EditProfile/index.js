@@ -8,7 +8,8 @@ import {
   TouchableOpacity,
   ScrollView,
   BackHandler,
-  StyleSheet
+  StyleSheet,
+  ActivityIndicator
 } from "react-native";
 import colors from "../../constants/colors";
 import images from "../../constants/images";
@@ -26,11 +27,15 @@ import {
   dateFormat,
 } from "../ViewProfile/ProfileConstants";
 import ImagePicker from "./components/ImagePicker";
-import { connect } from "react-redux";
-import { updateUser } from "../../services/user";
+import { connect, useDispatch } from "react-redux";
+import { updateUser, searchUserById } from "../../services/user";
 import { updateProject } from "../../services/project";
+import { isSignedIn } from '../../services/auth';
+import { ADD_USER } from '../../redux/actions/actions';
 
 const EditProfileScreen = props => {
+
+  const dispatch = useDispatch()
 
   // Profile of this user
   const [user, setUser] = useState(props.user);
@@ -39,7 +44,7 @@ const EditProfileScreen = props => {
   const [name, setName] = useState(user?.name);
   const [email, setEmail] = useState(user?.email);
   const [cellphone, setCellphone] = useState(String(user?.phoneNumber));
-  const [birthday, setBirthday] = useState(moment(user?.birthDate).format("DD/MM/YYYY"));
+  const [birthday, setBirthday] = useState(moment(user?.birthDate, 'YYYY-MM-DD').format("DD/MM/YYYY"));
   const [birthdayStyle, setBirthdayStyle] = useState(ProfileStyles.inactiveDataText);
   const [isValidBDay, setValidBDay] = useState(false);
   const [age, setAge] = useState(moment(birthday).fromNow().split(" ", 1)[0]);
@@ -49,6 +54,10 @@ const EditProfileScreen = props => {
   const [projectsViewHeight, setProjectsViewHeight] = useState(containerHeight);
   const [departmentViewHeight, setDepartmentViewHeight] = useState(containerHeight);
   const [profilePic, setProfilePic] = useState(images.simonAmazed.uri);
+
+  const [loading, setLoading] = useState(false)
+
+ console.log(activeProjects)
 
   // Dropdown Options
   const [sections, setSections] = useState(props?.sections?.map(item => {return {value: item.id, label: item.name, selected: item.id === user.sectionId} }));
@@ -62,19 +71,37 @@ const EditProfileScreen = props => {
     return items.length * dropdownItemHeight + marginsBetweenElements;
   };
 
+  const updImg = async (newImage) => {
+    if (!newImage.cancelled) {
+      setProfilePic(newImage);
+      const imageFile = await imageToBlob(newImage);
+      const formData = new FormData();
+      formData.append('imageFile', imageFile);
+      handleUpdateUser(formData);
+    }
+  };
+
+  const searchLoggedUser = async () => {
+    const userId = await isSignedIn();
+    const response = await searchUserById({ id: userId});
+    dispatch({ type: ADD_USER, payload: response.data[0]});
+}
+
   const verifyUser = () => {
     if (props.otherUser) setUser(props.otherUser);
     else setUser(props.user);
   };
 
+
   const handleUpdateUser = async (formData) => {
+    setLoading(true);
   const userToUpdate = {
       name: name, 
       id: user.id, 
       sectionId: section,
       roleId: 1,
       phoneNumber: Number(cellphone.replace('(','').replace(')','').replace('-','').replace(' ','')),
-      birthDate: moment(birthday).format('YYYY-MM-DD'),
+      birthDate: moment(birthday, "DD/MM/YYYY").format("YYYY-MM-DD"),
       email: email
     }
    const res = await updateUser(userToUpdate);
@@ -83,13 +110,17 @@ const EditProfileScreen = props => {
       props.navigation.goBack();
       console.log("sim");
     } else console.log("nao");
-
-    handleAddProject()
+    
+    // await searchLoggedUser();
+    console.log("chegou aq")
+    await handleAddProject();
+    setLoading(false);
   };
 
   const handleAddProject = async () => {
     activeProjects?.map(async item => {
       const proj = projects.filter(i => i.id === item)
+      console.log(proj)
       const projectToUpdate = {
         name: proj[0].name,
         status: proj[0].status,
@@ -98,6 +129,8 @@ const EditProfileScreen = props => {
         contributors: (proj[0].contributors)+`,${props.user.id}`
       }
        const res = await updateProject(projectToUpdate);
+       console.log(res)
+       console.log("Aq")
     })
 
   }
@@ -220,7 +253,7 @@ const EditProfileScreen = props => {
               multiple={true}
               multipleText="Participando de %d projetos"
               placeholder="Projetos que participa"
-              defaultValue={activeProjects}
+              defaultValue={1}
               zIndex={5000}
               style={ProfileStyles.pickerStyle}
               containerStyle={ProfileStyles.dropDownContainer}
@@ -248,7 +281,7 @@ const EditProfileScreen = props => {
           >
             <DropDownPicker
               items={sections}
-              defaultValue={sections[0]?.value}
+              // defaultValue={section}
               placeholder="Setor atual"
               zIndex={4000}
               style={ProfileStyles.pickerStyle}
@@ -291,16 +324,22 @@ const EditProfileScreen = props => {
               onPress={handleUpdateUser}
             >
               <View>
-                <Text
-                  style={{
-                    color: "#FFFFFF",
-                    fontFamily: "roboto-bold",
-                    fontSize: 18,
-                    textAlign: "center",
-                  }}
-                >
-                  Salvar
-                </Text>
+                {
+                  loading ?
+                  <ActivityIndicator color="#fff"/>
+                  :
+                  <Text
+                    style={{
+                      color: "#FFFFFF",
+                      fontFamily: "roboto-bold",
+                      fontSize: 18,
+                      textAlign: "center",
+                    }}
+                  >
+                    Salvar
+                  </Text>
+                }
+
               </View>
             </TouchableOpacity>
 

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { View, Text, StyleSheet, TouchableOpacity} from "react-native";
 import colors from "../../../../constants/colors";
 import { Tabs, BlueButton } from "../../../../components";
@@ -12,27 +12,33 @@ import Icon from 'react-native-vector-icons/AntDesign';
 import { useState } from "react";
 import Colors from '../../../../constants/colors';
 import { useLinkProps } from "@react-navigation/native";
+import { connect } from "react-redux";
+import { ADD_PROJECT } from '../../../../redux/actions/actions';
+import { listActiveProjects, listNotActiveProjects } from '../../../../services/project';
 
 const GerenciarProjetos = (props) => {
   const [addProject, setAddProject] = useState(false);
+  const [selectedProject, setSelectedProject] = useState(null);
 
-  const projetos = [
-    {
-      id: 1,
-      nome: "Dominar o Mundo",
-      ativo: false,
-    },
-    {
-      id: 2,
-      nome: "Implantar o Ecossocialismo",
-      ativo: false,
-    },
-    {
-      id: 3,
-      nome: "Vazar o novo álbum da Riri",
-      ativo: false,
-    },
-  ];
+  const searchAllProjects = async () => {
+    setLoading(true);
+    const reponseActive = await listActiveProjects();
+    const reponseNotActive = await listNotActiveProjects();
+    dispatch({ type: ADD_SECTIONS, payload: { 
+        active: reponseActive.data, 
+        notActive: reponseNotActive.data
+    }});
+    setLoading(false);
+  }
+
+  const openEditScreen = (project) => {
+    setSelectedProject(project)
+    setAddProject(true)
+  }
+
+  useEffect(()=>{
+    searchAllProjects()
+  },[])
 
   return (
     <View style={styles.mainContainer}>
@@ -47,17 +53,13 @@ const GerenciarProjetos = (props) => {
               header1="Ativos"
               header2="Arquivados"
               content1={
-                <Ativos
-                  projetos={projetos.filter((proj) => {
-                    return proj.ativo;
-                  })}
+                <Ativos 
+                  openEditScreen={openEditScreen} 
                 />
               }
               content2={
-                <Arquivados
-                  projetos={projetos.filter((proj) => {
-                    return !proj.ativo;
-                  })}
+                <Arquivados 
+                  openEditScreen={openEditScreen} 
                 />
               }
             />
@@ -75,7 +77,12 @@ const GerenciarProjetos = (props) => {
       ) : (
         <>
           <View style={styles.projetosContainer}>
-            <AdicionarProjeto setAddProject={setAddProject} />
+            <AdicionarProjeto
+              searchAllProjects={searchAllProjects} 
+              selectedProject={selectedProject}
+              setSelectedProject={setSelectedProject} 
+              setAddProject={setAddProject} 
+            />
           </View>
         </>
       )}
@@ -111,7 +118,7 @@ const styles = StyleSheet.create({
 
   buttonContainer: {
     position: "absolute",
-    marginTop: 515,
+    marginTop: 555,
     display: "flex",
     alignSelf: "center",
   },
