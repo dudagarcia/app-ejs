@@ -92,9 +92,10 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     position: "absolute",
-    marginTop: 540,
+    marginTop: 50,
     alignSelf: "center",
     display: "flex",
+    position: "absolute",
   },
   buttonText: {
     color: "#ffffff",
