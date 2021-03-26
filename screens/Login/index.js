@@ -113,7 +113,8 @@ const styles = StyleSheet.create({
     },
     clickableText:{
         marginTop: 2,
-        color: colors.lighterBlue
+        color: colors.lighterBlue,
+        fontSize: 15
     },  
     simon:{
         width: 80,

@@ -1,23 +1,26 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { LogoImage, MainButton, Title, Input } from '../../components';
 import Colors from '../../constants/colors';
 import Images from '../../constants/images';
 import { connect } from 'react-redux';
-import { update } from '../../services/user';
+import { updatePassword } from '../../services/user';
 
 const ResetPasswordScreen = props => {
 
+    
     const [password, setPassword] = useState(null);
     const [samePasssword, setSamePassword] = useState(null);
 
     const changePassword = async () => {
+        const {email} = route.params;
+        console.log(JSON.stringify(email));
         const user = {
             password: password,
-            id: props.id
+            email: JSON.stringify(email)
         }
         if(password === samePasssword){
-            const response = await update(user);
+            const response = await updatePassword(user);
             if(response.data.length === 1){
                 console.log(response);
                 props.navigation.navigate({ routeName: 'AlteredPassword' });

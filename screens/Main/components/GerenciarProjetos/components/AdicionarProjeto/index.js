@@ -59,11 +59,13 @@ const AdicionarProjeto = (props) => {
     else response = await updateProject({...projectInfo, ...{ id: props.selectedProject.id}});
 
     if (response.data.affectedRows === 1) {
+      console.log("top");
       setSuccess(true);
       props?.setAddProject(false);
       props?.searchAllProjects();
       props?.setSelectedProject(null)
     } else {
+      console.log("nada top");
       setError(true);
     }
     setLoading(false);
@@ -105,9 +107,13 @@ const AdicionarProjeto = (props) => {
         onChangeText={(text) => setDescription(text)}
         defaultValue={description}
       />
-      <TouchableOpacity style={styles.trashContainer} onPress={() => {deletarProjeto()}}>
-        <Image source={images.trashcanIcon.uri} style={styles.trash} />
-      </TouchableOpacity>
+      {
+        props?.selectedProject &&
+        <TouchableOpacity style={styles.trashContainer} onPress={() => {deletarProjeto()}}>
+          <Image source={images.trashcanIcon.uri} style={styles.trash} />
+        </TouchableOpacity>
+      }
+      
       <BlueButton style={styles.button} onPress={sendForm}>
         {
           loading ?

@@ -8,12 +8,14 @@ import {
   ModalCadastrarDisponibilidade,
   TodosOsMembros,
 } from "./components";
-import { perfis } from "../../../../constants";
-import { BlueButton } from "../../../../components";
 
-const Disponibilidades = () => {
+import { BlueButton } from "../../../../components";
+import { connect } from 'react-redux'; 
+
+const Disponibilidades = (props) => {
   const [modalVerificarOpen, setModalVerificarOpen] = useState(false);
   const [modalCadastrarOpen, setModalCadastrarOpen] = useState(false);
+
 
   return (
     <>
@@ -38,12 +40,10 @@ const Disponibilidades = () => {
             header2="Todos os Membros"
             content1={
               <MeuSetor
-                perfis={perfis.filter((perfil) => {
-                  return perfil.id > 4;
-                })}
+                perfis={props.users.mySection}
               />
             }
-            content2={<TodosOsMembros perfis={perfis} />}
+            content2={<TodosOsMembros perfis={props.users.allUsers} />}
           />
         </View>
         <View style={styles.buttonContainer}>
@@ -102,4 +102,8 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Disponibilidades;
+const mapStateToProps = (state) => ({
+  users: state.users
+});
+
+export default connect(mapStateToProps)(Disponibilidades);

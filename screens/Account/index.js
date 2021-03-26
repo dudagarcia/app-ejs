@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, View, Image } from 'react-native';
 import colors from '../../constants/colors';
 import images from '../../constants/images';
@@ -8,6 +8,8 @@ import { connect } from 'react-redux';
 
 const AccountScreen = props => {
 
+    const [email, setEmail] = useState(null);
+
     const sendEmail = async () => {
         const user = {
             id: props.id
@@ -15,12 +17,13 @@ const AccountScreen = props => {
         const response = await updateCode(user);
         if(response.data.length === 1){
             console.log(response);
-            props.navigation.navigate({ routeName: 'ConfirmEmail'});
+            props.navigation.navigate({ routeName: 'ResetPassword'});
         }
         else{
             console.log("error");
         }
     }
+
 
     return (
         <View style={styles.body}>
@@ -35,12 +38,13 @@ const AccountScreen = props => {
                 image={images.email.uri}
                 password={false}
                 placeholder='Email Corporativo'
+                onChangeText={(text) => setEmail(text)}
             />
             <MainButton
                 style={styles.button}
-                title='Enviar email para alterar senha'
+                title='Alterar senha'
                 onPress={() => { 
-                    sendEmail();
+                    props.navigation.navigate('ResetPassword', { email: email });
                 }}
             />
         </View>

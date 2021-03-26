@@ -48,11 +48,13 @@ const AdicionarSetor = props => {
     else response = await updateSection({...sectionInfo,...{id: props.selectedSection.id}});
 
     if (response.data.affectedRows === 1) {
+      console.log("top");
       setSuccess(true);
       props.setAddSetor(false);
       props.searchAllSections();
       props.setSelectedSection(null);
     } else {
+      console.log("nada top");
       setError(true);
     }
   };
@@ -77,6 +79,12 @@ const AdicionarSetor = props => {
         setPicker={setManager}
         status={props?.selectedSection?.manager || null}
       />
+      {
+        props?.selectedSection &&
+        <TouchableOpacity style={styles.trashContainer} onPress={() => {deletarSetor()}}>
+          <Image source={images.trashcanIcon.uri} style={styles.trash} />
+        </TouchableOpacity>
+      }
       <BlueButton style={styles.button} onPress={() => sendForm()}>
         {
           loading ?
@@ -86,9 +94,7 @@ const AdicionarSetor = props => {
         }
       </BlueButton>
 
-      <TouchableOpacity style={styles.trashContainer} onPress={() => {deletarSetor()}}>
-        <Image source={images.trashcanIcon.uri} style={styles.trash} />
-      </TouchableOpacity>
+      
 
     </View>
   );

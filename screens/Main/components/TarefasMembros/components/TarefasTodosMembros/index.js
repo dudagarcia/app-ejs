@@ -22,7 +22,7 @@ const TarefasTodosMembros = ({ users }) => {
                 user={selectedUser}
             />
             {
-                users.map((perfil) => {
+                users?.map((perfil) => {
                     return (
                     <>
                         <CardPerfil 

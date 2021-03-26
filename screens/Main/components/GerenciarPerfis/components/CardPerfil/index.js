@@ -6,7 +6,7 @@ import { colors, images } from '../../../../../../constants';
 const CardPerfil = ({ perfil, onPress }) => {
 
   return (
-    <TouchableOpacity style={styles.container} onPress={onPress}>
+    <TouchableOpacity style={styles.container} onPress={() => {onPress()}}>
       <Image source={images.logo.uri} style={styles.image} />
       <Text style={styles.name}>{perfil.name || perfil.email}</Text>
     </TouchableOpacity>

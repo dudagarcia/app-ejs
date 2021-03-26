@@ -12,6 +12,7 @@ import { ADD_ALL_USER } from '../../../../redux/actions/actions';
 const GerenciarPerfis = (props) => {
   const [addProfile, setAddProfile] = useState(false);
   const [loading, setLoading] = useState();
+  const [selectedProfile, setSelectedProfile] = useState(null);
 
   const dispatch = useDispatch()
 
@@ -24,6 +25,11 @@ const GerenciarPerfis = (props) => {
     const { data } = await listAllUsers();
     dispatch({ type: ADD_ALL_USER, payload: {allUsers: data, mySection: data.filter(filterByRole)}});
     setLoading(false)
+  }
+
+  const openEditScreen = async (profile) => {
+    setSelectedProfile(profile);
+    setAddProfile(true);
   }
 
   useEffect(()=>{
@@ -46,10 +52,15 @@ const GerenciarPerfis = (props) => {
                 header1="Meu Setor"
                 header2="Todos os Membros"
                 content1={
-                  <MeuSetor perfis={props.users.mySection} loading={loading} />
+                  <MeuSetor 
+                    openEditScreen={openEditScreen}
+                    perfis={props.users.mySection} 
+                    loading={loading} 
+                  />
                 }
                 content2={
                   <TodosOsMembros
+                    openEditScreen={openEditScreen}
                     perfis={props.users.allUsers}
                     loading={loading}
                   />
@@ -73,6 +84,8 @@ const GerenciarPerfis = (props) => {
             <AdicionarPerfil 
               setAddProfile={setAddProfile}
               searchAllUsers={searchAllUsers} 
+              selectedProfile={selectedProfile}
+              setSelectedProfile={setSelectedProfile}
             />
           </View>
         </>

@@ -28,8 +28,8 @@ const MeuSetor = ({ perfis }) => {
   return (
       <ScrollView>
           {
-            perfis.map((perfil)=>{
-              return <CardPerfil key={perfil.id} perfil={perfil || {nome: 'teste'}} onSelect={selectItem} onRemove={removeItem}/>
+            perfis?.map((perfil)=>{
+              return <CardPerfil key={perfil.id} perfil={perfil} onSelect={selectItem} onRemove={removeItem}/>
             })
           }
       </ScrollView>

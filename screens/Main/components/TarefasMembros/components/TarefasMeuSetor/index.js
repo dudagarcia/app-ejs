@@ -8,7 +8,7 @@ const TarefasMeuSetor = ({ users }) => {
   return(
         <ScrollView>
             {
-                users.map((perfil) => {
+                users?.map((perfil) => {
                     return <CardPerfil perfil={perfil}/>
                 })
             }

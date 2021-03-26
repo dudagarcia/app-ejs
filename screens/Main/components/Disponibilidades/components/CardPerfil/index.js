@@ -41,7 +41,7 @@ const CardPerfil = ({ perfil, onSelect, onRemove }) => {
         status={checked ? 'checked' : 'unchecked'}
         color={colors.mainDark}
       />
-      <Text style={styleText}>{perfil.nome}</Text>
+      <Text style={styleText}>{perfil.name || perfil.email }</Text>
     </TouchableOpacity>
   );
 };
