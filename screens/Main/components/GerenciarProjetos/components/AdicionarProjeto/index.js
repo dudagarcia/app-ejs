@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, StyleSheet, Text, ActivityIndicator } from "react-native";
+import { View, StyleSheet, Text, ActivityIndicator, TouchableOpacity, Image } from "react-native";
 import {
   InputProfile,
   MultiplePicker,
@@ -7,9 +7,9 @@ import {
   SingularPicker,
 } from "../../../../../../components";
 import { connect } from "react-redux";
-import { createProject, updateProject } from "../../../../../../services/project";
+import { createProject, updateProject, deleteProject } from "../../../../../../services/project";
 import Icon from 'react-native-vector-icons/AntDesign';
-import Colors from '../../../../../../constants/colors';
+import { colors, images} from '../../../../../../constants';
 
 const AdicionarProjeto = (props) => {
   const [allUsers, setAllUsers] = useState(
@@ -105,6 +105,9 @@ const AdicionarProjeto = (props) => {
         onChangeText={(text) => setDescription(text)}
         defaultValue={description}
       />
+      <TouchableOpacity style={styles.trashContainer} onPress={() => {deletarProjeto()}}>
+        <Image source={images.trashcanIcon.uri} style={styles.trash} />
+      </TouchableOpacity>
       <BlueButton style={styles.button} onPress={sendForm}>
         {
           loading ?
@@ -147,15 +150,27 @@ const styles = StyleSheet.create({
     marginBottom: 50
   },
   icon:{
-    color: Colors.mainDark,
+    color: colors.mainDark,
     marginRight: 30,
     marginLeft: -50
   },
   title: {
-    color: Colors.mainDark,
+    color: colors.mainDark,
     fontWeight: "bold",
     fontSize: 20,
    
+  },
+  trash: {
+    width: 40,
+    height: 40,
+    alignSelf: "center"
+
+  },
+  trashContainer: {
+      backgroundColor: "rgba(255, 255, 255, 0.7)",
+      borderRadius: 100,
+      width: 40,
+      alignSelf: "center"
   },
 });
 
