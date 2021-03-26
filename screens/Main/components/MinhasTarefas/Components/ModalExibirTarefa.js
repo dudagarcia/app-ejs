@@ -1,17 +1,24 @@
 import moment from "moment";
 import React from "react";
 import { Modal, Text, View, StyleSheet, TouchableOpacity, Image } from "react-native";
+import { connect } from "react-redux";
 import { TextButton } from "../../../../../components";
 import { colors, images } from "../../../../../constants";
 import { deleteTask } from '../../../../../services/task';
 
-const ModalExibirTarefas = ({ open, task, setOpen, reload, setReload }) => {
+const ModalExibirTarefas = ({ open, task, setOpen, reload, setReload, users }) => {
 
-    const deleteThisTask = async () => {
+  const searchUser = (t) => {
+    const user = users.filter(user => user.id === t);
+    return (user[0]?.name || user[0]?.email);
+  }
+
+  const deleteThisTask = async () => {
         const response = await deleteTask({ id: task.id });
         setOpen(false);
         setReload(!reload);
     }
+
 
   return (
     <Modal visible={open} transparent>
@@ -33,8 +40,16 @@ const ModalExibirTarefas = ({ open, task, setOpen, reload, setReload }) => {
           </Text>
 
           <View style={styles.dateContainer}>
-            <Text style={styles.date}>{moment(task.date).format("DD/MM/YYYY")}</Text>
-            <Text style={styles.date}>{moment(task.date).format("HH:MM")}</Text>
+            <Text style={styles.date}>{moment(task.date).isValid() ? moment(task.date).format("DD/MM/YYYY") : "Sem data"}</Text>
+            <Text style={styles.date}>{moment(task.date).isValid() ? moment(task.date).format("HH:MM"): "Sem hora"}</Text>
+          </View>
+
+          <View style={styles.contributorContainer}>
+            {
+              task.contributors.split(',').map(x=>+x).map(t =>{
+                return <Text style={styles.contributor}>{searchUser(t)}</Text>
+              })
+            }
           </View>
 
           <TouchableOpacity style={styles.trashContainer} onPress={deleteThisTask}>
@@ -113,7 +128,19 @@ const styles = StyleSheet.create({
       borderRadius: 100,
       width: 40,
       alignSelf: "center"
+  },
+  contributorContainer: {
+
+  },
+  contributor: {
+    color: "rgba(255, 255, 255, 0.7)",
+    fontSize: 15,
+    margin: 5
   }
 });
 
-export default ModalExibirTarefas;
+const mapStateToProps = (state) => ({
+  users: state.users.allUsers
+});
+
+export default connect(mapStateToProps)(ModalExibirTarefas);

@@ -75,7 +75,7 @@ export const ProfileStyles = StyleSheet.create({
 
   scrollContainer: {
     marginTop: 10,
-    height: 450,
+    height: 460,
     flex: 0,
     flexGrow: 1,
   },
@@ -91,8 +91,8 @@ export const ProfileStyles = StyleSheet.create({
     shadowRadius: 5,
     elevation: 8,
     width: "90%",
-    height: "80%",
-    maxHeight: 620,
+    height: "85%",
+    maxHeight: 640,
     marginTop: 70,
   },
 

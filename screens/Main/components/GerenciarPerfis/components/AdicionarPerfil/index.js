@@ -40,7 +40,7 @@ const AdicionarPerfil = (props) => {
       setSuccess(true);
       props.setAddProfile(false);
       props.searchAllUsers();
-      props?.setSelectedProfile(null);
+      props.setSelectedProfile(null);
     } else {
       console.log("nada top");
       setError(true);
@@ -71,7 +71,7 @@ const AdicionarPerfil = (props) => {
         onChangeText={(text) => setEmail(text)}
       />
       {
-        props?.selectedProfile ?
+        props.selectedProfile ?
         <TouchableOpacity style={styles.trashContainer} onPress={() => {deletarPerfil()}}>
           <Image source={images.trashcanIcon.uri} style={styles.trash} />
         </TouchableOpacity>
@@ -84,6 +84,10 @@ const AdicionarPerfil = (props) => {
         />
       }
       
+      {
+        error &&
+        <Text>{error}</Text>
+      }
       <View style={styles.buttonContainer}>
         <BlueButton
           onPress={() => {
