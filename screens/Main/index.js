@@ -206,6 +206,11 @@ const MainScreen = (props) => {
                       smallMenuDisplay={smallMenuDisplay}
                     />
 
+                    
+                  </>
+                 )
+                }
+
                     <MenuItem
                       title="Sair"
                       image={images.perfilIcon.uri}
@@ -217,10 +222,6 @@ const MainScreen = (props) => {
                       }}
                       smallMenuDisplay={smallMenuDisplay}
                     />
-                    
-                  </>
-                 )
-                }
                 
               </Animated.View>
             </View>

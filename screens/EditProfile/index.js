@@ -44,7 +44,7 @@ const EditProfileScreen = props => {
   const [isValidBDay, setValidBDay] = useState(false);
   const [age, setAge] = useState(moment(birthday).fromNow().split(" ", 1)[0]);
   const [activeProjects, setActiveProjects] = useState([]);
-  const [section, setSection] = useState(user?.sectionId);
+  const [section, setSection] = useState(user?.sectionId || 9);
   const [role, setRole] = useState(user?.roleId || 1);
   const [projectsViewHeight, setProjectsViewHeight] = useState(containerHeight);
   const [departmentViewHeight, setDepartmentViewHeight] = useState(containerHeight);
@@ -78,7 +78,7 @@ const EditProfileScreen = props => {
       email: email
     }
    const res = await updateUser(userToUpdate);
-   
+   //console.log(section);
     if(res.data.affectedRows === 1) {
       props.navigation.goBack();
       console.log("sim");
