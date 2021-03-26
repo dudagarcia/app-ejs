@@ -3,12 +3,12 @@ import { ScrollView, StyleSheet } from 'react-native';
 import { CardPerfil } from '../index';
 
 
-const MeuSetor = ({perfis, props}) => {
+const MeuSetor = (props) => {
 
   return (
       <ScrollView style={styles.container}>
           {
-            perfis?.map((perfil)=>{
+            props.perfis?.map((perfil)=>{
               return <CardPerfil perfil={perfil} onPress={()=> {props?.openEditScreen(perfil)} } />;
             })
           }

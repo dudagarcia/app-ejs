@@ -3,7 +3,7 @@ import { View, Text, ScrollView, StyleSheet, ActivityIndicator } from "react-nat
 import { CardPerfil } from '../index';
 
 
-const TodosOsMembros = ({ perfis, loading, props }) => {
+const TodosOsMembros = ({ perfis, loading, openEditScreen }) => {
   return (
     <>
     {
@@ -12,7 +12,7 @@ const TodosOsMembros = ({ perfis, loading, props }) => {
       ) : (
       <ScrollView style={styles.container}>
         {perfis?.map((perfil) => {
-          return <CardPerfil perfil={perfil} onPress={()=> {props?.openEditScreen(perfil)} }/>;
+          return <CardPerfil perfil={perfil} onPress={()=> {openEditScreen(perfil)} }/>;
         })}
       </ScrollView>
 
