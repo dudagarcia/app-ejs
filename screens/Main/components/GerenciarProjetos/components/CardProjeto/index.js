@@ -3,12 +3,14 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import colors from '../../../../../../constants/colors';
 import { ModalDetails } from '../../../../../../components';
 
-const CardProjeto = ({ projeto }) => {
+const CardProjeto = ({ projeto, onPress }) => {
 
     const [modalVisible, setModalVisible] = useState(false);
     
     return (
-      <TouchableOpacity style={styles.container}  onPress={() => {setModalVisible(true)}}>
+      <TouchableOpacity style={styles.container}  onPress={() => {
+        onPress()
+        setModalVisible(true)}}>
         <ModalDetails text={"Novo projeto adicionado!"} visible={modalVisible}/>
         <View style={styles.circulo}/>
         <Text style={styles.name}>{projeto.name}</Text>

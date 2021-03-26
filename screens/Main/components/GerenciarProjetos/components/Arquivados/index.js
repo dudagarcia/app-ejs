@@ -12,7 +12,7 @@ const Arquivados = props => {
       props.projects.notActive.map((projeto)=>{
         return <CardProjeto 
                   projeto={projeto} 
-                  onPress={()=>{ console.log("AA") }}
+                  onPress={()=>{ props.openEditScreen(projeto)}}
                 />;
       })
     }

@@ -1,16 +1,34 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, ActivityIndicator } from "react-native";
 import colors from "../../../../constants/colors";
 import { Tabs, BlueButton } from "../../../../components";
 import { MeuSetor, TodosOsMembros, AdicionarPerfil } from "./components";
 import { perfis } from "../../../../constants";
 import { listAllUsers } from "../../../../services/user";
 import { useEffect } from "react";
-import { connect } from "react-redux";
+import { connect, useDispatch } from "react-redux";
+import { ADD_ALL_USER } from '../../../../redux/actions/actions';
 
 const GerenciarPerfis = (props) => {
   const [addProfile, setAddProfile] = useState(false);
   const [loading, setLoading] = useState();
+
+  const dispatch = useDispatch()
+
+  const filterByRole = (item) => {
+    return item.roleId === props.user.roleId
+  }
+
+  const searchAllUsers = async () => {
+    setLoading(true)
+    const { data } = await listAllUsers();
+    dispatch({ type: ADD_ALL_USER, payload: {allUsers: data, mySection: data.filter(filterByRole)}});
+    setLoading(false)
+  }
+
+  useEffect(()=>{
+    searchAllUsers()
+  },[])
 
   return (
     <View style={styles.mainContainer}>
@@ -20,19 +38,25 @@ const GerenciarPerfis = (props) => {
       {!addProfile ? (
         <>
           <View style={styles.membrosContainer}>
-            <Tabs
-              header1="Meu Setor"
-              header2="Todos os Membros"
-              content1={
-                <MeuSetor perfis={props.users.mySection} loading={loading} />
-              }
-              content2={
-                <TodosOsMembros
-                  perfis={props.users.allUsers}
-                  loading={loading}
-                />
-              }
-            />
+            {
+              loading ?
+              <ActivityIndicator color={colors.mainDark}/>
+              :
+              <Tabs
+                header1="Meu Setor"
+                header2="Todos os Membros"
+                content1={
+                  <MeuSetor perfis={props.users.mySection} loading={loading} />
+                }
+                content2={
+                  <TodosOsMembros
+                    perfis={props.users.allUsers}
+                    loading={loading}
+                  />
+                }
+              />
+            }
+
           </View>
           <BlueButton
             style={styles.button}
@@ -46,7 +70,10 @@ const GerenciarPerfis = (props) => {
       ) : (
         <>
           <View>
-            <AdicionarPerfil setAddProfile={setAddProfile} />
+            <AdicionarPerfil 
+              setAddProfile={setAddProfile}
+              searchAllUsers={searchAllUsers} 
+            />
           </View>
         </>
       )}
