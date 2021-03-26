@@ -34,7 +34,7 @@ const SingularPicker = props => {
             >
                 <DropDownPicker
                     items={props.data}
-                    defaultValue={Number(props.status)}
+                    defaultValue={props.status && Number(props.status)}
                     placeholder={props.placeholder}
                     zIndex={4000}
                     style={ProfileStyles.pickerStyle}

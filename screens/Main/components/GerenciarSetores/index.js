@@ -32,10 +32,10 @@ const GerenciarSetores = (props) => {
 
   return (
     <View style={styles.body}>
-      <BlueTitle style={styles.title} title="Gerenciar Setores" />
       {
         !addSetor ? (
           <>
+            <BlueTitle style={styles.title} title="Gerenciar Setores" />
             <View style={styles.container}>
               <ScrollView style={styles.listContainer}>
                 {
