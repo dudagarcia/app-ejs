@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, StyleSheet, Text } from "react-native";
+import { View, StyleSheet, Text, ActivityIndicator } from "react-native";
 import {
   InputProfile,
   MultiplePicker,
@@ -7,7 +7,7 @@ import {
   SingularPicker,
 } from "../../../../../../components";
 import { connect } from "react-redux";
-import { createProject } from "../../../../../../services/project";
+import { createProject, updateProject } from "../../../../../../services/project";
 import Icon from 'react-native-vector-icons/AntDesign';
 import Colors from '../../../../../../constants/colors';
 
@@ -17,17 +17,23 @@ const AdicionarProjeto = (props) => {
       return { value: item.id, label: item.name || item.email };
     })
   );
-  const [name, setName] = useState(null);
-  const [contributors, setContributors] = useState([]);
-  const [status, setStatus] = useState(1);
-  const [description, setDescription] = useState(null);
-  const [loading, isLoading] = useState(false);
+
+  const [name, setName] = useState(props?.selectedProject?.name || null);
+  const [contributors, setContributors] = useState(
+    props?.selectedProject?.contributors.includes(',') ?
+    props?.selectedProject?.contributors.split(',').map(x=>+x) :
+    [1]
+    );
+  const [status, setStatus] = useState(props?.selectedProject?.status || 0);
+  const [description, setDescription] = useState(props?.selectedProject?.description || null);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [success, setSuccess] = useState(false);
 
-  console.log(contributors);
+  console.log(contributors)
+
   const sendForm = async () => {
-    isLoading(true);
+    setLoading(true);
     const projectInfo = {
       name: name,
       contributors: contributors,
@@ -35,13 +41,19 @@ const AdicionarProjeto = (props) => {
       description: description,
     };
 
-    const response = await createProject(projectInfo);
+    var response;
+    if(!props?.selectedProject) response = await createProject(projectInfo);
+    else response = await updateProject({...projectInfo, ...{ id: props.selectedProject.id}});
+
     if (response.data.affectedRows === 1) {
       setSuccess(true);
-      props.setAddProject(false);
+      props?.setAddProject(false);
+      props?.searchAllProjects();
+      props?.setSelectedProject(null)
     } else {
       setError(true);
     }
+    setLoading(false);
   };
 
   const data = [
@@ -52,15 +64,17 @@ const AdicionarProjeto = (props) => {
   return (
     <View style={styles.container}>
         <View style={styles.titleContainer}>
-          <Icon name="arrowleft" style={styles.icon} size={30} onPress={() => { props.setAddProject(false); }}/>  
-          <Text style={styles.title}>Editar Projetos</Text>
+          <Icon name="arrowleft" style={styles.icon} size={30} onPress={() => { props?.setAddProject(false); }}/>  
+          <Text style={styles.title}>{ props?.selectedProject ? "Editar Projeto" : "Novo Projeto"}</Text>
         </View>
       <InputProfile
         style={styles.input}
         text="Nome do projeto"
+        defaultValue={name}
         onChangeText={(text) => setName(text)}
       />
       <MultiplePicker
+        defaultValue={contributors}
         data={allUsers}
         style={styles.dropdown}
         placeholder="Selecionar Participantes"
@@ -76,9 +90,15 @@ const AdicionarProjeto = (props) => {
         style={styles.input}
         text="Descrição do projeto"
         onChangeText={(text) => setDescription(text)}
+        defaultValue={description}
       />
       <BlueButton style={styles.button} onPress={sendForm}>
-        {<Text style={styles.buttonText}>Salvar</Text>}
+        {
+          loading ?
+          <ActivityIndicator color="white"/>
+          :
+          <Text style={styles.buttonText}>Salvar</Text>
+        }
       </BlueButton>
     </View>
   );

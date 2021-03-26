@@ -28,7 +28,7 @@ const MultiplePicker = props => {
                     multiple={true}
                     multipleText="%d usuários selecionados"
                     placeholder={props.placeholder}
-                    defaultValue={1}
+                    defaultValue={props?.defaultValue || 1}
                     zIndex={5000}
                     style={ProfileStyles.pickerStyle}
                     containerStyle={ProfileStyles.dropDownContainer}

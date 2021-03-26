@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { View, Text, StyleSheet, TouchableOpacity} from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, ActivityIndicator} from "react-native";
 import colors from "../../../../constants/colors";
 import { Tabs, BlueButton } from "../../../../components";
 import {
@@ -12,19 +12,22 @@ import Icon from 'react-native-vector-icons/AntDesign';
 import { useState } from "react";
 import Colors from '../../../../constants/colors';
 import { useLinkProps } from "@react-navigation/native";
-import { connect } from "react-redux";
+import { connect, useDispatch } from "react-redux";
 import { ADD_PROJECT } from '../../../../redux/actions/actions';
 import { listActiveProjects, listNotActiveProjects } from '../../../../services/project';
 
 const GerenciarProjetos = (props) => {
   const [addProject, setAddProject] = useState(false);
   const [selectedProject, setSelectedProject] = useState(null);
+  const [loading, setLoading] = useState(false);
+
+  const dispatch = useDispatch()
 
   const searchAllProjects = async () => {
     setLoading(true);
     const reponseActive = await listActiveProjects();
     const reponseNotActive = await listNotActiveProjects();
-    dispatch({ type: ADD_SECTIONS, payload: { 
+    dispatch({ type: ADD_PROJECT, payload: { 
         active: reponseActive.data, 
         notActive: reponseNotActive.data
     }});
@@ -49,20 +52,26 @@ const GerenciarProjetos = (props) => {
             <Text style={styles.title}>Gerenciar Projetos</Text>
           </View>
           <View style={styles.projetosContainer}>
-            <Tabs
-              header1="Ativos"
-              header2="Arquivados"
-              content1={
-                <Ativos 
-                  openEditScreen={openEditScreen} 
-                />
-              }
-              content2={
-                <Arquivados 
-                  openEditScreen={openEditScreen} 
-                />
-              }
-            />
+            {
+              loading ?
+              <ActivityIndicator color={colors.mainDark}/>
+              :
+              <Tabs
+                header1="Ativos"
+                header2="Arquivados"
+                content1={
+                  <Ativos 
+                    openEditScreen={openEditScreen} 
+                  />
+                }
+                content2={
+                  <Arquivados 
+                    openEditScreen={openEditScreen} 
+                  />
+                }
+              />
+            }
+
           </View>
           <View style={styles.buttonContainer}>
             <BlueButton
