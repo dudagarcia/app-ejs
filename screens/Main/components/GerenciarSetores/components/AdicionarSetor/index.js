@@ -8,7 +8,7 @@ import {
   SingularPicker,
 } from "../../../../../../components";
 import { connect } from "react-redux";
-import { createSection, updateSection } from "../../../../../../services/section";
+import { createSection, updateSection, deleteSection } from "../../../../../../services/section";
 import Icon from 'react-native-vector-icons/AntDesign';
 import { colors, images} from '../../../../../../constants';
 
@@ -21,6 +21,20 @@ const AdicionarSetor = props => {
     const [error, setError] = useState(false);
     const [success, setSuccess] = useState(false);
     const [users, setUsers] = useState(props?.users?.allUsers.map(item => {return {value: item.id, label: item.name || item.email} }));
+
+    const deletarSetor = async () => {
+      const sectionInfo = {
+        id: props.selectedSection.id
+      }
+      const response = await deleteSection(sectionInfo);
+      if(response.data.affectedRows === 1){
+        props.setAddSetor(false);
+      }
+      else{
+        console.log("error");
+      }
+    }
+
 
   const sendForm = async () => {
     isLoading(true);
@@ -63,7 +77,6 @@ const AdicionarSetor = props => {
         setPicker={setManager}
         status={props?.selectedSection?.manager || null}
       />
-
       <BlueButton style={styles.button} onPress={() => sendForm()}>
         {
           loading ?
@@ -73,7 +86,7 @@ const AdicionarSetor = props => {
         }
       </BlueButton>
 
-      <TouchableOpacity style={styles.trashContainer} >
+      <TouchableOpacity style={styles.trashContainer} onPress={() => {deletarSetor()}}>
         <Image source={images.trashcanIcon.uri} style={styles.trash} />
       </TouchableOpacity>
 
@@ -136,6 +149,11 @@ const styles = StyleSheet.create({
       borderRadius: 100,
       width: 40,
       alignSelf: "center"
+  },
+  delete: {
+    color: "#ff1a1a",
+    fontSize: 18,
+    fontWeight: 'bold'
   }
 });
 

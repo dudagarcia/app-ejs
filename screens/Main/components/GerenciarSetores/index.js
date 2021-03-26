@@ -6,6 +6,7 @@ import { CardPerfil } from "../GerenciarPerfis/components";
 import { connect, useDispatch } from "react-redux";
 import { ADD_SECTIONS } from '../../../../redux/actions/actions';
 import { listAllSections } from '../../../../services/section';
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 const GerenciarSetores = (props) => {
   const [addSetor, setAddSetor] = useState(false);
@@ -52,7 +53,8 @@ const GerenciarSetores = (props) => {
 
               </ScrollView>
               <View style={styles.buttonContainer}>
-                <BlueButton
+                
+                <BlueButton style={styles.button}
                   onPress={() => {
                     setAddSetor(true);
                   }}
@@ -86,21 +88,20 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
-    display: "flex",
+    //display: "flex",
   },
-  buttonContainer: {
-    position: "absolute",
-    marginTop: 50,
-    alignSelf: "center",
-    display: "flex",
-    position: "absolute",
-  },
+  
   buttonText: {
     color: "#ffffff",
     fontFamily: "roboto-bold",
     fontWeight: "700",
     fontSize: 18,
     alignItems: "center",
+  },
+  button:{
+    marginTop: 40,
+    position: "absolute",
+    
   },
   listContainer: {
     marginTop: 70,
