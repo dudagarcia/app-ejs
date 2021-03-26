@@ -13,6 +13,7 @@ const SingularPicker = props => {
     
     const [viewHeight, setViewHeight] = useState(containerHeight);
 
+    console.log(props)
 
     const getDropDownMaxHeight = (items) => {
         return (
@@ -33,7 +34,7 @@ const SingularPicker = props => {
             >
                 <DropDownPicker
                     items={props.data}
-                    defaultValue={props.status}
+                    defaultValue={props.status && Number(props.status)}
                     placeholder={props.placeholder}
                     zIndex={4000}
                     style={ProfileStyles.pickerStyle}

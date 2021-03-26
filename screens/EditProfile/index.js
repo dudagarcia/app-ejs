@@ -36,16 +36,16 @@ const EditProfileScreen = props => {
   const [user, setUser] = useState(props.user);
 
   // User Info
-  const [name, setName] = useState(user.name);
-  const [email, setEmail] = useState(user.email);
-  const [cellphone, setCellphone] = useState(String(user.phoneNumber));
-  const [birthday, setBirthday] = useState(moment(user.birthDate).format("DD/MM/YYYY"));
+  const [name, setName] = useState(user?.name);
+  const [email, setEmail] = useState(user?.email);
+  const [cellphone, setCellphone] = useState(String(user?.phoneNumber));
+  const [birthday, setBirthday] = useState(moment(user?.birthDate).format("DD/MM/YYYY"));
   const [birthdayStyle, setBirthdayStyle] = useState(ProfileStyles.inactiveDataText);
   const [isValidBDay, setValidBDay] = useState(false);
   const [age, setAge] = useState(moment(birthday).fromNow().split(" ", 1)[0]);
   const [activeProjects, setActiveProjects] = useState([]);
-  const [section, setSection] = useState(user.sectionId);
-  const [role, setRole] = useState(user.roleId || 1);
+  const [section, setSection] = useState(user?.sectionId);
+  const [role, setRole] = useState(user?.roleId || 1);
   const [projectsViewHeight, setProjectsViewHeight] = useState(containerHeight);
   const [departmentViewHeight, setDepartmentViewHeight] = useState(containerHeight);
   const [profilePic, setProfilePic] = useState(images.simonAmazed.uri);
@@ -248,7 +248,7 @@ const EditProfileScreen = props => {
           >
             <DropDownPicker
               items={sections}
-              defaultValue={sections[0].value}
+              defaultValue={sections[0]?.value}
               placeholder="Setor atual"
               zIndex={4000}
               style={ProfileStyles.pickerStyle}

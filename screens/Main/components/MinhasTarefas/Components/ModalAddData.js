@@ -5,13 +5,13 @@ import { TextButton } from "../../../../../components";
 import { colors } from "../../../../../constants";
 
 const ModalAddData = ({ setVisible, visible, setDay, day, hour, setHour }) => {
-  const [markedDate, setMarkedDate] = useState({
-    [day]: { selected: true, selectedColor: "blue" },
-  });
+  const [markedDate, setMarkedDate] = useState({ [day]: { selected: true, selectedColor: "blue" }, });
 
   useEffect(() => {
     setMarkedDate({ [day]: { selected: true, selectedColor: colors.mainDark } });
   }, [day]);
+
+  console.log(hour)
 
   return (
     <Modal visible={visible} transparent={true} animationType="fade">
@@ -50,7 +50,7 @@ const ModalAddData = ({ setVisible, visible, setDay, day, hour, setHour }) => {
                     style={styles.inputHora}
                     keyboardType='number-pad'
                     maxLength={2}
-                    defaultValue="00"
+                    defaultValue=""
                     onChangeText={(value)=>{
                         var auxHora = hour;
                         auxHora[0] = value;
@@ -62,7 +62,7 @@ const ModalAddData = ({ setVisible, visible, setDay, day, hour, setHour }) => {
                     style={styles.inputHora}
                     keyboardType='number-pad'
                     maxLength={2}
-                    defaultValue="00"
+                    defaultValue=""
                     onChangeText={(value)=>{
                         var auxHora = hour;
                         auxHora[1] = value;

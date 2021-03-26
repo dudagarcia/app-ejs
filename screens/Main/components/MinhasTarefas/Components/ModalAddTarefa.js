@@ -33,7 +33,8 @@ const ModalAddTarefa = (props) => {
         props.closeModal();
 
         const dayTask = new Date(day)
-        if(hour[0]) dayTask.setHours(hour[0]-3)
+        if(hour[0]) dayTask.setHours(hour[0])
+        console.log(hour[1])
         if(hour[1]) dayTask.setMinutes(hour[1])
 
         const taskToCreate = {

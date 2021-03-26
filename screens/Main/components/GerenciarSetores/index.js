@@ -1,42 +1,80 @@
-import React, { useState } from "react";
-import { View, StyleSheet, Text, ScrollView } from "react-native";
+import React, { useState, useEffect } from "react";
+import { View, StyleSheet, Text, ScrollView, ActivityIndicator } from "react-native";
 import { BlueButton, BlueTitle, InputProfile } from "../../../../components";
 import { AdicionarSetor, CardSetor } from "./components";
 import { CardPerfil } from "../GerenciarPerfis/components";
-import { connect } from "react-redux";
+import { connect, useDispatch } from "react-redux";
+import { ADD_SECTIONS } from '../../../../redux/actions/actions';
+import { listAllSections } from '../../../../services/section';
 
 const GerenciarSetores = (props) => {
   const [addSetor, setAddSetor] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [selectedSection, setSelectedSection] = useState(null);
+
+  const dispatch = useDispatch();
+
+  const searchAllSections = async () => {
+    setLoading(true);
+    const { data } = await listAllSections();
+    dispatch({ type: ADD_SECTIONS, payload: data});
+    setLoading(false);
+  }
+
+  const openEditScreen = (setor) => {
+    setSelectedSection(setor)
+    setAddSetor(true)
+  }
+
+  useEffect(()=>{
+    searchAllSections()
+  },[])
 
   return (
     <View style={styles.body}>
-      {!addSetor ? (
-        <>
-          <BlueTitle style={styles.title} title="Gerenciar Setores" />
-          <View style={styles.container}>
-            <ScrollView style={styles.listContainer}>
-              {props.sections.map((setor) => {
-                return <CardPerfil perfil={setor} />;
-              })}
-            </ScrollView>
-            <View style={styles.buttonContainer}>
-              <BlueButton
-                onPress={() => {
-                  setAddSetor(true);
-                }}
-              >
-                {<Text style={styles.buttonText}>Novo Setor</Text>}
-              </BlueButton>
+      {
+        !addSetor ? (
+          <>
+            <BlueTitle style={styles.title} title="Gerenciar Setores" />
+            <View style={styles.container}>
+              <ScrollView style={styles.listContainer}>
+                {
+                  loading
+                  ?
+                    <ActivityIndicator/>
+                  :
+                  (
+                     props.sections.map((setor) => {
+                        return <CardPerfil perfil={setor} onPress={()=>openEditScreen(setor)}/>;
+                     })
+                  )
+                }
+
+              </ScrollView>
+              <View style={styles.buttonContainer}>
+                <BlueButton
+                  onPress={() => {
+                    setAddSetor(true);
+                  }}
+                >
+                  {<Text style={styles.buttonText}>Novo Setor</Text>}
+                </BlueButton>
+              </View>
             </View>
-          </View>
-        </>
-      ) : (
-        <>
-          <View>
-            <AdicionarSetor setAddSetor={setAddSetor} />
-          </View>
-        </>
-      )}
+          </>
+        ) : (
+          <>
+            <View>
+              <AdicionarSetor 
+                searchAllSections={searchAllSections} 
+                selectedSection={selectedSection}
+                setSelectedSection={setSelectedSection}
+                setAddSetor={setAddSetor}
+              />
+            </View>
+          </>
+        )
+      }
     </View>
   );
 };
@@ -54,7 +92,8 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     position: "absolute",
-    marginTop: 500,
+    marginTop: 540,
+    alignSelf: "center",
     display: "flex",
   },
   buttonText: {
@@ -67,6 +106,9 @@ const styles = StyleSheet.create({
   listContainer: {
     marginTop: 70,
   },
+  container: {
+    width: "80%",
+  }
 });
 
 export default connect(mapStateToProps)(GerenciarSetores);
