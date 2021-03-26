@@ -29,7 +29,7 @@ import {
 import ImagePicker from "./components/ImagePicker";
 import { connect, useDispatch } from "react-redux";
 import { updateUser, searchUserById } from "../../services/user";
-import { updateProject } from "../../services/project";
+import { updateProject, listUserProjects } from "../../services/project";
 import { isSignedIn } from '../../services/auth';
 import { ADD_USER } from '../../redux/actions/actions';
 
@@ -54,10 +54,10 @@ const EditProfileScreen = props => {
   const [projectsViewHeight, setProjectsViewHeight] = useState(containerHeight);
   const [departmentViewHeight, setDepartmentViewHeight] = useState(containerHeight);
   const [profilePic, setProfilePic] = useState(images.simonAmazed.uri);
+  const [myProjects, setMyProjects] = useState([]);
 
-  const [loading, setLoading] = useState(false)
-
- console.log(activeProjects)
+  const [loading, setLoading] = useState(false);
+  const [loadingProjs, setLoadingProjs] = useState(false);
 
   // Dropdown Options
   const [sections, setSections] = useState(props?.sections?.map(item => {return {value: item.id, label: item.name, selected: item.id === user.sectionId} }));
@@ -81,11 +81,18 @@ const EditProfileScreen = props => {
     }
   };
 
+  const getAllUserProjects = async () => {
+    setLoadingProjs(true)
+    const { data } = await listUserProjects({ userId: props.user.id })
+    setMyProjects(data)
+    setLoadingProjs(false)
+  }
+
   const searchLoggedUser = async () => {
     const userId = await isSignedIn();
     const response = await searchUserById({ id: userId});
     dispatch({ type: ADD_USER, payload: response.data[0]});
-}
+  }
 
   const verifyUser = () => {
     if (props.otherUser) setUser(props.otherUser);
@@ -105,13 +112,13 @@ const EditProfileScreen = props => {
       email: email
     }
    const res = await updateUser(userToUpdate);
-   //console.log(section);
+   
     if(res.data.affectedRows === 1) {
       props.navigation.goBack();
       console.log("sim");
     } else console.log("nao");
     
-    // await searchLoggedUser();
+    await searchLoggedUser();
     console.log("chegou aq")
     await handleAddProject();
     setLoading(false);
@@ -129,8 +136,6 @@ const EditProfileScreen = props => {
         contributors: (proj[0].contributors)+`,${props.user.id}`
       }
        const res = await updateProject(projectToUpdate);
-       console.log(res)
-       console.log("Aq")
     })
 
   }
@@ -140,6 +145,7 @@ const EditProfileScreen = props => {
       props.navigation.goBack();
     });
     verifyUser();
+    getAllUserProjects();
   }, []);
 
   return (
@@ -240,36 +246,28 @@ const EditProfileScreen = props => {
             />
           </View>
           <View
-            style={{
-              marginTop: marginsBetweenElements,
-              height: projectsViewHeight,
-              width: "100%",
-              flex: 0,
-            }}
+            style={styles.projectsContainer}
           >
-            <DropDownPicker
-              placeholderTextColor
-              items={projects}
-              multiple={true}
-              multipleText="Participando de %d projetos"
-              placeholder="Projetos que participa"
-              defaultValue={1}
-              zIndex={5000}
-              style={ProfileStyles.pickerStyle}
-              containerStyle={ProfileStyles.dropDownContainer}
-              itemStyle={ProfileStyles.dropDownItem}
-              labelStyle={ProfileStyles.dropDownLabel}
-              selectedtLabelStyle={ProfileStyles.activeDataText}
-              activeLabelStyle={ProfileStyles.activeDataText}
-              onChangeItem={(item) => setActiveProjects(item)}
-              dropDownMaxHeight={getDropDownMaxHeight(projects)}
-              onOpen={() =>
-                setProjectsViewHeight(
-                  getDropDownMaxHeight(projects) + containerHeight
-                )
-              }
-              onClose={() => setProjectsViewHeight(containerHeight)}
-            />
+            <Text style={styles.projectsTitle}>Projetos que participa</Text>
+            {
+              loadingProjs ?
+              <ActivityIndicator color={colors.mainDark}/>
+              :
+              myProjects.length > 0 ?
+                myProjects.map(proj => {
+                  return (
+                    <View style={styles.projectContainer}>  
+                      <Icon name="team" color="#fff"/>
+                      <Text style={styles.projectTitle}>{proj.name}</Text>
+                    </View>
+                  
+                  )
+                })
+              :
+              <View style={styles.projectContainer}>
+                <Text style={styles.projectTitle}>Poxa.. Ainda não tem projetos :c</Text>
+              </View>
+            }
           </View>
           <View
             style={{
@@ -365,6 +363,34 @@ const styles = StyleSheet.create({
   foto:{
     marginLeft: 20,
   },
+  projectsTitle: {
+    color: colors.mainDark,
+    textAlign: "center"
+  },
+  projectsContainer: {
+    backgroundColor: colors.softBlue,
+    borderRadius: 15,
+    padding: 10,
+    width: "100%",
+    marginTop: marginsBetweenElements
+
+  },
+  projectContainer: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "center",
+    margin: 5,
+    alignItems: "center",
+    width: "100%",
+    alignSelf: 'center',
+    backgroundColor: colors.lighterBlue,
+    padding: 4,
+    borderRadius: 20
+  },
+  projectTitle: {
+    color: "#fff",
+    marginLeft: 10,
+  }
   
 });
 

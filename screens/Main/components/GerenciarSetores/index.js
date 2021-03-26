@@ -45,7 +45,7 @@ const GerenciarSetores = (props) => {
                     <ActivityIndicator/>
                   :
                   (
-                     props.sections.map((setor) => {
+                     props?.sections?.map((setor) => {
                         return <CardPerfil perfil={setor} onPress={()=>openEditScreen(setor)}/>;
                      })
                   )
