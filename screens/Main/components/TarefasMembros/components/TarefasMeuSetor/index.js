@@ -20,7 +20,7 @@ return(
             user={selectedUser}
         />
         {
-            users.map((perfil) => {
+            users?.map((perfil) => {
                 return (
                 <>
                     <CardPerfil 
@@ -36,7 +36,7 @@ return(
 }
 
 const mapStateToProps = (state) => ({
-    users: state.users.mySection
+    users: state?.users?.mySection
 })
 
 export default connect(mapStateToProps)(TarefasMeuSetor);
