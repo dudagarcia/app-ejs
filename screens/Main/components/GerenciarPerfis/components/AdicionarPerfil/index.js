@@ -27,6 +27,7 @@ const AdicionarPerfil = (props) => {
     if (response.data.affectedRows === 1) {
       setSuccess(true);
       props.setAddProfile(false);
+      props.searchAllUsers()
     } else {
       setError(true);
     }
