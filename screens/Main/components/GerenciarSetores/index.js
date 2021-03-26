@@ -63,7 +63,6 @@ const GerenciarSetores = (props) => {
             </View>
           </>
         ) : (
-          <>
             <View>
               <AdicionarSetor 
                 searchAllSections={searchAllSections} 
@@ -72,7 +71,6 @@ const GerenciarSetores = (props) => {
                 setAddSetor={setAddSetor}
               />
             </View>
-          </>
         )
       }
     </View>

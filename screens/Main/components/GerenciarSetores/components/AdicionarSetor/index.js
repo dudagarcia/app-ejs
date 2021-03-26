@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet, ActivityIndicator, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, ActivityIndicator, TouchableOpacity, Image } from "react-native";
 import {
   BlueTitle,
   InputProfile,
@@ -10,8 +10,7 @@ import {
 import { connect } from "react-redux";
 import { createSection, updateSection } from "../../../../../../services/section";
 import Icon from 'react-native-vector-icons/AntDesign';
-import Image from "../../../../../../constants/images";
-import Colors from '../../../../../../constants/colors';
+import { colors, images} from '../../../../../../constants';
 
 const AdicionarSetor = props => {
 
@@ -75,7 +74,7 @@ const AdicionarSetor = props => {
       </BlueButton>
 
       <TouchableOpacity style={styles.trashContainer} >
-        <Image source={Image.trashcanIcon.uri} style={styles.trash} />
+        <Image source={images.trashcanIcon.uri} style={styles.trash} />
       </TouchableOpacity>
 
     </View>
@@ -117,10 +116,10 @@ const styles = StyleSheet.create({
   icon:{
     marginLeft: -40,
     marginRight: 15,
-    color: Colors.mainDark
+    color: { colors, images}.mainDark
   },
   title: {
-    color: Colors.mainDark,
+    color: { colors, images}.mainDark,
     fontWeight: "bold",
     fontSize: 20,
     marginTop: -30,

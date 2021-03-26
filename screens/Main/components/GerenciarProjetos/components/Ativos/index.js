@@ -8,7 +8,10 @@ const Ativos = props => {
   return (
     <ScrollView style={styles.container}>
       {props.projects.active.map((projeto) => {
-        return <CardProjeto projeto={projeto} />;
+        return <CardProjeto 
+                  projeto={projeto} 
+                  onPress={()=> {props.openEditScreen(projeto)}}
+                />;
       })}
     </ScrollView>
   );

@@ -10,7 +10,10 @@ const Arquivados = props => {
     <ScrollView style={styles.container}>
     {
       props.projects.notActive.map((projeto)=>{
-        return <CardProjeto projeto={projeto}/>
+        return <CardProjeto 
+                  projeto={projeto} 
+                  onPress={()=>{ console.log("AA") }}
+                />;
       })
     }
 </ScrollView>
