@@ -205,6 +205,18 @@ const MainScreen = (props) => {
                       selectedMenuItem={selectedMenuItem}
                       smallMenuDisplay={smallMenuDisplay}
                     />
+
+                    <MenuItem
+                      title="Sair"
+                      image={images.perfilIcon.uri}
+                      imageNotSelected={images.perfilIconNotSelected.uri}
+                      selectedMenuItem={selectedMenuItem}
+                      onClick={() => {
+                        smallMenuAnimation("Perfil");
+                        props.navigation.navigate('LeaveAccount', { otherUser: {name: "aa"}})
+                      }}
+                      smallMenuDisplay={smallMenuDisplay}
+                    />
                     
                   </>
                  )
