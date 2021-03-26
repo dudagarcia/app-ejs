@@ -12,3 +12,7 @@ export const updateSection = async (data) => {
     return await api.post("/section/update", data);
 
 }
+
+export const deleteSection = async (data) => {
+    return await api.post("/section/delete", data);
+}

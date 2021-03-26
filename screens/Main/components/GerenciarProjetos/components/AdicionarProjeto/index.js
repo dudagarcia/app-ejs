@@ -25,7 +25,23 @@ const AdicionarProjeto = (props) => {
   const [error, setError] = useState(false);
   const [success, setSuccess] = useState(false);
 
-  console.log(contributors);
+  const deleteProject = async () => {
+    const projectInfo = {
+      id: props.selectedProject.id
+    }
+    const response = await deleteProject(projectInfo);
+    if(response.data.affectedRows === 1){
+      props.setAddProject(false);
+      console.log("ok");
+    }
+    else{
+      console.log("error");
+    }
+  }
+
+
+
+
   const sendForm = async () => {
     isLoading(true);
     const projectInfo = {

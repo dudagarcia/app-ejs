@@ -17,3 +17,7 @@ export const createProject = async (data) => {
 export const updateProject = async (data) => {
     return await api.post("/projects/update", data)
 }
+
+export const deleteProject = async (data) => {
+    return await api.post("/projects/delete", data);
+}
