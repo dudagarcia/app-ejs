@@ -51,12 +51,10 @@ const AdicionarProjeto = (props) => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.wrapper}>
-        <Icon name="arrowleft" style={styles.icon} size={30} onPress={() => { props.setAddProject(false); }}/>
         <View style={styles.titleContainer}>
-              <Text style={styles.title}>Editar Projetos</Text>
+          <Icon name="arrowleft" style={styles.icon} size={30} onPress={() => { props.setAddProject(false); }}/>  
+          <Text style={styles.title}>Editar Projetos</Text>
         </View>
-      </View>
       <InputProfile
         style={styles.input}
         text="Nome do projeto"
@@ -113,18 +111,18 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
     justifyContent: "center",
+    marginBottom: 50
   },
   icon:{
-
-    color: Colors.mainDark
+    color: Colors.mainDark,
+    marginRight: 30,
+    marginLeft: -50
   },
   title: {
     color: Colors.mainDark,
     fontWeight: "bold",
     fontSize: 20,
-    marginTop: -30,
-    marginLeft: 20,
-    marginBottom: 60
+   
   },
 });
 

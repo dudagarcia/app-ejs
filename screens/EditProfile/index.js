@@ -48,8 +48,8 @@ const EditProfileScreen = props => {
   const [birthdayStyle, setBirthdayStyle] = useState(ProfileStyles.inactiveDataText);
   const [isValidBDay, setValidBDay] = useState(false);
   const [age, setAge] = useState(moment(birthday).fromNow().split(" ", 1)[0]);
-  const [activeProjects, setActiveProjects] = useState(user?.activeProjects);
-  const [section, setSection] = useState(user?.sectionId);
+  const [activeProjects, setActiveProjects] = useState([]);
+  const [section, setSection] = useState(user?.sectionId || 9);
   const [role, setRole] = useState(user?.roleId || 1);
   const [projectsViewHeight, setProjectsViewHeight] = useState(containerHeight);
   const [departmentViewHeight, setDepartmentViewHeight] = useState(containerHeight);
@@ -102,11 +102,10 @@ const EditProfileScreen = props => {
       roleId: 1,
       phoneNumber: Number(cellphone.replace('(','').replace(')','').replace('-','').replace(' ','')),
       birthDate: moment(birthday, "DD/MM/YYYY").format("YYYY-MM-DD"),
-      email: email,
-      photo: formData
+      email: email
     }
    const res = await updateUser(userToUpdate);
-   
+   //console.log(section);
     if(res.data.affectedRows === 1) {
       props.navigation.goBack();
       console.log("sim");
