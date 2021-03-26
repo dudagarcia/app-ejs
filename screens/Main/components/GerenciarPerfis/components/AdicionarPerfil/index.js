@@ -5,7 +5,7 @@ import {
   BlueTitle,
   BlueButton,
 } from "../../../../../../components";
-import { createUser } from "../../../../../../services/user";
+import { createUser, selectUser } from "../../../../../../services/user";
 import { connect } from "react-redux";
 import { colors } from "../../../../../../constants";
 
@@ -22,15 +22,21 @@ const AdicionarPerfil = (props) => {
       email: email,
       password: password,
     };
-    const response = await createUser(userInfo);
-    console.log(response);
-    if (response.data.affectedRows === 1) {
-      setSuccess(true);
-      props.setAddProfile(false);
-      props.searchAllUsers()
-    } else {
-      setError(true);
+    const { data } = await selectUser({email: email});
+    if(data.length > 0) {
+      setError('Email já cadastrado!');
+    }else{
+      const response = await createUser(userInfo);
+      console.log(response);
+      if (response.data.affectedRows === 1) {
+        setSuccess(true);
+        props.setAddProfile(false);
+        props.searchAllUsers()
+      } else {
+        setError('Falha ao cadastrar!');
+      }
     }
+
   };
 
   return (
@@ -46,6 +52,10 @@ const AdicionarPerfil = (props) => {
         onChangeText={(text) => setPassword(text)}
         password={true}
       />
+      {
+        error &&
+        <Text>{error}</Text>
+      }
       <View style={styles.buttonContainer}>
         <BlueButton
           onPress={() => {

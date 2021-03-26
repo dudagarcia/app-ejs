@@ -1,24 +1,47 @@
 import React from "react";
+import { useState } from "react";
 import { useEffect } from "react";
-import { Modal, View, StyleSheet, Text } from "react-native";
+import { Modal, View, StyleSheet, Text, ActivityIndicator } from "react-native";
+import { TextButton } from "../../../../../../components";
 import { getMyTasks } from "../../../../../../services/task";
+import Tarefas from "../../../MinhasTarefas/Components/Tarefas";
 
 const ModalTarefasMembro = ({ user, visible, setVisible }) => {
 
+  const [tasks, setTasks] = useState([])
+  const [loading, setLoading] = useState(false);
+
   const searchTasksMembro = async () => {
-    const response = await getMyTasks({ userId: user.id });
-    console.log(response);
+    setLoading(true)
+    const { data } = await getMyTasks({ userId: user.id });
+    setTasks(data);
+    setLoading(false)
   };
 
   useEffect(()=>{
       searchTasksMembro()
-  },[])
+  },[user])
 
   return (
     <Modal animationType="fade" visible={visible} transparent={true}>
       <View style={styles.modalContainer}>
-        <View style={styles.newTarefaContainer}></View>
-        <Text onPress={()=> setVisible(false)}>AA</Text>
+        <View style={styles.newTarefaContainer}>
+          <View style={styles.buttonContainer}>
+            <TextButton
+              title="Voltar"
+              onPress={()=> setVisible(false)}
+            />
+          </View>
+        {
+          loading ?
+            <ActivityIndicator color="white"/>
+          :
+          tasks.length === 0 ?
+            <Text style={styles.title}>Membro ainda não possui tarefas!</Text>
+          :
+            <Tarefas tasks={tasks}/>
+        }
+        </View>
       </View>
     </Modal>
   );
@@ -38,6 +61,16 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 30,
     padding: 30,
   },
+  buttonContainer:{
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "flex-end"
+  },
+  
+  title: {
+    color: 'rgba(255, 255, 255, 0.56)',
+    fontSize: 18
+}
 });
 
 export default ModalTarefasMembro;

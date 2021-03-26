@@ -36,6 +36,8 @@ const CardTarefa = ({ task, reload, setReload }) => {
     11: "Dez",
   };
 
+  console.log(moment(task.date).isValid() ? "SIM" : "NÂO")
+
   return (
     <>
       <ModalExibirTarefas
@@ -69,10 +71,17 @@ const CardTarefa = ({ task, reload, setReload }) => {
           <Text style={task.done ? styles.nameDone : styles.name}>
             {task.name}
           </Text>
-          {!task.done && task.date !== new Date("0000-00-00") && (
-            <Text style={styles.date}>
-              dia {moment(task.date).date()}, {mes[moment(task.date).month()]}
-            </Text>
+          {!task.done && (
+            <>
+            {
+              moment(task.date).isValid() && (
+                <Text style={styles.date}>
+                  dia {moment(task.date).date()}, {mes[moment(task.date).month()]}
+                </Text>
+              )
+            }
+            </>
+
           )}
         </TouchableOpacity>
       </View>

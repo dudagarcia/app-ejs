@@ -37,6 +37,7 @@ const MinhasTarefas = (props) => {
                 closeModal={closeModal}
                 newTask={reload}
                 setNewTask={setReload}
+                getTarefas={getTarefas}
             />
 
             <View style={styles.mainContainer}>

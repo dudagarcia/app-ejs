@@ -37,12 +37,15 @@ const ModalAddTarefa = (props) => {
         console.log(hour[1])
         if(hour[1]) dayTask.setMinutes(hour[1])
 
+        var usersString = '';
+         users.forEach(user => {usersString+=user.id+","})
+
         const taskToCreate = {
             name: name,
             details: details,
             date: dayTask,
             repetition: repetition,
-            contributors: users || '',
+            contributors: usersString || '',
             done: false,
             userId: props.user.id
         }
@@ -50,7 +53,7 @@ const ModalAddTarefa = (props) => {
         
         cleanTask()
 
-        props.setNewTask(!props.task)
+        props.getTarefas()
     }
 
 

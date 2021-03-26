@@ -11,7 +11,7 @@ import {
 import { colors, images } from "../../../../../constants";
 import CardTarefa from "./CardTarefa";
 
-const Tarefas = ({ tasks, reload, setReload }) => {
+const Tarefas = ({ tasks, reload, setReload, admin }) => {
   
   const [arrowRotation, setArrowRotation] = useState(new Animated.Value(0));
   const [tarefasDone, setTarefasDone] = useState(tasks.filter((t)=> {return t.done}))

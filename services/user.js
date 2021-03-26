@@ -23,6 +23,10 @@ export const selectCode = async (data) => {
     return await api.post("/user/Code", data);
 }
 
+export const selectUser= async (data) => {
+    return await api.post("/user/select", data);
+}
+
 export const listAllUsers = async () => {
 
     return await api.post("/user/listAll");
