@@ -51,8 +51,8 @@ const EditProfileScreen = props => {
   const [profilePic, setProfilePic] = useState(images.simonAmazed.uri);
 
   // Dropdown Options
-  const [sections, setSections] = useState(props.sections.map(item => {return {value: item.id, label: item.name, selected: item.id === user.sectionId} }));
-  const [projects, setProjects] = useState(props.projects.active.map(getActiveProjects));
+  const [sections, setSections] = useState(props?.sections?.map(item => {return {value: item.id, label: item.name, selected: item.id === user.sectionId} }));
+  const [projects, setProjects] = useState(props?.projects?.active.map(getActiveProjects));
 
   function getActiveProjects (item) {
      return {value: item.id, label: item.name, selected: item.contributors.includes(`${user.id}`)}
@@ -99,7 +99,7 @@ const EditProfileScreen = props => {
   };
 
   const handleAddProject = async () => {
-    activeProjects.map(async item => {
+    activeProjects?.map(async item => {
       const proj = projects.filter(i => i.id === item)
       const projectToUpdate = {
         name: proj[0].name,
